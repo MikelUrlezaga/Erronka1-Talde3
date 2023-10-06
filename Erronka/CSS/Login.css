@@ -1,0 +1,85 @@
+*{
+    margin: 0;
+}
+html {
+    font-family: "Collection", sans-serif;
+    background-color: #CBCCF7;
+}
+
+header {
+    background-color: #252427;
+    color: white;
+    text-align: center;
+    padding-top: 1%;
+    padding-bottom: 2%;
+}
+
+.LogIn{
+    background-color: #CBCCF7;
+    border-radius: 20px;
+    border: 1px solid #252427;
+    margin: 5%;
+}
+
+a{
+    text-decoration: none;
+    color: #252427;
+    font-size: 50%;
+    margin-left: 10%;
+}
+
+.texto{
+    margin-top: 5%;
+    padding: 0% 10% 0% 10%;
+}
+
+.logo{
+    height: 100px;
+    width: auto;
+    
+}
+
+input{
+    border-radius: 20px;
+    border: 1px solid #E8E9FC; 
+    background-color: #E8E9FC;
+    margin-left: 10%;
+    margin-top: 1%;
+    width: 80%;
+}
+
+.ojo{
+    height: 20px;
+    width: auto;
+    margin-left: 90%;
+}
+
+button{
+    border-radius: 20px;
+    border: 1px solid #252427; 
+    padding: 1% 7% 1% 7%;
+    margin-left:40%;
+    margin-bottom: 5%;
+    margin-top: 2.5%;
+    background-color: white;
+}
+
+input:focus{
+    outline: none;
+}
+
+.titulo{
+    font-size: 200%;
+}
+
+.mal{
+    font-size: 69%;
+    text-align: center;
+}
+
+.reborde{
+    background-color: #CBCCF7;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    margin-top: -1%;
+}
