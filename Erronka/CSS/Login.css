@@ -81,5 +81,29 @@ input:focus{
     background-color: #CBCCF7;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    margin-top: -1%;
+    margin-top: -0.7%;
+}
+
+/* HOME */
+
+.logohome {
+    height: 600px;
+}
+
+.logohomediv{
+    text-align: center;
+}
+
+.puertahome {
+    text-align: right;
+    margin-right: 2%;
+}
+
+.menuhome{
+    float: left;
+    margin-left: 1%;
+}
+
+.logo{
+    margin-right: 3%;
 }
