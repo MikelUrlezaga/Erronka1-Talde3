@@ -1,9 +1,9 @@
 function vernover() {
     if ((document.getElementById("ojo").src).includes("ojo1")) {
-        document.getElementById("ojo").src = "/IMG/ojo2.png"
+        document.getElementById("ojo").src = "../IMG/ojo2.png"
         document.getElementById("pass").type = "password"
     } else {
-        document.getElementById("ojo").src = "/IMG/ojo1.png"
+        document.getElementById("ojo").src = "../IMG/ojo1.png"
         document.getElementById("pass").type = "text"
     }
     
