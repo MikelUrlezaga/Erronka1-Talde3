@@ -81,17 +81,21 @@ button{
     background-color: #CBCCF7;
     margin-top: -19%;
     border-top-right-radius: 20px;
-
     border-top-left-radius: 20px;
     border: 1px solid #CBCCF7;
 }
 
-.arrow{
+.headerimg{
     height: 30px;
     width: auto;
     margin-left: 1%;
 }
 
+.headerdiv {
+    display: flex;    
+    justify-content:space-between;
+    margin-right: 2%;
+}
 /* HOME */
 
 .logohome {
@@ -104,11 +108,7 @@ button{
     flex-direction: column;
 }
 
-.puertahome {
-display: flex;    
-justify-content:space-between;
-margin-right: 2%;
-}
+
 
 
 
