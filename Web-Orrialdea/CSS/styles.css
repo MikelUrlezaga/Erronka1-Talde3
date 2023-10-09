@@ -85,3 +85,27 @@ button{
     border-top-left-radius: 20px;
     border: 1px solid #CBCCF7;
 }
+
+/* HOME */
+
+.logohome {
+    height: 600px;
+}
+
+.logohomediv{
+    text-align: center;
+}
+
+.puertahome {
+    text-align: right;
+    margin-right: 2%;
+}
+
+.menuhome{
+    float: left;
+    margin-left: 1%;
+}
+
+.logo{
+    margin-right: 3%;
+}
