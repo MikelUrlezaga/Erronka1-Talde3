@@ -20,9 +20,8 @@ function login() {
     var name = document.getElementById("user").value
     var caracteres = /^[a-zA-Z0-9]+$/
     if (caracteres.test(name)) {
-        alert("Bien")
+        window.location.href = "../HTML/Home.html";
     } else {
-        alert("Mal")
         document.getElementById("mal").removeAttribute("hidden")
     }
 }
