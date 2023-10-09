@@ -3,7 +3,7 @@
 }
 html {
     font-family: "Collection", sans-serif;
-    background-color: #CBCCF7;
+    background-color: #CBCCF7; 
 }
 
 header {
@@ -11,7 +11,7 @@ header {
     color: white;
     text-align: center;
     padding-top: 1%;
-    padding-bottom: 2%;
+    padding-bottom: 20%;
 }
 
 a{
@@ -45,13 +45,6 @@ button{
     color: #f263ff;
 }
 
-.reborde{
-    background-color: #CBCCF7;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    margin-top: -1%;
-}
-
 .texto{
     margin-top: 5%;
     padding: 0% 10% 0% 10%;
@@ -83,4 +76,12 @@ button{
     border-radius: 20px;
     border: 1px solid #252427;
     margin: 5%;
+}
+
+.reborde{
+    background-color: #CBCCF7;
+    margin-top: -19%;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border: 1px solid #CBCCF7;
 }
