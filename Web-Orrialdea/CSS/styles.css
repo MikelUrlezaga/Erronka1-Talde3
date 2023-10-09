@@ -14,44 +14,11 @@ header {
     padding-bottom: 2%;
 }
 
-.LogIn{
-    background-color: #CBCCF7;
-    border-radius: 20px;
-    border: 1px solid #252427;
-    margin: 5%;
-}
-
 a{
     text-decoration: none;
     color: #252427;
     font-size: 50%;
     margin-left: 10%;
-}
-
-.texto{
-    margin-top: 5%;
-    padding: 0% 10% 0% 10%;
-}
-
-.logo{
-    height: 100px;
-    width: auto;
-    
-}
-
-input{
-    border-radius: 20px;
-    border: 1px solid #E8E9FC; 
-    background-color: #E8E9FC;
-    margin-left: 10%;
-    margin-top: 1%;
-    width: 80%;
-}
-
-.ojo{
-    height: 20px;
-    width: auto;
-    margin-left: 90%;
 }
 
 button{
@@ -64,7 +31,7 @@ button{
     background-color: white;
 }
 
-input:focus{
+.textBox:focus{
     outline: none;
 }
 
@@ -82,4 +49,37 @@ input:focus{
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     margin-top: -1%;
+}
+
+.texto{
+    margin-top: 5%;
+    padding: 0% 10% 0% 10%;
+}
+
+.logo{
+    height: 100px;
+    width: auto;
+    
+}
+
+.textBox{
+    border-radius: 20px;
+    border: 1px solid #E8E9FC; 
+    background-color: #E8E9FC;
+    margin-left: 10%;
+    margin-top: 1%;
+    width: 80%;
+}
+
+.ojo{
+    height: 20px;
+    width: auto;
+    margin-left: 90%;
+}
+
+.LogIn{
+    background-color: #CBCCF7;
+    border-radius: 20px;
+    border: 1px solid #252427;
+    margin: 5%;
 }
