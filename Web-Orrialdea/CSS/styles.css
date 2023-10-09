@@ -82,6 +82,7 @@ button{
     background-color: #CBCCF7;
     margin-top: -19%;
     border-top-right-radius: 20px;
+
     border-top-left-radius: 20px;
     border: 1px solid #CBCCF7;
 }
@@ -109,3 +110,4 @@ button{
 .logo{
     margin-right: 3%;
 }
+

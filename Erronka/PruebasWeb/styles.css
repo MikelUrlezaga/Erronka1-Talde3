@@ -1,0 +1,19 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-top: 0%;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    min-height:95vh;
+    
+}
+
+.dropdown.active .dropdown-content {
+    top: -5px; /* Ajusta esta posición según la altura de tu botón */
+    display: block;
+}
