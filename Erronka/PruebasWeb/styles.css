@@ -10,7 +10,11 @@
     background-color: cyan;
     min-width: 200px;
     min-height:95vh;
-    
+}
+
+.menuQuieto{
+    margin-top: 0%;
+    margin-bottom: 0%;
 }
 
 .dropdown.active .dropdown-content {
@@ -67,7 +71,7 @@ hr {
     background-position: bottom;
     background-repeat: no-repeat;
     background-size: auto;
-    background-position-y:150%;
+    background-position-y:120%;
 }
 
 
