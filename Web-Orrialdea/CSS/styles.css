@@ -166,7 +166,7 @@ margin-right: 2%;
 }
 .up{
     display: flex;
-    
+    justify-content: space-between;
     flex-direction: row;
     margin-right: 13%;
 }
@@ -175,7 +175,7 @@ display: flex;
 flex-direction: row;
 justify-content: flex-start;
 align-items: center;
-margin-left: 42%;
+margin-right: 100px;
 }
 .search input{
    height: 31px;
@@ -184,7 +184,7 @@ margin-left: 42%;
 .botones {
     display: flex;
     flex-direction: row;
-    margin-left:16%;
+    margin-left:250px;
 }
 
 .botones img{
