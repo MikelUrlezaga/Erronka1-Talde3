@@ -192,6 +192,13 @@ hr{
 
 }
 
+.puertahome{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 3vh;
+    margin-right: 3vh;
+}
 .menu img{
     top: 0;
     left: 0;
@@ -446,11 +453,74 @@ input[type='checkbox'] {
     .logo img{
         height: 0px;
     }
+    .search button{
+        background-color:#606175;
+        border-radius:28px;
+        border:1px solid white;
+        display:inline-block;
+        cursor:pointer;
+        color:#ffffff;
+        font-family:Arial;
+        font-size:2vh;
+        padding:1vh 4vh;
+        text-decoration:none;
+        
+    }
+
+    .botones button{
+        background-color:#606175;
+        border-radius:28px;
+        border:1px solid white;
+        display:inline-block;
+        cursor:pointer;
+        color:#ffffff;
+        font-family:Arial;
+        font-size:2vh;
+        padding:1vh 4vh;
+        text-decoration:none;
+        text-shadow:0px 1px 0px #252427;
+        margin-left: 100px;
+    }
+    
+    .search button:hover{
+        
+        background-color:#252427;
+        border-radius:28px;
+        border:1px solid white;
+        display:inline-block;
+        cursor:pointer;
+        color:#ffffff;
+        font-family:Arial;
+        font-size:2vh;
+        padding:1vh 4vh;
+        text-decoration:none;
+        text-shadow:0px 1px 0px #252427;
+    }
+    .botones img{
+        height: 5vh;
+    }
+    .botones img:hover{
+        height: 4vh;
+    }
+    .botones button:hover{
+        background-color:#252427;
+        border-radius:28px;
+        border:1px solid white;
+        display:inline-block;
+        cursor:pointer;
+        color:#ffffff;
+        font-family:Arial;
+        font-size:2vh;
+        padding:1vh 4vh;
+        text-decoration:none;
+        text-shadow:0px 1px 0px #252427;
+    }
+
     .search input{
-        height: 11px;
-        width: 125px;
+        height: 4vh;
+        width:20vw;
+        margin-bottom: 1vh;
          }
-   
     .up{
         display: flex;
         justify-content: space-between;
@@ -463,23 +533,22 @@ input[type='checkbox'] {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        margin-right: 40vh;
         margin-left: 40vh;
         gap: 10px;
         
     }
 
     .botones img{
-        height: 30px;
+        height: 5vh;
     }
     .botones img:hover{
-        height: 29px;
+        height: 4vh;
     }
     .search{
         display: flex;
         flex-direction: row;
         align-items: center;
-        margin-right: 9%;
+        margin-left: 8vw;
         gap: 10px;
        
 
@@ -490,59 +559,36 @@ input[type='checkbox'] {
   }
 
   @media (max-width:800px){
-    .up{
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .botones {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-       justify-content: space-between;
-        margin-left: 40%;
-    }
-
     .botones img{
-        height: 30px;
+        height:30px;
     }
     .botones img:hover{
-        height: 29px;
-    }
-    .search{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        margin-right:100px;
-        margin-left: 9%;    
+        height: 4vh;
     }
     .search button{
         background-color:#606175;
         border-radius:28px;
-        border:2px solid white;
+        border:1px solid white;
         display:inline-block;
         cursor:pointer;
         color:#ffffff;
         font-family:Arial;
-        font-size:12px;
-        padding:4px 25px;
+        font-size:2vh;
+        padding:1vh 4vh;
         text-decoration:none;
-        text-shadow:0px 1px 0px #252427;
+        
     }
 
     .botones button{
         background-color:#606175;
         border-radius:28px;
-        border:2px solid white;
+        border:1px solid white;
         display:inline-block;
         cursor:pointer;
         color:#ffffff;
         font-family:Arial;
-        font-size:12px;
-        padding:4px 25px;
+        font-size:2vh;
+        padding:1vh 4vh;
         text-decoration:none;
         text-shadow:0px 1px 0px #252427;
         margin-left: 100px;
@@ -551,13 +597,13 @@ input[type='checkbox'] {
     .search button:hover{
         background-color:#252427;
         border-radius:28px;
-        border:2px solid white;
+        border:1px solid white;
         display:inline-block;
         cursor:pointer;
         color:#ffffff;
         font-family:Arial;
-        font-size:12px;
-        padding:4px 25px;
+        font-size:2vh;
+        padding:1vh 4vh;
         text-decoration:none;
         text-shadow:0px 1px 0px #252427;
     }
@@ -565,20 +611,93 @@ input[type='checkbox'] {
     .botones button:hover{
         background-color:#252427;
         border-radius:28px;
-        border:2px solid white;
+        border:1px solid white;
         display:inline-block;
         cursor:pointer;
         color:#ffffff;
         font-family:Arial;
-        font-size:12px;
-        padding:4px 25px;
+        font-size:2vh;
+        padding:1vh 4vh;
         text-decoration:none;
         text-shadow:0px 1px 0px #252427;
     }
 
-    .search input{
-        height: 11px;
-        width: 125px;
+    .up{
+        display: flex;
+        
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .botones {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+
+        margin-right:38vh;
+        gap: 2vw   ;
+        
+    }
+
+    .botones img{
+        height: 5vh;
+    }
+    .botones img:hover{
+        height: 4vh;
+    }
+    .search{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        margin-right:16vw;
+    
+
+        }
+        .search input{
+        height: 4vh;
+        width:20vw;
+        margin-bottom: 1vh;
          }
     
+  }
+
+  @media (max-width:500px){
+    .up{
+        display: flex;
+        
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .botones {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 3.2vw;
+        margin-right:38vh;
+        
+    }
+
+    .botones img{
+        height: 5vh;
+    }
+    .botones img:hover{
+        height: 4vh;
+    }
+    .search{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        margin-left:8vw;
+        margin-right:13vw;
+        gap:8vw;
+
+        }
+        .search input{
+        height: 4vh;
+        width:80px;
+        margin-bottom: 1vh;
+         }
   }
