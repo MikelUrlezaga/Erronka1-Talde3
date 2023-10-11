@@ -138,7 +138,7 @@ nav{
     background-image: url('../IMG/LOGO.png');
     background-position: bottom;
     background-repeat: no-repeat;
-    background-size: 200%;
+    background-size: 180%;
     background-position-y:120%;
     /* Para que se quede en el centro - Paciencia 
     display: flex;
