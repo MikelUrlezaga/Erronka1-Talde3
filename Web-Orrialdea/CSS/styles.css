@@ -131,8 +131,10 @@ nav{
     background-repeat: no-repeat;
     background-size: 200%;
     background-position-y:120%;
-
-    /* align-items: center; */
+    /* Para que se quede en el centro - Paciencia 
+    display: flex;
+    align-items: center; 
+    */
 
 }
 
@@ -141,14 +143,8 @@ hr{
     visibility: hidden;
 }
 
-.menuiconos{
-    display: flex;
-    justify-content: space-between;
-    
-}
-
 .menuiconos img{
-    margin: 2%;
+    margin-left: 220px;
     width: 50px;
     height: auto;
 }
@@ -156,13 +152,15 @@ hr{
 
 .menutop{
     background: linear-gradient(rgba(37, 36, 39, 1), rgba(37, 36, 39, 1),rgba(37, 36, 39, 1),rgba(37, 36, 39, 1),rgba(37, 36, 39, 1),rgba(37, 36, 39, 0));
-    
+
 }
 
 .menuEstekak{
     padding-top: 20%;
     padding-bottom: 50%;
-    /* align-self: center; */
+    /* Para que se quede en el centro - Paciencia
+    align-self: center; 
+    */
 }
 
 .hr1{
