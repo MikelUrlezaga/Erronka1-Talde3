@@ -7,10 +7,14 @@
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: cyan;
+    background-color: rgb(37, 36, 39);
     min-width: 200px;
     min-height:95vh;
-    
+}
+
+.menuQuieto{
+    margin-top: -100%;
+   
 }
 
 .dropdown.active .dropdown-content {
@@ -27,4 +31,51 @@
 .closeButton{color: red;
     margin-bottom: 30%;
     margin-right: 100%;
+    width: 100%;
+    height: 100%;
+    padding: 10px; /* Agrega un espacio alrededor del botón */
+}
+
+hr {
+    width: 95%; /* Establece el ancho al 50% del contenedor */
+    height: 2px; /* Establece la altura (longitud) de la línea */
+    background-color: black; /* Establece el color de fondo de la línea */
+}
+
+.menu-image {
+    width: 50px; /* Ajusta el ancho según tu imagen */
+    height: auto;
+    margin-right: 10px; /* Espacio entre la imagen y el menú */
+    margin-left: 150%;
+}
+
+.menuImage {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    grid-area: 1 / 1 / 2 / 4; 
+}
+
+.background-image {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    bottom: 0; /* Coloca la imagen en la parte inferior del contenedor */
+    left: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%); /* Recorta la parte superior de la imagen */
+}
+
+
+.dropdown-content {
+    background-image: url('arrow.png');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: 200%;
+    background-position-y:120%;
+} 
+
+.menuImage{
+    background: linear-gradient(rgba(37, 36, 39, 1), rgba(37, 36, 39, 1),rgba(37, 36, 39, 1),rgba(37, 36, 39, 1),rgba(37, 36, 39, 1),rgba(37, 36, 39, 0)); /* Transición entre dos colores con opacidad */
 }

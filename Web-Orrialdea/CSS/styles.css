@@ -108,9 +108,83 @@ button{
     flex-direction: column;
 }
 
+/* Menú */
+.negro{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* 100% del ancho de la ventana */
+    height: 100vh; /* 100% de la altura de la ventana */
+    background-color: rgba(0, 0, 0, 0.6);
+
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 275px; /* 100% del ancho de la ventana */
+    height: 100vh; /* 100% de la altura de la ventana */
+    background-color: rgba(37, 36, 39);
+    background-image: url('../IMG/LOGO.png');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: 200%;
+    background-position-y:120%;
+
+}
+
+hr{
+    height: 10px;
+    visibility: hidden;
+}
+
+.menuiconos{
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.menuiconos img{
+    margin: 2%;
+    width: 50px;
+    height: auto;
+}
 
 
+.menutop{
+    background: linear-gradient(rgba(37, 36, 39, 1), rgba(37, 36, 39, 1),rgba(37, 36, 39, 1),rgba(37, 36, 39, 1),rgba(37, 36, 39, 1),rgba(37, 36, 39, 0));
+    
+}
 
+.menuEstekak{
+    padding-top: 20%;
+    padding-bottom: 50%;
+}
 
+.hr1{
+    border-color: white;
+    width: 80%;
+    margin-left: 10%;
+    height: 0;
+    visibility: inherit;
+}
 
+.menutext{
+    text-decoration: none;
+    margin-left: 10%;
+    color: white;
+    font-size: 175%;
+    margin-bottom: 700px;
+    
 
+}
+
+.menu img{
+    top: 0;
+    left: 0;
+    position: absolute;
+    margin: 2%;
+    width: 50px;
+    height: auto; 
+}
