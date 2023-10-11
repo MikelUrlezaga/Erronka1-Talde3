@@ -44,6 +44,13 @@ button{
     width: auto;
 }
 
+input[type='checkbox'] {
+    width:2vh;
+    height:2vh;
+    background:white;
+    border-radius:5px;
+    border:1px solid #555;
+}
 .mal{
     font-size: 69%;
     text-align: center;
@@ -122,7 +129,7 @@ margin-right: 2%;
 .tablachula{
     display: flex;
     justify-content: center;
-    height: 500px;
+    height: 50vh;
     margin-left: 5%;
     width: 90%;
     margin-right: 10%;
@@ -136,26 +143,29 @@ margin-right: 2%;
     
     border: 2px solid #606175;
     border-radius: 100px;
-    height: 100%;
-    width: 80%;
+    height: 50vh;
+    width: 80vw;
     table-layout: fixed;
     border-collapse: collapse;
     border-spacing: 0px;
     text-align: left;
     border-radius: 20px;
     color: black;
-    font-size: 25px;
+    font-size: 25px; 
 }
-
+  
 .tablachula table th{
     border: 2px solid #606175;
     background-color: #E6F4FF;
     text-align: center;
+    font-size: 3vh;
 }
 .tablachula table td{
     border: 2px solid #606175;
     background-color:white;
     text-align: center;
+    font-size: 3vh;
+
 }
 
 #check{
@@ -252,11 +262,12 @@ margin-right: 2%;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #252427;
 }
-@media (min-width:2300px) and (max-width:2900px){
+
+@media (min-width:1800px){
     .search input{
-        height: 5vh;
-        width: 32vw;
-        margin-bottom: 30px;
+        height: 4vh;
+        width: 30vw;
+        margin-bottom: 1vh;
          }
    
     .up{
@@ -276,16 +287,16 @@ margin-right: 2%;
     }
 
     .botones img{
-        height: 80px;
+        height: 5vh;
     }
     .botones img:hover{
-        height: 69px;
+        height: 4vh;
     }
     .search{
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        
+        margin-left: 8vw;
 
     }
 
@@ -297,8 +308,8 @@ margin-right: 2%;
         cursor:pointer;
         color:#ffffff;
         font-family:Arial;
-        font-size:27px;
-        padding:13px 65px;
+        font-size:2vh;
+        padding:1vh 4vh;
         text-decoration:none;
         text-shadow:0px 1px 0px #252427;
     }
@@ -311,8 +322,8 @@ margin-right: 2%;
         cursor:pointer;
         color:#ffffff;
         font-family:Arial;
-        font-size:17px;
-        padding:6px 31px;
+        font-size:2vh;
+        padding:1vh 4vh;
         text-decoration:none;
         text-shadow:0px 1px 0px #252427;
     }
@@ -325,8 +336,8 @@ margin-right: 2%;
         cursor:pointer;
         color:#ffffff;
         font-family:Arial;
-        font-size:27px;
-        padding:13px 65px;
+        font-size:2vh;
+        padding:1vh 4vh;
         text-decoration:none;
         text-shadow:0px 1px 0px #252427;
     }
@@ -339,55 +350,17 @@ margin-right: 2%;
         cursor:pointer;
         color:#ffffff;
         font-family:Arial;
-        font-size:17px;
-        padding:6vh 3vw;
+        font-size:2vh;
+        padding:1vh 4vh;
         text-decoration:none;
         text-shadow:0px 1px 0px #252427;
     }
     
         
 }
-@media (min-width:1800px)and (max-width:2099px){
-    .search input{
-        height: 3vh;
-        width: 30vw;
-         }
-   
-    .up{
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .botones {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        margin-left: 15vw;
-        
-    }
-
-    .botones img{
-        height: 60px;
-    }
-    .botones img:hover{
-        height: 59px;
-    }
-    .search{
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        margin-left: 8vw;
-
-    }
-    
-        
-}
 @media (max-width:1200px){
-    .logo {
-        height: 100px;
+    .logo img{
+        height: 0px;
     }
     .search input{
         height: 11px;
