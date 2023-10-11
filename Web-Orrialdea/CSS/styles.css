@@ -36,13 +36,22 @@ button{
 }
 
 .titulo{
-    font-size: 200%;
+    font-size: 2vh;
 }
 
 .logo{
-    height: 100px;
+    height: 10vh;
     width: auto;
 }
+
+.arrow{
+    height: 3vh;
+}
+.logout{
+    height: 3vh;
+
+}
+
 
 .mal{
     font-size: 69%;
