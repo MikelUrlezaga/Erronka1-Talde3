@@ -219,6 +219,7 @@
     <div id="menuMugikorra"></div>
 </html>
 <script>
+    
     async function fetchDataFromPHP() {
     try {
         const response = await fetch('gelak_json.php', {
@@ -240,4 +241,6 @@
         console.error('Se produjo un error al obtener los datos:', error);
     }
 }
+fetchDataFromPHP();
+
 </script>
