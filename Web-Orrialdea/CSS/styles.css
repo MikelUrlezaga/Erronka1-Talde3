@@ -131,7 +131,7 @@ button{
 nav{
     position: fixed;
     top: 0;
-    left: 0;
+    left: -300px;
     width: 275px; /* 100% del ancho de la ventana */
     height: 100vh; /* 100% de la altura de la ventana */
     background-color: rgba(37, 36, 39);
@@ -162,6 +162,32 @@ hr{
 .menutop{
     background: linear-gradient(rgba(37, 36, 39, 1), rgba(37, 36, 39, 1),rgba(37, 36, 39, 1),rgba(37, 36, 39, 1),rgba(37, 36, 39, 1),rgba(37, 36, 39, 0));
 
+}
+
+@keyframes moveAnimation {
+    0% {
+        left: -300px;
+    }
+    100% {
+        left: 0;
+    }
+}
+@keyframes closeAnimation {
+
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -300px;
+    }
+
+}
+
+.animate {
+    animation: moveAnimation 0.5s linear;
+}
+.animateClose {
+    animation : closeAnimation 0.5s linear;
 }
 
 .menuEstekak{
