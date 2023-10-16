@@ -124,8 +124,8 @@ button{
 nav{
     position: fixed;
     top: 0;
-    left: -300px;
-    width: 275px; /* 100% del ancho de la ventana */
+    left: -30vw;
+    width: 15vw; /* 100% del ancho de la ventana */
     height: 100vh; /* 100% de la altura de la ventana */
     background-color: rgba(37, 36, 39);
     background-image: url('../IMG/LOGO.png');
@@ -141,13 +141,13 @@ nav{
 }
 
 hr{
-    height: 23px;
+    height: 1vh;
     visibility: hidden;
 }
 
 .menuiconos img{
-    margin-left: 220px;
-    width: 50px;
+    margin-left: 12vw;
+    width: 2vw;
     height: auto;
 }
 
@@ -159,7 +159,7 @@ hr{
 
 @keyframes moveAnimation {
     0% {
-        left: -300px;
+        left: -30vw;
     }
     100% {
         left: 0;
@@ -171,7 +171,7 @@ hr{
         left: 0;
     }
     100% {
-        left: -300px;
+        left: -30vw;
     }
 
 }
@@ -182,7 +182,7 @@ hr{
 }
 .animateMClose {
     animation : closeAnimation 0.5s linear;
-    left: -300px;
+    left: -30vw;
 }
 
 .animateFN {
@@ -226,7 +226,7 @@ hr{
     text-decoration: none;
     margin-left: 10%;
     color: white;
-    font-size: 175%;
+    font-size: 2vh;
     margin-bottom: 700px;
     
 
@@ -244,7 +244,7 @@ hr{
     left: 0;
     position: absolute;
     margin: 1%;
-    width: 50px;
+    width: 1vw;
     height: auto; 
 }
 
