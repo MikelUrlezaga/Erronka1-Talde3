@@ -218,3 +218,26 @@
     </div>
     <div id="menuMugikorra"></div>
 </html>
+<script>
+    async function fetchDataFromPHP() {
+    try {
+        const response = await fetch('gelak_json.php', {
+            method: 'GET', // o 'POST' según tus necesidades
+            headers: {
+                'Content-Type': 'application/json' // Ajusta el tipo de contenido según sea necesario
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Hubo un problema al recibir los datos');
+        }
+
+        const data = await response.json(); // Puede que necesites cambiar a response.text() si esperas otro tipo de respuesta
+
+        // Aquí puedes hacer algo con los datos recibidos, como mostrarlos en la página o manipularlos de alguna otra manera
+        console.log(data);
+    } catch (error) {
+        console.error('Se produjo un error al obtener los datos:', error);
+    }
+}
+</script>
