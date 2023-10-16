@@ -119,19 +119,12 @@ button{
 
 /* Menú */
 .negro{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw; /* 100% del ancho de la ventana */
-    height: 100vh; /* 100% de la altura de la ventana */
-    background-color: rgba(0, 0, 0, 0.6);
-
 }
 
 nav{
     position: fixed;
     top: 0;
-    left: 0;
+    left: -300px;
     width: 275px; /* 100% del ancho de la ventana */
     height: 100vh; /* 100% de la altura de la ventana */
     background-color: rgba(37, 36, 39);
@@ -148,7 +141,7 @@ nav{
 }
 
 hr{
-    height: 10px;
+    height: 23px;
     visibility: hidden;
 }
 
@@ -162,6 +155,55 @@ hr{
 .menutop{
     background: linear-gradient(rgba(37, 36, 39, 1), rgba(37, 36, 39, 1),rgba(37, 36, 39, 1),rgba(37, 36, 39, 1),rgba(37, 36, 39, 1),rgba(37, 36, 39, 0));
 
+}
+
+@keyframes moveAnimation {
+    0% {
+        left: -300px;
+    }
+    100% {
+        left: 0;
+    }
+}
+@keyframes closeAnimation {
+
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -300px;
+    }
+
+}
+
+.animateM {
+    animation: moveAnimation 0.5s linear;
+    left: 0;
+}
+.animateMClose {
+    animation : closeAnimation 0.5s linear;
+    left: -300px;
+}
+
+.animateFN {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* 100% del ancho de la ventana */
+    height: 100vh; /* 100% de la altura de la ventana */
+    background-size: 100% 100%;
+    transition: background 0.5s linear;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.animateFNClose {  
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* 100% del ancho de la ventana */
+    height: 100vh; /* 100% de la altura de la ventana */
+    background-size: 100% 100%;
+    transition: background 0.5s linear;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .menuEstekak{
