@@ -5,24 +5,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<div class="dropdown">
-    <button id="menuButton">Menú</button>
-    <div class="dropdown-content">
-        <div class="menuImage">
-            <button class="closeButton" id="closeButton">Menú</button>
-            <img src="arrow.png" alt="Imagen" class="menu-image">
-        </div>
-        <div class="menuQuieto">
-            <a class="menutext" href="#">HOME</a>
-
-            <hr>
-            <a class="menutext" href="#">Opción 2</a>
-            <a class="menutext" href="#">Opción 3</a>
-        </div>
-    </div>
-    
-</div>
+    <div id="contenido-externo"></div>
 <script src="JS.js" ></script>
+<script>
+    // Utiliza JavaScript para cargar el contenido de otro.html en el div con id="contenido-externo"
+    fetch('../../Web-Orrialdea/HTML/Menu.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('contenido-externo').innerHTML = data;
+        });
+</script>
 </body>
 </html>

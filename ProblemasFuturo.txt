@@ -1,1 +1,3 @@
 -las cosas del login no estan centradas :D
+-el menu aparece d manera fea D:
+-hay q ordenar el css :D
