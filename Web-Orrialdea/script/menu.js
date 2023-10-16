@@ -1,4 +1,4 @@
-var a = 0;
+var a = true;
 // Insertar menu
 fetch('../HTML/Menu.html')
             .then(response => response.text())
@@ -8,13 +8,21 @@ fetch('../HTML/Menu.html')
 
 function menuopenclose () {
     var menu = document.getElementById("menu")
-    
+    var fondoN = document.getElementById("negro")
         if (a) {
-            menu.classList = "animate";
-            menu.style.left = "0px";
+            fondoN.hidden = false
+            setTimeout(function() {
+                menu.classList = "animateM"
+                fondoN.classList = "animateFN"
+            }, 0);
+            
         } else{
-            menu.classList.add("animateClose");
-            menu.style.left = "-300px";
+            menu.classList = "animateMClose"
+            fondoN.classList = "animateFNClose"
+            setTimeout(function() {
+                // Quita el atributo hidden
+                fondoN.hidden = true
+              }, 500);
         }
         a = !a;
 }

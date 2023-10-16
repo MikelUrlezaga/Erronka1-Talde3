@@ -119,13 +119,6 @@ button{
 
 /* Menú */
 .negro{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw; /* 100% del ancho de la ventana */
-    height: 100vh; /* 100% de la altura de la ventana */
-    background-color: rgba(0, 0, 0, 0.6);
-
 }
 
 nav{
@@ -148,7 +141,7 @@ nav{
 }
 
 hr{
-    height: 10px;
+    height: 23px;
     visibility: hidden;
 }
 
@@ -183,11 +176,34 @@ hr{
 
 }
 
-.animate {
+.animateM {
     animation: moveAnimation 0.5s linear;
+    left: 0;
 }
-.animateClose {
+.animateMClose {
     animation : closeAnimation 0.5s linear;
+    left: -300px;
+}
+
+.animateFN {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* 100% del ancho de la ventana */
+    height: 100vh; /* 100% de la altura de la ventana */
+    background-size: 100% 100%;
+    transition: background 0.5s linear;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.animateFNClose {  
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* 100% del ancho de la ventana */
+    height: 100vh; /* 100% de la altura de la ventana */
+    background-size: 100% 100%;
+    transition: background 0.5s linear;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .menuEstekak{
@@ -724,10 +740,4 @@ input[type='checkbox'] {
         width:80px;
         margin-bottom: 1vh;
          }
-  }
-
-  iframe{
-    position: absolute;
-    top: 0;
-    
   }
