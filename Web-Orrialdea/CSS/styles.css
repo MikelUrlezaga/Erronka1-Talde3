@@ -983,3 +983,17 @@ input[type='checkbox'] {
     background-color: #E8E9FC;
     margin-top: 1%;
 }
+
+/* dobleColumn */
+
+.dobleColumn{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas de tamaño igual */
+    gap: 25%; /* Espacio entre los elementos */
+    width: 40%; /* Ancho máximo del contenedor */
+    margin-left: 4.5%;
+}
+
+.dobleColumn div {
+    width: 300%;
+}
