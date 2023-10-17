@@ -11,7 +11,7 @@ header {
     color: white;
     text-align: center;
     padding-top: 1%;
-    padding-bottom: 20%;
+    padding-bottom: 15%;
 }
 
 a{
@@ -87,8 +87,11 @@ button{
 }
 
 .reborde{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: #CBCCF7;
-    margin-top: -19%;
+    margin-top: -14%;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     border: 1px solid #CBCCF7;
@@ -926,24 +929,57 @@ input[type='checkbox'] {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+/* ComboBox */
+
 .custom-combobox {
     position: relative;
     display: inline-block;
-    margin-left: 45%;
-    margin-right: 45%;
-    margin-top: 3%;
+    margin-top: 2%;
+    margin-left: -5%;
+    margin-bottom: -1%;
 }
 
 .custom-combobox select {
     width: 200%;
     padding: 5%;
     font-size: 120%;
-    border: 1px solid #ccc;
+    border: 1% solid #ccc;
     border-radius: 5px;
     background-color: #fff;
 }
 
-/* Estilos para las opciones */
 .custom-combobox option {
     font-size: 100%;
+}
+
+/* Txertatu */
+
+.textoTxertatu {
+    margin-top: 3%;
+    margin-right: 19%;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.textoBoxTxertatu {
+    width: 24%;
+    border-radius: 20px;
+    border: 1px solid #E8E9FC; 
+    background-color: #E8E9FC;
+    margin-top: 1%;
+}
+
+/* Eguneratu */
+
+.textoEguneratu {
+    margin-top: 3%;
+    margin-right: 19%;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.textoBoxEguneratu {
+    width: 24%;
+    border-radius: 20px;
+    border: 1px solid #E8E9FC; 
+    background-color: #E8E9FC;
+    margin-top: 1%;
 }
