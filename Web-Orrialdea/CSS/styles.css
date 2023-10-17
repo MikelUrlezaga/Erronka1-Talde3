@@ -891,7 +891,60 @@ input[type='checkbox'] {
         align-items: center;
         margin-left: 5px;
     }
-    
-        
-    
   }
+
+/* KOKALEKUA EGUNERATU */
+
+.textBoxKokaleku {
+    width: 24%;
+    margin-left: 38%;
+    border-radius: 20px;
+    border: 1px solid #E8E9FC; 
+    background-color: #E8E9FC;
+    margin-top: 1%;
+}
+
+.textokokaleku {
+    margin-top: 3%;
+    margin-left: 38%;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/* GELAK EGUNERATU */
+
+.textBoxGelak {
+    width: 24%;
+    margin-left: 38%;
+    border-radius: 20px;
+    border: 1px solid #E8E9FC; 
+    background-color: #E8E9FC;
+    margin-top: 1%;
+}
+
+.textogela{
+    margin-top: 3%;
+    margin-left: 38%;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.custom-combobox {
+    position: relative;
+    display: inline-block;
+    margin-left: 45%;
+    margin-right: 45%;
+    margin-top: 3%;
+}
+
+.custom-combobox select {
+    width: 200%;
+    padding: 5%;
+    font-size: 120%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+/* Estilos para las opciones */
+.custom-combobox option {
+    font-size: 100%;
+}
