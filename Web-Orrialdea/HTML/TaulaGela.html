@@ -221,8 +221,7 @@
 <script>
     
     async function fetchDataFromPHP() {
-    try {
-        const response = await fetch('gelak_json.php', {
+      /*  const response = await fetch('gelak_json.php', {
             method: 'GET', // o 'POST' según tus necesidades
             headers: {
                 'Content-Type': 'application/json' // Ajusta el tipo de contenido según sea necesario
@@ -231,15 +230,24 @@
 
         if (!response.ok) {
             throw new Error('Hubo un problema al recibir los datos');
-        }
+        }*/
+        fetch('gelak_json.php', {
+            method: 'GET', // o 'POST' según tus necesidades
+            headers: {
+                'Content-Type': 'application/json' // Ajusta el tipo de contenido según sea necesario
+            }
+        })
+        .then(response => "hola!")
+        .then(data => console.log(data))
+        .catch(error => console.log('Se produjo un error al obtener los datos:', error));
 
-        const data = await response.json(); // Puede que necesites cambiar a response.text() si esperas otro tipo de respuesta
+    //    const data = await response.json(); // Puede que necesites cambiar a response.text() si esperas otro tipo de respuesta
 
         // Aquí puedes hacer algo con los datos recibidos, como mostrarlos en la página o manipularlos de alguna otra manera
-        console.log(data);
-    } catch (error) {
+     //   console.log(data);
+   /* } catch (error) {
         console.error('Se produjo un error al obtener los datos:', error);
-    }
+    }*/
 }
 fetchDataFromPHP();
 
