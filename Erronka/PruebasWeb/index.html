@@ -8,12 +8,24 @@
     <div id="contenido-externo"></div>
 <script src="JS.js" ></script>
 <script>
-    // Utiliza JavaScript para cargar el contenido de otro.html en el div con id="contenido-externo"
-    fetch('../../Web-Orrialdea/HTML/Menu.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('contenido-externo').innerHTML = data;
-        });
+    // Crear un objeto JavaScript
+const persona = {
+  nombre: "Juan",
+  edad: 25,
+  ciudad: "Madrid",
+  trabajos: ["Desarrollador", "Diseñador"],
+  casado: false,
+  direccion: {
+    calle: "Calle Principal",
+    numero: 123,
+  },
+};
+
+// Convertir el objeto a una cadena JSON
+const jsonString = JSON.stringify(persona);
+
+// Mostrar la cadena JSON
+console.log(jsonString);
 </script>
 </body>
 </html>
