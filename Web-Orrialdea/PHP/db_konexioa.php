@@ -19,7 +19,7 @@
             if ($this->conn->connect_error) {
                 die("Connection failed: " . $this->conn->connect_error);
             }
-            echo "Konexioa eginda. <br>";
+            //echo "Konexioa eginda. <br>";
         }
 
         public function eguneratu($sql) {
@@ -27,9 +27,9 @@
             //echo $sql;
             if ($this->conn->query ($sql))
             {
-                echo "Datuak egueratu dira.";
+                //echo "Datuak egueratu dira.";
             }else{
-                echo "Datuak ezin dira eguneratu". $conn->error;
+                //echo "Datuak ezin dira eguneratu". $conn->error;
             }
             $this->conn->close();
         }
@@ -39,9 +39,9 @@
             //echo $sql;
             if ($this->conn->query ($sql))
             {
-                echo "Datuak txertatu dira. <br>";
+                //echo "Datuak txertatu dira. <br>";
             }else{
-                echo "Datuak ez dira txertatu. <br>". $conn->error;
+                //echo "Datuak ez dira txertatu. <br>". $conn->error;
             }
             $this->conn->close();
         }
@@ -51,9 +51,9 @@
             //echo $sql. "<br>";
             if ($this->conn->query ($sql))
             {
-                echo "Datuak ezabatu dira. <br>";
+                //echo "Datuak ezabatu dira. <br>";
             }else{
-                echo "Datuak ez dira ezabatu. <br>";
+                //echo "Datuak ez dira ezabatu. <br>";
             }
             $this->conn->close();
         }
@@ -64,7 +64,7 @@
             if ($emaitza->num_rows>0){   
                 return $emaitza;
             }else{
-                echo "Ez dago daturik. <br>";
+                //echo "Ez dago daturik. <br>";
             }
             $this->conn->close();
         }

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+    <head>
+        <!--<script src="/Erronka/script/login.js" > </script>-->
+        <script src="../../script/menu.js" ></script>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../CSS/styles.css">
+        <link rel="icon" href="../../IMG/LOGO.png" type="image/x-icon">
+        <title>Home</title>
+        <header> 
+                <img class="logo" src="../../IMG/LOGO.png">
+                <p class="titulo">GELA</p>
+
+            <div class="puertahome">
+                <img class="arrow" src="../../IMG/arrow.png" height="25px" s>
+                <img class="logout"src="../../IMG/LogOut.png" height="25px">
+            </div>
+        </header>
+    </head>
+    
+    <div class="reborde">
+        <body>
+            <div class="all">
+                <div class="up">
+                    <div class="botones">
+                        <div class="elementos">
+                            <div class="boto">
+                                <img src="../../IMG/edit.png" id="botonedit">
+                                <img src="../../IMG/mas.png">
+                                <img src="../../IMG/borrar.png" onclick="deleteGela();">
+                            </div>
+                        </div>
+                        <div class="submites">
+                            <div class="botonsubmit">
+                                <button onclick="conseguirCheck();">Submit</button>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="search">
+
+                        <div class="elementos">
+                            <input class="texto" type="text" id="pass" name="nombre" >
+                        </div>
+                        <div class="submites">
+                            <button>Search</button>                        
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="tablachula">
+                    
+                    <table >
+                        <thead>
+                            <tr>
+                                <th style="background-color:#606175; width: 3vh;"></th>
+                                <th>ID</th>
+                                <th>Izena</th>
+                                <th>Taldea</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla" >
+                           
+                        </tbody>  
+                    </table>
+                </div>
+                
+            </div>
+           
+        </body>
+    </div>
+    <div id="menuMugikorra"></div>
+</html>
+<script>
+    
+    async function fetchDataFromPHP() {
+       /* fetch('gelak_json.php', {
+            method: 'GET', // o 'POST' según tus necesidades
+            headers: {
+                'Content-Type': 'application/json' // Ajusta el tipo de contenido según sea necesario
+            }
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.log('Se produjo un error al obtener los datos:', error));*/
+
+
+        let options = {method: "GET", mode: 'cors'};
+        const da = null;
+        fetch("https://pokeapi.co/api/v2/pokemon/ditto",options)
+        .then(response => response.json())  // Analiza la respuesta JSON
+        .then(data => {
+            console.log(data);
+            console.log(data.game_indices.length);
+        
+        for(key=0; key < data.game_indices.length; key++){ //Recorremos 
+
+            var taulalinea="<tr></tr>"; // Creamos nuestra fila
+            taulalinea = taulalinea.substring(0,taulalinea.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='"+data.game_indices[key].version["name"]+"'>" +"</td>" + taulalinea.substring(taulalinea.length-5) + "<td>" + data.game_indices[key].game_index + "</td>"+ taulalinea.substring(taulalinea.length-5) + "<td>" + data.game_indices[key].version["name"] + "</td>"+ taulalinea.substring(taulalinea.length-5) + "<td>" + data.game_indices[key].version["url"] ;
+            //Le insertamos entre los <tr> nuestros elementos (se veria asi <tr><td></td><td></td></tr>)
+
+            var TrElement = document.createElement("tr"); //Creamos el elemento table row
+             TrElement.innerHTML = taulalinea;//Lo juntamos
+            document.getElementById("tabla").appendChild(TrElement);//Lo insertamos en la
+        }
+                
+        })
+        .catch(error => {
+            console.error("Error: " + error);
+        });
+    }
+    window.addEventListener("load", fetchDataFromPHP);
+
+
+    function conseguirCheck() {
+
+        var checkboxes = document.querySelectorAll('input[name="c"]:checked');//De nuestro documento comprueba los inputs con nombre c
+        var ids = [];//Creamos el array para nuestras ids
+
+        checkboxes.forEach(function(checkbox) { //Aqui lo que hacemos es que de los elementos checkbox de nuestro programa 
+            ids.push(checkbox.id);              //mire los que estan checked y agarre sus ids para meterlas en un array previamente
+                                                //creado
+        });
+
+        
+        return ids;
+    }
+
+    function bloquearEdit(){
+        var ids = conseguirCheck();
+        if(ids.length>1){
+            document.getElementById("botonedit").style.visibility="hidden";
+        }else{
+            document.getElementById("botonedit").style.visibility="visible";
+        }
+    }
+
+    function deleteGela() {
+        var ids = conseguirCheck();
+        var js =JSON.stringify(ids)
+        console.log(js)
+        fetch('gelak_json.php', {
+                method: 'DELETE',
+                body: js
+            })
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(data=>{
+                    console.log(data)
+                }
+                    
+                )
+                .catch(function (error) {
+                    console.error(error);
+                })
+    }
+    
+
+</script>
