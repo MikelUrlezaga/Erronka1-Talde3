@@ -156,9 +156,8 @@ hr{
 }
 
 .checkicon {
-    width: 3%;
-    height: 3%;
-    margin-top: 10%;
+    width: 5vw;
+    height: 5vw;
 }
 
 
@@ -978,32 +977,21 @@ input[type='checkbox'] {
     margin-top: 1%;
 }
 
-/* Eguneratu */
-
-.textoEguneratu {
-    margin-top: 3%;
-    margin-right: 19%;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-.textoBoxEguneratu {
-    width: 24%;
-    border-radius: 20px;
-    border: 1px solid #E8E9FC; 
-    background-color: #E8E9FC;
-    margin-top: 1%;
-}
-
 /* dobleColumn */
 
 .dobleColumn{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas de tamaño igual */
-    gap: 25%; /* Espacio entre los elementos */
-    width: 40%; /* Ancho máximo del contenedor */
-    margin-left: 4.5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 50%; /* juega con esto :D */
 }
 
 .dobleColumn div {
-    width: 300%;
+    width: 50%; /* para que entren mas o menos en cada linea :D */
+}
+
+.ck{
+    padding: 10%;
+    display: flex;
+    justify-content: center; 
 }
