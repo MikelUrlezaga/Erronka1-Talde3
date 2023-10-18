@@ -52,163 +52,17 @@
                 <div class="tablachula">
                     
                     <table >
-                        <tr>
-                            <th style="background-color:#606175; width: 3vh;"></th>
-                            <th>ID</th>
-                            <th>Izena</th>
-                            <th>Taldea</th>
-                        </tr>
-                        <tr>
-                            <td  id="check" class="large"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check" class="large"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check" class="large"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check" class="large"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check" class="large"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check" class="large"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check" class="large"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check" class="large"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check" class="large"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check" class="large"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check" class="large"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check" class="large"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check" class="large"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        <tr>
-                            <td  id="check"><input type="checkbox"></td>
-                            <td>a</td>
-                            <td>b </td>
-                            <td>c</td>
-                        </tr>
-                        
+                        <thead>
+                            <tr>
+                                <th style="background-color:#606175; width: 3vh;"></th>
+                                <th>ID</th>
+                                <th>Izena</th>
+                                <th>Taldea</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla">
+                           
+                        </tbody>  
                     </table>
                 </div>
                 
@@ -221,34 +75,39 @@
 <script>
     
     async function fetchDataFromPHP() {
-      /*  const response = await fetch('gelak_json.php', {
-            method: 'GET', // o 'POST' según tus necesidades
-            headers: {
-                'Content-Type': 'application/json' // Ajusta el tipo de contenido según sea necesario
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Hubo un problema al recibir los datos');
-        }*/
-        fetch('gelak_json.php', {
+      
+       /* fetch('gelak_json.php', {
             method: 'GET', // o 'POST' según tus necesidades
             headers: {
                 'Content-Type': 'application/json' // Ajusta el tipo de contenido según sea necesario
             }
         })
-        .then(response => "hola!")
+        .then(response => response.json())
         .then(data => console.log(data))
-        .catch(error => console.log('Se produjo un error al obtener los datos:', error));
+        .catch(error => console.log('Se produjo un error al obtener los datos:', error));*/
+                let options = {method: "GET", mode: 'cors'};
+                const da = null;
+                fetch("https://pokeapi.co/api/v2/pokemon/ditto",options)
+                .then(response => response.json())  // Analiza la respuesta JSON
+                .then(data => {
+                    console.log(data);
+                    console.log(data.game_indices.length);
+                
+                for(key=0; key < data.game_indices.length; key++){
 
-    //    const data = await response.json(); // Puede que necesites cambiar a response.text() si esperas otro tipo de respuesta
-
-        // Aquí puedes hacer algo con los datos recibidos, como mostrarlos en la página o manipularlos de alguna otra manera
-     //   console.log(data);
-   /* } catch (error) {
-        console.error('Se produjo un error al obtener los datos:', error);
-    }*/
-}
-fetchDataFromPHP();
+                    var TableRow="<tr></tr>";
+                    TableRow = TableRow.substring(0,TableRow.length-5) + "<td id='check' class='large'><input type='checkbox'>" +"</td>" + TableRow.substring(TableRow.length-5) + "<td>" + data.game_indices[key].game_index + "</td>"+ TableRow.substring(TableRow.length-5) + "<td>" + data.game_indices[key].version["name"] + "</td>"+ TableRow.substring(TableRow.length-5) + "<td>" + data.game_indices[key].version["url"] + "</td>" ;
+                
+                    var TrElement = document.createElement("tr");
+                    TrElement.innerHTML = TableRow;
+                    document.getElementById("tabla").appendChild(TrElement);
+                }
+                
+                })
+                .catch(error => {
+                    console.error("Error: " + error);
+                });
+            }
+            window.addEventListener("load", fetchDataFromPHP);
 
 </script>
