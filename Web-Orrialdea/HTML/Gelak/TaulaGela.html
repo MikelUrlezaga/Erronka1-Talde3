@@ -1,18 +1,18 @@
 <!DOCTYPE html>
     <head>
         <!--<script src="/Erronka/script/login.js" > </script>-->
-        <script src="../script/menu.js" ></script>
+        <script src="../../script/menu.js" ></script>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="../CSS/styles.css">
-        <link rel="icon" href="../IMG/LOGO.png" type="image/x-icon">
+        <link rel="stylesheet" href="../../CSS/styles.css">
+        <link rel="icon" href="../../IMG/LOGO.png" type="image/x-icon">
         <title>Home</title>
         <header> 
-                <img class="logo" src="../IMG/LOGO.png">
+                <img class="logo" src="../../IMG/LOGO.png">
                 <p class="titulo">GELA</p>
 
             <div class="puertahome">
-                <img class="arrow" src="../IMG/arrow.png" height="25px" s>
-                <img class="logout"src="../IMG/LogOut.png" height="25px">
+                <img class="arrow" src="../../IMG/arrow.png" height="25px" s>
+                <img class="logout"src="../../IMG/LogOut.png" height="25px">
             </div>
         </header>
     </head>
@@ -24,9 +24,9 @@
                     <div class="botones">
                         <div class="elementos">
                             <div class="boto">
-                                <img src="../IMG/edit.png" id="botonedit">
-                                <img src="../IMG/mas.png">
-                                <img src="../IMG/borrar.png" onclick="deleteGela();">
+                                <img src="../../IMG/edit.png" id="botonedit">
+                                <img src="../../IMG/mas.png">
+                                <img src="../../IMG/borrar.png" onclick="deleteGela();">
                             </div>
                         </div>
                         <div class="submites">
@@ -147,8 +147,10 @@
                 .then(function (response) {
                     return response.text();
                 })
-                .then(data=>
+                .then(data=>{
                     console.log(data)
+                }
+                    
                 )
                 .catch(function (error) {
                     console.error(error);
