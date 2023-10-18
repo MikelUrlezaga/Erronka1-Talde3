@@ -147,11 +147,21 @@ hr{
     visibility: hidden;
 }
 
+/* Imagenes */
+
 .menuiconos img{
     margin-left: 12vw;
     width: 2vw;
     height: auto;
 }
+
+.checkicon {
+    width: 3%;
+    height: 3%;
+    margin-top: 10%;
+}
+
+
 
 
 .menutop{
