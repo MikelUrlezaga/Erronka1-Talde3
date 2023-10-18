@@ -160,6 +160,10 @@ hr{
     height: 4vw;
 }
 
+.checkicon:hover{
+    background-color: #5b5766;
+}
+
 
 
 
@@ -923,18 +927,18 @@ input[type='checkbox'] {
 
 /* GELAK EGUNERATU */
 
-.textBoxGelak {
-    width: 24%;
-    margin-left: 38%;
+.textBox1Columna {
+    width: 15%;
+    margin-left: 0%;
     border-radius: 20px;
     border: 1px solid #E8E9FC; 
     background-color: #E8E9FC;
     margin-top: 1%;
 }
 
-.textogela{
+.texto1Columna{
     margin-top: 3%;
-    margin-left: 38%;
+    margin-left: -12%;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
