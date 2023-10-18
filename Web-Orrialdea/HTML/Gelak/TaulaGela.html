@@ -24,7 +24,7 @@
                     <div class="botones">
                         <div class="elementos">
                             <div class="boto">
-                                <img src="../../IMG/edit.png" id="botonedit">
+                                <img src="../../IMG/edit.png" id="botonedit" onclick="txertatu()">
                                 <img src="../../IMG/mas.png">
                                 <img src="../../IMG/borrar.png" onclick="checkZiur();">
                             </div>
@@ -61,7 +61,12 @@
                             </tr>
                         </thead>
                         <tbody id="tabla" >
-                           
+                            <tr>
+                                <td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='1'></td>
+                                <td>1</td>
+                                <td>asdasd</td>
+                                <td>asdasd</td>
+                            </tr>
                         </tbody>  
                     </table>
                 </div>
@@ -146,5 +151,11 @@
                 .catch(function (error) {
                     alert("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
                 })
+    }
+
+    function txertatu(){
+        $id=conseguirCheck();
+        numero=$id[0];
+        window.location="Eguneratu.html?num="+numero+"";
     }
 </script>
