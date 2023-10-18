@@ -75,36 +75,25 @@
 <script>
     
     async function fetchDataFromPHP() {
-       /* fetch('gelak_json.php', {
-            method: 'GET', // o 'POST' según tus necesidades
-            headers: {
-                'Content-Type': 'application/json' // Ajusta el tipo de contenido según sea necesario
-            }
-        })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.log('Se produjo un error al obtener los datos:', error));*/
-
 
         let options = {method: "GET", mode: 'cors'};
         const da = null;
-        fetch("https://pokeapi.co/api/v2/pokemon/ditto",options)
+        fetch("../../php/gelak_json.php",options)
         .then(response => response.json())  // Analiza la respuesta JSON
         .then(data => {
             console.log(data);
-            console.log(data.game_indices.length);
-        
-        for(key=0; key < data.game_indices.length; key++){ //Recorremos 
+            console.log(data.length);
+            for(i=0; i < data.length; i++){
+                var tableRow="<tr></tr>";
+                tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
+                data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].id + "</td>" +
+                tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" 
+                + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].taldea + "</td>";
 
-            var taulalinea="<tr></tr>"; // Creamos nuestra fila
-            taulalinea = taulalinea.substring(0,taulalinea.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='"+data.game_indices[key].version["name"]+"'>" +"</td>" + taulalinea.substring(taulalinea.length-5) + "<td>" + data.game_indices[key].game_index + "</td>"+ taulalinea.substring(taulalinea.length-5) + "<td>" + data.game_indices[key].version["name"] + "</td>"+ taulalinea.substring(taulalinea.length-5) + "<td>" + data.game_indices[key].version["url"] ;
-            //Le insertamos entre los <tr> nuestros elementos (se veria asi <tr><td></td><td></td></tr>)
-
-            var TrElement = document.createElement("tr"); //Creamos el elemento table row
-             TrElement.innerHTML = taulalinea;//Lo juntamos
-            document.getElementById("tabla").appendChild(TrElement);//Lo insertamos en la
-        }
-                
+                var trElement = document.createElement("tr");
+                trElement.innerHTML = tableRow;
+                document.getElementById("tabla").appendChild(trElement);
+            }
         })
         .catch(error => {
             console.error("Error: " + error);
