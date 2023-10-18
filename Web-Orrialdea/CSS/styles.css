@@ -160,6 +160,10 @@ hr{
     height: 4vw;
 }
 
+.checkicon:hover{
+    background-color: #5b5766;
+}
+
 
 
 
@@ -300,6 +304,7 @@ input[type='checkbox'] {
     border: 2px solid #606175;
     background-color: #E6F4FF;
     text-align: center;
+    
     font-size: 3vh;
 }
 .tablachula table td{
@@ -307,6 +312,15 @@ input[type='checkbox'] {
     background-color:white;
     text-align: center;
     font-size: 3vh;
+    min-width: 1000vh;
+
+}
+.tablachula table tbody td{
+    border: 2px solid #606175;
+    background-color:white;
+    text-align: center;
+    font-size: 3vh;
+    min-width: 1000vh;
 
 }
 
@@ -923,18 +937,18 @@ input[type='checkbox'] {
 
 /* GELAK EGUNERATU */
 
-.textBoxGelak {
-    width: 24%;
-    margin-left: 38%;
+.textBox1Columna {
+    width: 15%;
+    margin-left: 0%;
     border-radius: 20px;
     border: 1px solid #E8E9FC; 
     background-color: #E8E9FC;
     margin-top: 1%;
 }
 
-.textogela{
+.texto1Columna{
     margin-top: 3%;
-    margin-left: 38%;
+    margin-left: -12%;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
