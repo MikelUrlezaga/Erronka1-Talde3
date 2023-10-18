@@ -291,6 +291,7 @@ input[type='checkbox'] {
     border: 2px solid #606175;
     background-color: #E6F4FF;
     text-align: center;
+    
     font-size: 3vh;
 }
 .tablachula table td{
@@ -298,6 +299,15 @@ input[type='checkbox'] {
     background-color:white;
     text-align: center;
     font-size: 3vh;
+    min-width: 1000vh;
+
+}
+.tablachula table tbody td{
+    border: 2px solid #606175;
+    background-color:white;
+    text-align: center;
+    font-size: 3vh;
+    min-width: 1000vh;
 
 }
 
