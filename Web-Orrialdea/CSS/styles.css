@@ -156,8 +156,8 @@ hr{
 }
 
 .checkicon {
-    width: 5vw;
-    height: 5vw;
+    width: 4vw;
+    height: 4vw;
 }
 
 
@@ -942,19 +942,22 @@ input[type='checkbox'] {
 
 .custom-combobox {
     position: relative;
-    display: inline-block;
     margin-top: 2%;
-    margin-left: -5%;
     margin-bottom: -1%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 25%;
 }
 
 .custom-combobox select {
-    width: 200%;
-    padding: 5%;
+    width: 100%;
+    padding: 2.5%;
     font-size: 120%;
     border: 1% solid #ccc;
     border-radius: 5px;
     background-color: #fff;
+    
 }
 
 .custom-combobox option {
@@ -991,7 +994,7 @@ input[type='checkbox'] {
 }
 
 .ck{
-    padding: 10%;
+    padding: 5%;
     display: flex;
     justify-content: center; 
 }
