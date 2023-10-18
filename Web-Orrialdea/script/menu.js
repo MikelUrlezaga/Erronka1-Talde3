@@ -1,6 +1,6 @@
 var a = true;
 // Insertar menu
-fetch('../HTML/Menu.html')
+fetch('../Orokorra/Menu.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('menuMugikorra').innerHTML = data;
