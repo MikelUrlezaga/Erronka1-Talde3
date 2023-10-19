@@ -22,7 +22,7 @@
     <body>
         <div class="reborde">
                 <div class="custom-combobox">
-                    <select>
+                    <select id="selector">
                         <option value="opcion1">Opción 1</option>
                         <option value="opcion2">Opción 2</option>
                         <option value="opcion3">Opción 3</option>
@@ -59,17 +59,38 @@
         var ida = JSON.stringify(nuestraId);
         let options = {method: "GET", url: ida};
         fetch("../../PHP/gelak_json.php",options)
-        .then(response => response.json())  // Analiza la respuesta JSON
-        .then(data => {
-            console.log(data);
-            console.log(data.length);
-            document.getElementById("izenaGelakEgu").value=data[0].izena;
-            document.getElementById("taldeaGelakEgu").value=data[0].taldea;
-            document.getElementById("titulo").innerText= data[0].izena + " Gela eguneratu";
-        })
-        .catch(error => {
-            alert("Errorea." + error);
-        });
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+                console.log(data);
+                console.log(data.length);
+                document.getElementById("izenaGelakEgu").value=data[0].izena;
+                document.getElementById("taldeaGelakEgu").value=data[0].taldea;
+                document.getElementById("titulo").innerText= data[0].izena + " Gela eguneratu";
+            })
+            .catch(error => {
+                alert("Errorea." + error);
+            });
     }
+
+    async function bistaratuFromPHP() {
+        let options = {method: "GET"};
+        fetch("../../PHP/gelak_json.php",options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+                console.log(data);
+                console.log(data.length);
+                
+                for (let i = 0; i < data.length; i++) {
+                    var opcion="<option value='"+data[i].id+"'>"+data[i].izena+"</option>";
+                    var opElement = document.createElement("option");
+                    opElement.innerHTML = opcion;
+                    document.getElementById("selector").appendChild(opElement);
+                }
+            })
+            .catch(error => {
+                alert("Errorea." + error);
+            });
+    }
+    window.addEventListener("load", bistaratuFromPHP);
     window.addEventListener("load", bistaratuFromPHP2);
 </script>
