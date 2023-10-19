@@ -23,7 +23,7 @@
         <div class="reborde">
                 <div class="custom-combobox">
                     <select id="selector" onchange="cambiarClase()">
-                        <option value="opcion1">Opción 1</option>
+                        <option value='opcion1'>Opción 1</option>
                         <option value="opcion2">Opción 2</option>
                         <option value="opcion3">Opción 3</option>
                         <option value="opcion4">Opción 4</option>
@@ -88,9 +88,7 @@
             .then(data => {     
                 for (let i = 0; i < data.length; i++) {
                     var opcion="<option value='"+data[i].id+"'>"+data[i].izena+"</option>";
-                    var opElement = document.createElement("option");
-                    opElement.innerHTML = opcion;
-                    document.getElementById("selector").appendChild(opElement);
+                    document.getElementById("selector").appendChild(opcion);
                 }
             })
             .catch(error => {
