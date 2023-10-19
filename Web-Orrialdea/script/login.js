@@ -1,9 +1,9 @@
 function vernover() {
     if ((document.getElementById("ojo").src).includes("ojo1")) {
-        document.getElementById("ojo").src = "../IMG/ojo2.png"
+        document.getElementById("ojo").src = "../../IMG/ojo2.png"
         document.getElementById("pass").type = "password"
     } else {
-        document.getElementById("ojo").src = "../IMG/ojo1.png"
+        document.getElementById("ojo").src = "../../IMG/ojo1.png"
         document.getElementById("pass").type = "text"
     }
     
@@ -20,7 +20,7 @@ function login() {
     var name = document.getElementById("user").value
     var caracteres = /^[a-zA-Z0-9]+$/
     if (caracteres.test(name)) {
-        window.location.href = "../HTML/Home.html";
+        window.location.href = "../../HTML/Orokorra/Home.html";
     } else {
         document.getElementById("mal").removeAttribute("hidden")
     }
