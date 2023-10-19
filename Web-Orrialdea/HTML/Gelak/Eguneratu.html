@@ -57,6 +57,7 @@
 
     async function bistaratuFromPHP2(idcls) {
         var ida = JSON.stringify(idcls);
+        console.log(ida)
         let options = {method: "GET", url: ida};
         fetch("../../PHP/gelak_json.php",options)
             .then(response => response.json())  // Analiza la respuesta JSON
