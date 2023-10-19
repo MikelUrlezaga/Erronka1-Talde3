@@ -38,14 +38,12 @@
                         
                     </div>
                     <div class="search">
-
                         <div class="elementos">
                             <input class="texto" type="text" id="pass" name="nombre" >
                         </div>
                         <div class="submites">
                             <button>Search</button>                        
                         </div>
-                        
                     </div>
                 </div>
                 
@@ -83,26 +81,26 @@
     async function bistaratuFromPHP() {
         let options = {method: "GET", mode: 'cors'};
         const da = null;
-        fetch("../../PHP/gelak_json.php",options)
-        .then(response => response.json())  // Analiza la respuesta JSON
-        .then(data => {
-            console.log(data);
-            console.log(data.length);
-            for(i=0; i < data.length; i++){
-                var tableRow="<tr></tr>";
-                tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].id + "</td>" +
-                tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" 
-                + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].taldea + "</td>";
+        fetch("../../PHP/gelak_json.php", options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+                console.log(data);
+                console.log(data.length);
+                for(i=0; i < data.length; i++){
+                    var tableRow="<tr></tr>";
+                    tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
+                    data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].id + "</td>" +
+                    tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" 
+                    + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].taldea + "</td>";
 
-                var trElement = document.createElement("tr");
-                trElement.innerHTML = tableRow;
-                document.getElementById("tabla").appendChild(trElement);
-            }
-        })
-        .catch(error => {
-            alert("Errorea." + error);
-        });
+                    var trElement = document.createElement("tr");
+                    trElement.innerHTML = tableRow;
+                    document.getElementById("tabla").appendChild(trElement);
+                }
+            })
+            .catch(error => {
+                alert("Errorea." + error);
+            });
     }
     window.addEventListener("load", bistaratuFromPHP);
 
@@ -140,17 +138,18 @@
         var js = JSON.stringify(ids);
         console.log(js);
         fetch('../../PHP/gelak_json.php', {method: 'DELETE', body: js})
-                .then(function (response) {
-                    return response.text();
-                })
-                .then(data=>{
-                    console.log(data);
+            .then(function (response) {
+                return response.text();
+            })
+            .then(data=>{
+                console.log(data);
+                if(data.match("Fatal error")){
+                    alert("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu");
                 }
-                    
-                )
-                .catch(function (error) {
-                    alert("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-                })
+            })
+            .catch(error => {
+                //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+            });
     }
 
     function txertatu(){
