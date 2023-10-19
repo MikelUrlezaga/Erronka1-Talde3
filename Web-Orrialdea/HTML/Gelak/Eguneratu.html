@@ -54,8 +54,6 @@
         console.log(tmparr[1]);
         nuestraId=tmparr[1];
     }
-    
-    document.getElementById("titulo").innerText="Gela "+tmparr[1]+" Eguneratu";
 
     async function bistaratuFromPHP2() {
         var ida = JSON.stringify(nuestraId);
@@ -67,10 +65,11 @@
             console.log(data.length);
             document.getElementById("izenaGelakEgu").value=data[0].izena;
             document.getElementById("taldeaGelakEgu").value=data[0].taldea;
+            document.getElementById("titulo").innerText= data[0].izena + " Gela eguneratu";
         })
         .catch(error => {
             alert("Errorea." + error);
         });
     }
     window.addEventListener("load", bistaratuFromPHP2);
-    </script>
+</script>
