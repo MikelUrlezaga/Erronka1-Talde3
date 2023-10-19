@@ -85,10 +85,7 @@
         let options = {method: "GET"};
         fetch("../../PHP/gelak_json.php",options)
             .then(response => response.json())  // Analiza la respuesta JSON
-            .then(data => {
-                console.log(data);
-                console.log(data.length);
-                
+            .then(data => {     
                 for (let i = 0; i < data.length; i++) {
                     var opcion="<option value='"+data[i].id+"'>"+data[i].izena+"</option>";
                     var opElement = document.createElement("option");
