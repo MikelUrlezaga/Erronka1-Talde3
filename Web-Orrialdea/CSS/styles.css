@@ -31,6 +31,10 @@ button{
     background-color: white;
 }
 
+button:hover{
+    background-color: #5b5766;
+}
+
 .textBox:focus{
     outline: none;
 }

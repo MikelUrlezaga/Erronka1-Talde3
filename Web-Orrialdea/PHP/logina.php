@@ -45,8 +45,10 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
-        if (isset($_POST["bidali"])){
-            erabiltzaileExists($_POST["erabiltzailea"], $_POST["pasahitza"]);
+        $json_data = json_decode(file_get_contents("php://input"), true);
+        if (isset($json_data)){
+            erabiltzaileExists($json_data["erabiltzailea"],$json_data["pasahitza"]);
+
         }
     }
 
@@ -72,18 +74,22 @@
             if ($erabiltzaile->getErabiltzailea() == $erabiltzailea) {
                 if ($pasahitza == $erabiltzaile->getPasahitza()) {
                     // Erabiltzailea eta pasahitza zuzenak dira
-                    echo "Sesioan sartu zara.";
-                    return true;
+                    // echo "Sesioan sartu zara.";
+                    // return true;
+                    echo json_encode("Erabiltzailea_eta_pasahitza_ondo_sartuta_daude");
                 } else {
                     // Pasahitza okerra
-                    echo "Pasahitza okerra.";
-                    return false;
+                    // echo "Pasahitza okerra.";
+                    // return false;
+                    echo json_encode("Erabiltzailea_eta_pasahitza_txarto_sartuta_daude");
                 }
+            }else{
+                // Erabiltzailea ez da aurkitzen
+                echo "Erabiltzaile hori ez da existitzen.";
+                return false;
             }
         }
-        // Erabiltzailea ez da aurkitzen
-        echo "Erabiltzaile hori ez da existitzen.";
-        return false;
+        
     }
 ?>
 
