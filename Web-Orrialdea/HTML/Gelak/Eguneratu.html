@@ -4,11 +4,11 @@
         <script src="../../script/menu.js" ></script>
         <link rel="stylesheet" href="../../CSS/styles.css">
         <link rel="icon" href="../../IMG/LOGO.png" type="image/x-icon">
-        <title>Gelak Eguneratu</title>
+        <title >Gelak Eguneratu</title>
     </head>
     <header>
             <img class="logo" src="../../IMG/LOGO.png">
-            <p class="titulo">GELAK EGUNERATU</p>
+            <p id="titulo" class="titulo">GELAK EGUNERATU</p>
     </header>
     <body>
         <div class="reborde">
@@ -34,3 +34,33 @@
     <div id="menuMugikorra"></div>
 
 </html>
+<script>
+    var paramstr = window.location.search.substr(1);
+    console.log(window.location.search.substr(1));
+    var paramarr = paramstr.split ("&");
+    var params = {};
+    var nuestraId=0;
+    
+    for ( var i = 0; i < paramarr.length; i++) {
+        var tmparr = paramarr[i].split("=");
+        params[tmparr[0]] = tmparr[1];
+        console.log(tmparr[1]);
+        nuestraId=tmparr[1];
+    }
+    
+    document.getElementById("titulo").innerText="Gela "+tmparr[1]+" Eguneratu";
+
+    async function bistaratuFromPHP() {
+        let options = {method: "GET", mode: 'cors',body: nuestraId};
+        const da = null;
+        fetch("../../PHP/gelak_json.php",options)
+        .then(response => response.json())  // Analiza la respuesta JSON
+        .then(data => {
+            console.log(data);
+            console.log(data.length);
+        })
+        .catch(error => {
+            alert("Errorea." + error);
+        });
+    }
+    </script>

@@ -56,13 +56,17 @@
             $izena = $json_data["izena"];
             $taldea = $json_data["taldea"];
             eguneratuGela($id, $izena, $taldea);
+
         }
     } elseif ($_SERVER["REQUEST_METHOD"] == "DELETE") {
         $json_data = json_decode(file_get_contents("php://input"), true);
         // Realizar eliminación de datos en la base de datos
-        if (isset($json_data["id"])) {
-            $id = $json_data["id"];
-            ezabatuGela($id);
+        if (isset($json_data)) {
+            $id = $json_data;
+            foreach ($id as $value) {
+                ezabatuGela($value);
+            }
+            echo "OK";
         }
     }
 
