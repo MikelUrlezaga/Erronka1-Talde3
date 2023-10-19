@@ -29,14 +29,14 @@
                     <div class="botones">
                         <div class="elementos">
                             <div class="boto">
-                                <img src="../../IMG/edit.png" id="botonedit" onclick="txertatu()">
+                                <img src="../../IMG/edit.png" id="botonedit" onclick="txertatuGela()">
                                 <img src="../../IMG/mas.png">
                                 <img src="../../IMG/borrar.png" onclick="checkZiur();">
                             </div>
                         </div>
                         <div class="submites">
                             <!-- <div class="botonsubmit">
-                                <button onclick="conseguirCheck();">Submit</button>
+                                <button onclick="lortuCheck();">Submit</button>
                             </div> -->
                         </div>
                         
@@ -109,7 +109,7 @@
     }
     window.addEventListener("load", bistaratuFromPHP);
 
-    function conseguirCheck() {
+    function lortuCheck() {
         var checkboxes = document.querySelectorAll('input[name="c"]:checked');//De nuestro documento comprueba los inputs con nombre c
         var ids = [];//Creamos el array para nuestras ids
 
@@ -122,7 +122,7 @@
     }
 
     function bloquearEdit(){
-        var ids = conseguirCheck();
+        var ids = lortuCheck();
         if(ids.length>1){
             document.getElementById("botonedit").style.visibility="hidden";
         }else{
@@ -139,7 +139,7 @@
     }
 
     function deleteGela() {
-        var ids = conseguirCheck();
+        var ids = lortuCheck();
         var js = JSON.stringify(ids);
         console.log(js);
         fetch('../../PHP/gelak_json.php', {method: 'DELETE', body: js})
@@ -152,13 +152,13 @@
                     alert("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu");
                 }
             })
-            .catch(error => {
-                //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-            });
+            // .catch(error => {
+            //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+            // });
     }
 
-    function txertatu(){
-        $id=conseguirCheck();
+    function txertatuGela(){
+        $id=lortuCheck();
         numero=$id[0];
         window.location="Eguneratu.html?num="+numero+"";
     }

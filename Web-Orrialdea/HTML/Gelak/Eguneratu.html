@@ -29,8 +29,6 @@
                         <option value="opcion4">Opción 4</option>
                     </select>
                 </div>
-                <p class="texto1Columna">Etiqueta: </p>
-                <input class="textBox1Columna" type="text" id="etiquetaGelakEg" name="Etiqueta" >
                 <p class="texto1Columna">Izena: </p>
                 <input class="textBox1Columna" type="text" id="izenaGelakEgu" name="Izena">
                 <p class="texto1Columna">Taldea: </p>
@@ -59,17 +57,20 @@
     
     document.getElementById("titulo").innerText="Gela "+tmparr[1]+" Eguneratu";
 
-    async function bistaratuFromPHP() {
-        let options = {method: "GET", mode: 'cors',body: nuestraId};
-        const da = null;
+    async function bistaratuFromPHP2() {
+        var ida = JSON.stringify(nuestraId);
+        let options = {method: "GET", url: ida};
         fetch("../../PHP/gelak_json.php",options)
         .then(response => response.json())  // Analiza la respuesta JSON
         .then(data => {
             console.log(data);
             console.log(data.length);
+            document.getElementById("izenaGelakEgu").value=data[0].izena;
+            document.getElementById("taldeaGelakEgu").value=data[0].taldea;
         })
         .catch(error => {
             alert("Errorea." + error);
         });
     }
+    window.addEventListener("load", bistaratuFromPHP2);
     </script>
