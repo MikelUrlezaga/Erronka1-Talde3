@@ -23,7 +23,7 @@
         <div class="reborde">
                 <div class="custom-combobox">
                     <select id="selector" onchange="cambiarClase()">
-                        <option value='opcion1'>Opción 1</option>
+                        <option value="opcion1">Opción 1</option>
                         <option value="opcion2">Opción 2</option>
                         <option value="opcion3">Opción 3</option>
                         <option value="opcion4">Opción 4</option>
@@ -85,10 +85,14 @@
         let options = {method: "GET"};
         fetch("../../PHP/gelak_json.php",options)
             .then(response => response.json())  // Analiza la respuesta JSON
-            .then(data => {     
+            .then(data => {
+     
                 for (let i = 0; i < data.length; i++) {
                     var opcion="<option value='"+data[i].id+"'>"+data[i].izena+"</option>";
-                    document.getElementById("selector").appendChild(opcion);
+                    var opElement = document.createElement("option");
+                    opElement.innerHTML = opcion;
+                    opElement.value = data[i].id;
+                    document.getElementById("selector").appendChild(opElement);
                 }
             })
             .catch(error => {
