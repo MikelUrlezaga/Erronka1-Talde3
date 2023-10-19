@@ -79,14 +79,12 @@
             .then(data => {
                 console.log(data);
                 console.log(data.length);
-                var selector = document.getElementById("selector")[0];
+                
                 for (let i = 0; i < data.length; i++) {
-                    var opcion = document.createElement("option");
-                    opcion.text = data[i].izena;
-                    // Añadimos un value a los option para hacer mas facil escoger los pueblos
-                    opcion.value = data[i].izena.toLowerCase()
-                    selector.add(opcion);
-                    
+                    var opcion="<option value='"+data[i].id+"'>"+data[i].izena+"</option>";
+                    var opElement = document.createElement("option");
+                    opElement.innerHTML = opcion;
+                    document.getElementById("selector").appendChild(opElement);
                 }
             })
             .catch(error => {
