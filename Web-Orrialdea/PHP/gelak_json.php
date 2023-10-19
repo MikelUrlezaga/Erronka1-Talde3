@@ -35,8 +35,14 @@
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         //if (isset($_GET["get_json_data"])) {
             // Devolver datos JSON al front-end
-            $emaitzak = lortuGelak();
-            echo json_encode($emaitzak);
+            $json_data = json_decode(file_get_contents("php://input"), true);
+            if(isset($json_data)){
+                $emaitzak = lortuGelakById($json_data);
+                echo json_encode($emaitzak);
+            }else{
+                $emaitzak = lortuGelak();
+                echo json_encode($emaitzak);
+            }
             exit;
         //}
     } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -103,6 +109,20 @@
             return $gelak;
         }
     }
+
+    function lortuGelakById($id)
+    {
+        global $db;
+        $emaitzak = $db->datuakLortu("SELECT * FROM gela WHERE id = '$id'");
+        $gelak = array();
+        if (is_object($emaitzak)) {
+            while ($row = $emaitzak->fetch_assoc()) {
+                $gelak[] = new Gela($row["id"], $row["izena"], $row["taldea"]);
+            }
+            return $gelak;
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
