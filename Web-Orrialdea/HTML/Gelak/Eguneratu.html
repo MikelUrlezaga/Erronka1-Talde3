@@ -22,7 +22,7 @@
     <body>
         <div class="reborde">
                 <div class="custom-combobox">
-                    <select id="selector">
+                    <select id="selector" onchange="cambiarClase()">
                         <option value="opcion1">Opción 1</option>
                         <option value="opcion2">Opción 2</option>
                         <option value="opcion3">Opción 3</option>
@@ -55,8 +55,9 @@
         nuestraId=tmparr[1];
     }
 
-    async function bistaratuFromPHP2() {
-        var ida = JSON.stringify(nuestraId);
+    async function bistaratuFromPHP2(idcls) {
+        var ida = JSON.stringify(idcls);
+        console.log(ida)
         let options = {method: "GET", url: ida};
         fetch("../../PHP/gelak_json.php",options)
             .then(response => response.json())  // Analiza la respuesta JSON
@@ -70,6 +71,14 @@
             .catch(error => {
                 alert("Errorea." + error);
             });
+    }
+
+    function cambiarClase(){
+        var idclase = document.getElementById("selector").value;
+        console.log(document.getElementById("selector").value);
+
+        bistaratuFromPHP2(idclase);
+        nuestraId= idclase;
     }
 
     async function bistaratuFromPHP() {
@@ -92,5 +101,5 @@
             });
     }
     window.addEventListener("load", bistaratuFromPHP);
-    window.addEventListener("load", bistaratuFromPHP2);
+    window.addEventListener("load", bistaratuFromPHP2(nuestraId));
 </script>
