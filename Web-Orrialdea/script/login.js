@@ -35,3 +35,24 @@ function login() {
     + significa que debe haber al menos un carácter.
     $ indica el final de la cadena.
 */
+
+function deleteGela() {
+    var user = document.getElementById("user").textContent
+    var pass = document.getElementById("pass").textContent
+    var ids = {user, pass};
+    var js = JSON.stringify(ids);
+    console.log(js);
+    fetch('../../PHP/login.php', {method: 'POST', body: js})
+        .then(function (response) {
+            return response.text();
+        })
+        .then(data=>{
+            console.log(data);
+            if(data.match("Fatal error")){
+                alert("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu");
+            }
+        })
+        // .catch(error => {
+        //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+        // });
+}

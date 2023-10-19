@@ -89,7 +89,7 @@ button{
 .reborde{
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
+    align-items: center;
     background-color: #CBCCF7;
     margin-top: -2vh;
     border-top-right-radius: 20px;
