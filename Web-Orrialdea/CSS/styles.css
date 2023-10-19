@@ -11,7 +11,7 @@ header {
     color: white;
     text-align: center;
     padding-top: 1%;
-    padding-bottom: 15%;
+    padding-bottom: 3vh;
 }
 
 a{
@@ -91,10 +91,11 @@ button{
     flex-direction: column;
     align-items: center;
     background-color: #CBCCF7;
-    margin-top: -14%;
+    margin-top: -2vh;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     border: 1px solid #CBCCF7;
+    min-height: 5vh;
 }
 
 .headerimg{
@@ -259,7 +260,7 @@ hr{
     left: 0;
     position: absolute;
     margin: 1%;
-    width: 1vw;
+    width: 3vw;
     height: auto; 
 }
 
@@ -1011,4 +1012,33 @@ input[type='checkbox'] {
     padding: 5%;
     display: flex;
     justify-content: center; 
+}
+
+/* Info */
+
+.contacto{
+    margin: 5vh;
+    
+}
+
+.info{
+    font-size: 2.5vh;
+}
+
+.allinfo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.info a{
+    text-decoration: none;
+    color: #000000;
+    font-size: 100%;
+    margin-left: 0%;
+}
+
+.mapa iframe{
+    border-radius: 20px;
+    border: 1px solid; 
 }
