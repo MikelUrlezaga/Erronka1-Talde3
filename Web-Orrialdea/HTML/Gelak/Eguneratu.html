@@ -104,10 +104,10 @@
     window.addEventListener("load", bistaratuFromPHP2(nuestraId));
 
     function actuGela() {
-        var idclase = document.getElementById("selector").value;
-        var izen = document.getElementById("izenaGelakEgu").value;
-        var talde = document.getElementById("taldeaGelakEgu").value;
-        var clasea = {idclase,izen, talde};
+        var id = document.getElementById("selector").value;
+        var izena = document.getElementById("izenaGelakEgu").value;
+        var taldea = document.getElementById("taldeaGelakEgu").value;
+        var clasea = {id,izena,taldea};
         var js = JSON.stringify(clasea);
         console.log(js);
         fetch('../../PHP/gelak_json.php', {method: 'PUSH', body: js})
