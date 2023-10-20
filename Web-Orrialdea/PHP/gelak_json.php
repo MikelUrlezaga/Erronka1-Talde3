@@ -38,7 +38,7 @@
             $json_data = json_decode(file_get_contents("php://input"), true);
             if(isset($json_data)){
                 $emaitzak = lortuGelakById($json_data);
-                echo json_encode($emaitzak);
+                echo json_encode("$emaitzak");
             }else{
                 $emaitzak = lortuGelak();
                 echo json_encode($emaitzak);
