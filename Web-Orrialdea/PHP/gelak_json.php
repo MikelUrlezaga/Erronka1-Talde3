@@ -52,8 +52,8 @@
 
             /* if( */
                 /* isset($json_data)){ */
-                $emaitzak = lortuGelakById($json_data);
-                echo json_encode($json_data);
+                $emaitzak = txertatuGela($json_data["izena"],$json_data["taldea"]);
+                echo json_encode($emaitzak);
             /* } */
         // if (isset($json_data["izena"], $json_data["taldea"])) {
         //     $izena = $json_data["izena"];
