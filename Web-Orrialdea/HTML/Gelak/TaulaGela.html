@@ -29,8 +29,8 @@
                     <div class="botones">
                         <div class="elementos">
                             <div class="boto">
-                                <img src="../../IMG/edit.png" id="botonedit" onclick="txertatuGela()">
-                                <img src="../../IMG/mas.png">
+                                <img src="../../IMG/edit.png" id="botonedit" onclick="editaGela()">
+                                <img src="../../IMG/mas.png"  onclick="txertatuGela()">
                                 <img src="../../IMG/borrar.png" onclick="checkZiur();">
                             </div>
                         </div>
@@ -157,9 +157,13 @@
             // });
     }
 
-    function txertatuGela(){
+    function editaGela(){
         $id=lortuCheck();
         numero=$id[0];
         window.location="Eguneratu.html?num="+numero+"";
+    }
+
+    function txertatuGela(){
+        window.location="Txertatu.html";
     }
 </script>
