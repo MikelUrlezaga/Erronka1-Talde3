@@ -48,18 +48,10 @@
     } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Manejar solicitudes POST
         $json_data = json_decode(file_get_contents("php://input"), true);
-                // Realizar inserción de datos en la base de datos
 
-            /* if( */
-                /* isset($json_data)){ */
                 $emaitzak = txertatuGela($json_data["izena"],$json_data["taldea"]);
-                echo json_encode($emaitzak);
-            /* } */
-        // if (isset($json_data["izena"], $json_data["taldea"])) {
-        //     $izena = $json_data["izena"];
-        //     $taldea = $json_data["taldea"];
-        //     txertatuGela($izena, $taldea);
-        // }
+                echo json_encode("okai");
+
     } elseif ($_SERVER["REQUEST_METHOD"] == "PUSH") {
         $json_data = json_decode(file_get_contents("php://input"), true);
         // Realizar actualización de datos en la base de datos
