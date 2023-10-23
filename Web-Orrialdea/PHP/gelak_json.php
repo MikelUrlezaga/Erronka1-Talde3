@@ -38,7 +38,7 @@
             $json_data = json_decode(file_get_contents("php://input"), true);
             if(isset($json_data)){
                 $emaitzak = lortuGelakById($json_data);
-                echo json_encode($emaitzak);
+                echo json_encode($json_data);
             }else{
                 $emaitzak = lortuGelak();
                 echo json_encode($emaitzak);
@@ -48,18 +48,10 @@
     } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Manejar solicitudes POST
         $json_data = json_decode(file_get_contents("php://input"), true);
-                // Realizar inserción de datos en la base de datos
 
-            /* if( */
-                /* isset($json_data)){ */
-                $emaitzak = lortuGelakById($json_data);
-                echo json_encode($json_data);
-            /* } */
-        // if (isset($json_data["izena"], $json_data["taldea"])) {
-        //     $izena = $json_data["izena"];
-        //     $taldea = $json_data["taldea"];
-        //     txertatuGela($izena, $taldea);
-        // }
+                $emaitzak = txertatuGela($json_data["izena"],$json_data["taldea"]);
+                echo json_encode("okai");
+
     } elseif ($_SERVER["REQUEST_METHOD"] == "PUSH") {
         $json_data = json_decode(file_get_contents("php://input"), true);
         // Realizar actualización de datos en la base de datos

@@ -25,11 +25,31 @@
                 <p class="texto1Columna">Izena: </p>
                 <input class="textBox1Columna" type="text" id="IzenaGelaTxertatu" name="Izena">
                 <p class="texto1Columna">Taldea: </p>
-                <input class="textBox1Columna" type="text" id="TaldeaGelaTxertatu" name="Taldea">
+                <input class="textBox1Columna" type="number" id="TaldeaGelaTxertatu" name="Taldea">
                 <div class="ck">
-                    <img src="../../IMG/unnamed.png" alt="check" class="checkicon">
+                    <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="createGela()">
                 </div>
         </div>
     </body>
     <div id="menuMugikorra"></div>
 </html>
+<script>
+    function createGela() {
+        var izena = document.getElementById("IzenaGelaTxertatu").value;
+        var taldea = document.getElementById("TaldeaGelaTxertatu").value;
+        var clasea = {izena, taldea};
+        var js = JSON.stringify(clasea);
+        console.log(js);
+        fetch('../../PHP/gelak_json.php', {method: 'POST', body: js})
+            .then(function (response) {
+                    return response.text();
+            })
+            .then(data=>{
+                console.log(data);
+                
+            })
+            // .catch(error => {
+            //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+            // });
+}
+</script>

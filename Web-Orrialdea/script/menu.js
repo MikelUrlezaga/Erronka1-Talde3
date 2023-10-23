@@ -1,4 +1,5 @@
 var a = true;
+var xd = 0;
 // Insertar menu
 fetch('../Orokorra/Menu.html')
             .then(response => response.text())
@@ -25,6 +26,15 @@ function menuopenclose () {
               }, 500);
         }
         a = !a;
+}
+
+function A () {
+    xd++;
+    console.log(xd)
+    if(xd==50){
+        document.getElementById("mysecreto").style.visibility="visible";
+        document.getElementById("ellogo").style.visibility="hidden";
+    }
 }
 
 

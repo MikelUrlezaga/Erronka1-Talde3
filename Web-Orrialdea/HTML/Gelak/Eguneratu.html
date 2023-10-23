@@ -34,7 +34,7 @@
                 <p class="texto1Columna">Taldea: </p>
                 <input class="textBox1Columna" type="text" id="taldeaGelakEgu" name="Taldea">
                 <div class="ck">
-                    <img src="../../IMG/unnamed.png" alt="check" class="checkicon">
+                    <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="actuGela()">
                 </div>
         </div>
     </body>
@@ -64,7 +64,7 @@
             .then(data => {
                 console.log(data);
                 console.log(data.length);
-                document.getElementById("izenaGelakEgu").value=data[0].izena;
+                document.getElementById("izenaGelakEgu").value="data[0].izena";
                 document.getElementById("taldeaGelakEgu").value=data[0].taldea;
                 document.getElementById("titulo").innerText= data[0].izena + " Gela eguneratu";
             })
@@ -99,6 +99,27 @@
                 alert("Errorea." + error);
             });
     }
+    
     window.addEventListener("load", bistaratuFromPHP);
     window.addEventListener("load", bistaratuFromPHP2(nuestraId));
+
+    function actuGela() {
+        var id = document.getElementById("selector").value;
+        var izena = document.getElementById("izenaGelakEgu").value;
+        var taldea = document.getElementById("taldeaGelakEgu").value;
+        var clasea = {id,izena,taldea};
+        var js = JSON.stringify(clasea);
+        console.log(js);
+        fetch('../../PHP/gelak_json.php', {method: 'PUSH', body: js})
+            .then(function (response) {
+                    return response.text();
+            })
+            .then(data=>{
+                console.log(data);
+                
+            })
+            // .catch(error => {
+            //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+            // });
+}
 </script>
