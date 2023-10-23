@@ -52,14 +52,12 @@
     }
 
     async function bistaratuFromPHP2(idcls) {
-        var ida = JSON.stringify(idcls);
         console.log("Ha entrado")
         let options = {method: "GET"};
         fetch("https://localhost/php/Erronka_rep/Erronka1-Talde3/Web-Orrialdea/PHP/gelak_json.php?num="+idcls+"", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
-                console.log(ida);
                 console.log(data.length);
                 document.getElementById("izenaGelakEgu").value=data[0].izena;
                 document.getElementById("taldeaGelakEgu").value=data[0].taldea;
