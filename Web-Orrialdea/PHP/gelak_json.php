@@ -33,18 +33,17 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        //if (isset($_GET["get_json_data"])) {
             // Devolver datos JSON al front-end
             $json_data = json_decode(file_get_contents("php://input"), true);
-            if(isset($json_data)){
-                $emaitzak = lortuGelakById($json_data);
-                echo json_encode($json_data);
+
+            if(isset($_GET["num"])){
+                $emaitzak = lortuGelakById($_GET["num"]);
+                echo json_encode($emaitzak);
             }else{
                 $emaitzak = lortuGelak();
                 echo json_encode($emaitzak);
             }
             exit;
-        //}
     } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Manejar solicitudes POST
         $json_data = json_decode(file_get_contents("php://input"), true);
