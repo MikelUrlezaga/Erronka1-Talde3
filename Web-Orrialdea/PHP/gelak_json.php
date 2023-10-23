@@ -38,11 +38,7 @@
             $json_data = json_decode(file_get_contents("php://input"), true);
             if(isset($json_data)){
                 $emaitzak = lortuGelakById($json_data);
-<<<<<<< Updated upstream
-                echo json_encode("$emaitzak");
-=======
                 echo json_encode($json_data);
->>>>>>> Stashed changes
             }else{
                 $emaitzak = lortuGelak();
                 echo json_encode($emaitzak);
