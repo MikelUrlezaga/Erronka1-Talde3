@@ -350,7 +350,7 @@ input[type='checkbox'] {
     margin-right: 20vw;
     gap: 10px;
 }
-.search select #selector{
+select#selector{
    height: 31px;
    width: 25vw;
    margin-top: 4vh; 
@@ -412,7 +412,7 @@ input[type='checkbox'] {
 }
 
 @media (min-width:1800px){
-    .search select #selector{
+    select#selector{
         height: 4vh;
         width: 30vw;
         margin-bottom: 5vh;
@@ -533,7 +533,7 @@ input[type='checkbox'] {
     .botones img:hover{
         height: 4vh;
     }   
-    .search select #selector{
+    select#selector{
         height: 5vh;
         width:30vw;
         margin-bottom:5vh;
@@ -629,7 +629,7 @@ input[type='checkbox'] {
     .botones img:hover{
         height: 4vh;
     }
-    .search select #selector{
+    select#selector{
         height: 3vh;
         width:30vw;
         margin-bottom: 2vh;
@@ -758,7 +758,7 @@ input[type='checkbox'] {
     .botones img:hover{
         height: 10vh;
     }
-    .search select #selector{
+    select#selector{
         height: 3vw;
         width:20vw;
         margin-bottom: 1vh;
