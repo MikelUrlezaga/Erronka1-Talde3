@@ -11,7 +11,7 @@ header {
     color: white;
     text-align: center;
     padding-top: 1%;
-    padding-bottom: 3vh;
+    padding-bottom: 21vh;
 }
 
 a{
@@ -90,16 +90,20 @@ button:hover{
     margin: 5%;
 }
 
-.reborde{
+[class*="reborde"]{
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #CBCCF7;
-    margin-top: -2vh;
+    margin-top: -20vh;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
     border: 1px solid #CBCCF7;
     min-height: 5vh;
+}
+
+.rebordeLogin{
+    display: grid;
 }
 
 .headerimg{
@@ -917,6 +921,7 @@ select#selectore{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 3vh;
 }
 
 .info a{
