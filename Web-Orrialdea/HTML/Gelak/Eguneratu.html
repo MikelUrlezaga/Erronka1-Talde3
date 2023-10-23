@@ -53,7 +53,7 @@
 
     async function bistaratuFromPHP2(idcls) {
         var ida = JSON.stringify(idcls);
-        console.log(ida)
+        console.log("Ha entrado")
         let options = {method: "GET"};
         fetch("https://localhost/php/Erronka_rep/Erronka1-Talde3/Web-Orrialdea/PHP/gelak_json.php?num="+idcls+"", options)
             .then(response => response.json())  // Analiza la respuesta JSON
@@ -64,7 +64,6 @@
                 document.getElementById("izenaGelakEgu").value=data[0].izena;
                 document.getElementById("taldeaGelakEgu").value=data[0].taldea;
                 document.getElementById("selectore").value=idcls;
-                console.log(idcls);
                 document.getElementById("titulo").innerText= data[0].izena + " Gela eguneratu";
             })
             .catch(error => {
@@ -87,10 +86,18 @@
             .then(data => {
      
                 for (let i = 0; i < data.length; i++) {
+                    console.log(nuestraId);
+                    if(data[i].id==nuestraId){
+                        console.log("Entra "+nuestraId);
+                    }
                     var opcion="<option value='"+data[i].id+"'>"+data[i].izena+"</option>";
                     var opElement = document.createElement("option");
                     opElement.innerHTML = opcion;
                     opElement.value = data[i].id;
+                    if(data[i].id==nuestraId){
+                        opElement.selected="selected";
+                    }
+                    
                     document.getElementById("selectore").appendChild(opElement);
                 }
             })
