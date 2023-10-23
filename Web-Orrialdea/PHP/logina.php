@@ -69,7 +69,7 @@
     function erabiltzaileExists($erabiltzailea, $pasahitza)
     {
         $erabiltzaileak = lortuDatuak();
-
+        $bool = false;
         foreach ($erabiltzaileak as $erabiltzaile) {
             if ($erabiltzaile->getErabiltzailea() == $erabiltzailea) {
                 if ($pasahitza == $erabiltzaile->getPasahitza()) {
@@ -81,13 +81,18 @@
                     // Pasahitza okerra
                     // echo "Pasahitza okerra.";
                     // return false;
-                    echo json_encode("Erabiltzailea_eta_pasahitza_txarto_sartuta_daude");
+                    echo json_encode("Pasahitza_txarto_sartuta_dago");
                 }
-            }else{
-                // Erabiltzailea ez da aurkitzen
-                echo "Erabiltzaile hori ez da existitzen.";
-                return false;
+                $bool = true;
             }
+            //else{
+                // Erabiltzailea ez da aurkitzen
+                // echo "Erabiltzaile hori ez da existitzen.";
+                // return false;
+            //}
+        }
+        if (!$bool) {
+            echo json_encode("Erabiltzailea_ez_da_existitzen");
         }
         
     }

@@ -23,6 +23,7 @@ function login() {
         loginComp()
     } else {
         document.getElementById("mal").removeAttribute("hidden")
+        document.getElementById("mal").innerHTML = "Erabiltzailea_eta_pasahitza_txarto_sartuta_daude"
     }
 }
 
@@ -50,8 +51,12 @@ function loginComp() {
             console.log(data);
             if (data.match("Erabiltzailea_eta_pasahitza_ondo_sartuta_daude")) {
                 window.location.href = "../../HTML/Orokorra/Home.html";
-            }else{
+            }else if(data.match("Erabiltzailea_eta_pasahitza_txarto_sartuta_daude")){
                 document.getElementById("mal").removeAttribute("hidden")
+                document.getElementById("mal").innerHTML = "Pasahitza_txarto_sartuta_dago"
+            }else if(data.match("Erabiltzailea_ez_da_existitzen")){
+                document.getElementById("mal").removeAttribute("hidden")
+                document.getElementById("mal").innerHTML = "Erabiltzailea_ez_da_existitzen"
             }
             if(data.match("Fatal error")){
                 alert("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu");
