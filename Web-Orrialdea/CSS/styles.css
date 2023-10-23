@@ -361,6 +361,15 @@ select#selector{
    margin-bottom: 5vh;
    font-size: 2vh;
     }
+
+select#selectore{
+    height: 39px;
+    width: 25vw;
+    margin-top: 4vh; 
+    margin-bottom: 5vh;
+    font-size: 2vh;
+        }
+        
 .botones {
     display: flex;
     flex-direction: row;
@@ -851,7 +860,7 @@ select#selector{
 .custom-combobox select {
     width: 100%;
     padding: 2.5%;
-    font-size: 120%;
+    font-size: 10vh;
     border: 1% solid #ccc;
     border-radius: 5px;
     background-color: #fff;

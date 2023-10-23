@@ -22,11 +22,7 @@
     <body>
         <div class="reborde">
                 <div class="custom-combobox">
-                    <select id="selector" onchange="cambiarClase()">
-                        <option value="opcion1">Opción 1</option>
-                        <option value="opcion2">Opción 2</option>
-                        <option value="opcion3">Opción 3</option>
-                        <option value="opcion4">Opción 4</option>
+                    <select id="selectore" onchange="cambiarClase()">
                     </select>
                 </div>
                 <p class="texto1Columna">Izena: </p>
@@ -58,14 +54,17 @@
     async function bistaratuFromPHP2(idcls) {
         var ida = JSON.stringify(idcls);
         console.log(ida)
-        let options = {method: "GET", url: ida};
-        fetch("../../PHP/gelak_json.php",options)
+        let options = {method: "GET"};
+        fetch("https://localhost/php/Erronka_rep/Erronka1-Talde3/Web-Orrialdea/PHP/gelak_json.php?num="+idcls+"", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
+                console.log(ida);
                 console.log(data.length);
                 document.getElementById("izenaGelakEgu").value=data[0].izena;
                 document.getElementById("taldeaGelakEgu").value=data[0].taldea;
+                document.getElementById("selectore").value=idcls;
+                console.log(idcls);
                 document.getElementById("titulo").innerText= data[0].izena + " Gela eguneratu";
             })
             .catch(error => {
@@ -74,8 +73,8 @@
     }
 
     function cambiarClase(){
-        var idclase = document.getElementById("selector").value;
-        console.log(document.getElementById("selector").value);
+        var idclase = document.getElementById("selectore").value;
+        console.log(document.getElementById("selectore").value);
 
         bistaratuFromPHP2(idclase);
         nuestraId= idclase;
@@ -92,7 +91,7 @@
                     var opElement = document.createElement("option");
                     opElement.innerHTML = opcion;
                     opElement.value = data[i].id;
-                    document.getElementById("selector").appendChild(opElement);
+                    document.getElementById("selectore").appendChild(opElement);
                 }
             })
             .catch(error => {
@@ -104,7 +103,7 @@
     window.addEventListener("load", bistaratuFromPHP2(nuestraId));
 
     function actuGela() {
-        var id = document.getElementById("selector").value;
+        var id = document.getElementById("selectore").value;
         var izena = document.getElementById("izenaGelakEgu").value;
         var taldea = document.getElementById("taldeaGelakEgu").value;
         var clasea = {id,izena,taldea};
