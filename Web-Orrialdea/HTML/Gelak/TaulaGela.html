@@ -44,7 +44,9 @@
                     </div>
                     <div class="search">
                         <div class="elementos">
-                            <input class="texto" type="text" id="pass" name="nombre" >
+                            <select id="selector">
+
+                            </select>
                         </div>
                         <div class="submites">
                             <button>Search</button>                        
@@ -101,6 +103,12 @@
                     var trElement = document.createElement("tr");
                     trElement.innerHTML = tableRow;
                     document.getElementById("tabla").appendChild(trElement);
+
+                    var opcion="<option value='"+data[i].id+"'>"+data[i].izena+"</option>";
+                    var opElement = document.createElement("option");
+                    opElement.innerHTML = opcion;
+                    opElement.value = data[i].id;
+                    document.getElementById("selector").appendChild(opElement);
                 }
             })
             .catch(error => {
