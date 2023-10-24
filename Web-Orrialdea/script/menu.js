@@ -5,7 +5,13 @@ fetch('../Orokorra/Menu.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('menuMugikorra').innerHTML = data;
+                if (obtenerCookie().match("A")) {
+                    document.getElementById("menuErab").hidden = false
+                }else{
+                    document.getElementById("menuErab").hidden = true
+                }
             });
+
 
 function menuopenclose () {
     var menu = document.getElementById("menu")
@@ -37,4 +43,13 @@ function A () {
     }
 }
 
-
+function obtenerCookie() {
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.startsWith("AdminUser=")) {
+            return cookie.substring("AdminUser=".length, cookie.length);
+        }
+    }
+    return null;
+}
