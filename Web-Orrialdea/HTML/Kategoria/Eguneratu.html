@@ -1,42 +1,110 @@
 <!DOCTYPE html>
+<html>
     <head>
-        <script src="../../script/menu.js" ></script>s
         <meta charset="UTF-8">
+        <script src="../../script/menu.js"></script>
         <link rel="stylesheet" href="../../CSS/styles.css">
         <link rel="icon" href="../../IMG/LOGO.png" type="image/x-icon">
         <title>Kategoria Eguneratu</title>
     </head>
     <header>
-            <img class="logo" src="../../IMG/LOGO.png">
-            <p class="titulo">KATEGORIA EGUNERATU</p>
-            <div class="headerdiv">
-                <a href="Taula.html">
-                    <img class="headerimg" src="../../IMG/arrow.png">
-                </a>
-                <p>&nbsp;</p>
-                <a href="../../HTML/Orokorra/Login.html">
-                    <img class="headerimg" src="../../IMG/LogOut.png">
-                </a>
-            </div>
+        <img class="logo" src="../../IMG/LOGO.png">
+        <p id="titulo" class="titulo">KATEGORIA EGUNERATU</p>
+        <div class="headerdiv">
+            <a href="Taula.html">
+                <img class="headerimg" src="../../IMG/arrow.png">
+            </a>
+            <p>&nbsp;</p>
+            <a href="../../HTML/Orokorra/Login.html">
+                <img class="headerimg" src="../../IMG/LogOut.png">
+            </a>
+        </div>
     </header>
     <body>
         <div class="reborde">
-                <div class="custom-combobox">
-                    <select>
-                        <option value="opcion1">Opción 1</option>
-                        <option value="opcion2">Opción 2</option>
-                        <option value="opcion3">Opción 3</option>
-                        <option value="opcion4">Opción 4</option>
-                    </select>
-                </div>
-                <p class="texto1Columna">ID: </p>
-                <input class="textBox1Columna" type="text" id="IdKategoriaEguneratu" name="ID" >
-                <p class="texto1Columna">Izena: </p>
-                <input class="textBox1Columna" type="text" id="IzenaKategoriaEguneratu" name="Izena">
-                <div class="ck">
-                    <img src="../../IMG/unnamed.png" alt="check" class="checkicon">
-                </div>
+            <div class="custom-combobox">
+                <select id="selectore" onchange="cambiarClase()">
+                </select>
+            </div>
+            <p class="texto1Columna">Izena: </p>
+            <input class="textBox1Columna" type="text" id="izenaKategoriaEguneratu" name="Izena">
+            <div class="ck">
+                <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="actuKategoria()">
+            </div>
         </div>
     </body>
     <div id="menuMugikorra"></div>
+    <script>
+        var paramstr = window.location.search.substr(1);
+        var paramarr = paramstr.split("&");
+        var params = {};
+        var nuestraId = 0;
+
+        for (var i = 0; i < paramarr.length; i++) {
+            var tmparr = paramarr[i].split("=");
+            params[tmparr[0]] = tmparr[1];
+            nuestraId = tmparr[1];
+        }
+
+        async function bistaratuFromPHP2(idcls) {
+            let options = { method: "GET" };
+            fetch("https://localhost/php/Erronka_rep/Erronka1-Talde3/Web-Orrialdea/PHP/kategoriak_json.php?num=" + idcls + "", options)
+                .then(response => response.json())  // Analiza la respuesta JSON
+                .then(data => {
+                    document.getElementById("izenaKategoriaEguneratu").value = data[0].izena;
+                    document.getElementById("selectore").value = idcls;
+                    document.getElementById("titulo").innerText = data[0].izena + " Kategoria eguneratu";
+                })
+                .catch(error => {
+                    alert("Errorea." + error);
+                });
+        }
+
+        function cambiarClase() {
+            var idclase = document.getElementById("selectore").value;
+            bistaratuFromPHP2(idclase);
+            nuestraId = idclase;
+        }
+
+        async function bistaratuFromPHP() {
+            let options = { method: "GET" };
+            fetch("../../PHP/kategoriak_json.php", options)
+                .then(response => response.json())  // Analiza la respuesta JSON
+                .then(data => {
+                    for (let i = 0; i < data.length; i++) {
+                        if (data[i].id == nuestraId) {
+                            console.log("Entra " + nuestraId);
+                        }
+                        var opcion = "<option value='" + data[i].id + "'>" + data[i].izena + "</option>";
+                        var opElement = document.createElement("option");
+                        opElement.innerHTML = opcion;
+                        opElement.value = data[i].id;
+                        if (data[i].id == nuestraId) {
+                            opElement.selected = "selected";
+                        }
+                        document.getElementById("selectore").appendChild(opElement);
+                    }
+                })
+                .catch(error => {
+                    alert("Errorea." + error);
+                });
+        }
+
+        window.addEventListener("load", bistaratuFromPHP);
+        window.addEventListener("load", () => bistaratuFromPHP2(nuestraId));
+
+        function actuKategoria() {
+            var id = document.getElementById("selectore").value;
+            var izena = document.getElementById("izenaKategoriaEguneratu").value;
+            var kategoria = { id, izena };
+            var js = JSON.stringify(kategoria);
+            fetch('../../PHP/kategoriak_json.php', { method: 'PUSH', body: js })
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(data => {
+                    console.log(data);
+                });
+        }
+    </script>
 </html>
