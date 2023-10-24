@@ -1,17 +1,15 @@
-<!-- No chuta -->
-
 <?php
     include "db_konexioa.php";
 
     $db = new Datubasea ();
 
     class Erabiltzailea {
-        private $nan;
-        private $izena;
-        private $abizena;
-        private $erabiltzailea;
-        private $pasahitza;
-        private $rola;
+        public $nan;
+        public $izena;
+        public $abizena;
+        public $erabiltzailea;
+        public $pasahitza;
+        public $rola;
         
         public function __construct($nan, $izena, $abizena, $erabiltzailea, $pasahitza, $rola) {
             $this->nan = $nan;
@@ -55,13 +53,18 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"]=="GET"){
-        if (isset($_GET["ezabatu"])){
-            ezabatuErabiltzailea($_GET["nan"]);
-        }elseif (isset($_GET["aldatu"])){
-            eguneratuErabiltzailea($_GET["nan"], $_GET["izena"], $_GET["abizena"], $_GET["erabiltzailea"], $_GET["pasahitza"], $_GET["rola"]);
-        }elseif (isset($_GET["nan"])){
-            txertatuErabiltzailea( $_GET["nan"], $_GET["izena"], $_GET["abizena"], $_GET["erabiltzailea"], $_GET["pasahitza"], $_GET["rola"]);
-        }           
+        $json_data = json_decode(file_get_contents("php://input"), true);
+        if(isset($_GET["num"])){
+            $emaitzak = lortuErabiltzaileaById($_GET["num"]);
+        }else{
+
+        }
+    }elseif($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    }elseif($_SERVER["REQUEST_METHOD"] == "PUSH"){
+
+    }elseif($_SERVER["REQUEST_METHOD"] == "DELETE"){
+
     }
 
     function ezabatuErabiltzailea($nan) {
