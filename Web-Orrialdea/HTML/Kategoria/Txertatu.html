@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
     <head>
         <script src="../../script/menu.js" ></script>
         <meta charset="UTF-8">
@@ -21,15 +22,31 @@
     </header>
     <body>
         <div class="reborde">
-                <br>
-                <br>
-                <br>
-                <p class="texto1Columna">Izena: </p>
-                <input class="textBox1Columna" type="text" id="IzenaKategoriaTxertatu" name="Izena">
-                <div class="ck">
-                    <img src="../../IMG/unnamed.png" alt="check" class="checkicon">
-                </div>
+            <br>
+            <p class="texto1Columna">Izena: </p>
+            <input class="textBox1Columna" type="text" id="IzenaKategoriaTxertatu" name="Izena">
+            <div class="ck">
+                <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="createKategoria()">
+            </div>
         </div>
     </body>
     <div id="menuMugikorra"></div>
+    <script>
+        function createKategoria() {
+            var izena = document.getElementById("IzenaKategoriaTxertatu").value;
+            var kategoria = { izena };
+            var js = JSON.stringify(kategoria);
+            console.log(js);
+            fetch('../../PHP/kategoriak_json.php', { method: 'POST', body: js })
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(data=>{
+                    console.log(data);
+                })
+                // .catch(error => {
+                //     console.log("Errorea: " + error);
+                // });
+        }
+    </script>
 </html>

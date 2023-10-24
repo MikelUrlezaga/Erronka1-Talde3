@@ -35,7 +35,6 @@
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
             // Devolver datos JSON al front-end
             $json_data = json_decode(file_get_contents("php://input"), true);
-
             if(isset($_GET["num"])){
                 $emaitzak = lortuGelakById($_GET["num"]);
                 echo json_encode($emaitzak);
@@ -47,10 +46,8 @@
     } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Manejar solicitudes POST
         $json_data = json_decode(file_get_contents("php://input"), true);
-
                 $emaitzak = txertatuGela($json_data["izena"],$json_data["taldea"]);
                 echo json_encode("okai");
-
     } elseif ($_SERVER["REQUEST_METHOD"] == "PUSH") {
         $json_data = json_decode(file_get_contents("php://input"), true);
         // Realizar actualización de datos en la base de datos
@@ -59,7 +56,6 @@
             $izena = $json_data["izena"];
             $taldea = $json_data["taldea"];
             eguneratuGela($id, $izena, $taldea);
-
         }
     } elseif ($_SERVER["REQUEST_METHOD"] == "DELETE") {
         $json_data = json_decode(file_get_contents("php://input"), true);
