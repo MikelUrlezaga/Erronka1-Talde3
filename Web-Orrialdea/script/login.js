@@ -49,12 +49,14 @@ function loginComp() {
         })
         .then(data=>{
             console.log(data);
-            if (data.match("Erabiltzailea_eta_pasahitza_ondo_sartuta_daude")) {
-                window.location.href = "../../HTML/Orokorra/Home.html";
-            }else if(data.match("Erabiltzailea_eta_pasahitza_txarto_sartuta_daude")){
+            var myArray=data.split(",");
+            if (myArray[0].match("Erabiltzailea_eta_pasahitza_ondo_sartuta_daude")) {
+                window.location.href = "";
+                window.location="../../HTML/Orokorra/Home.html?tip="+myArray[1]+"";
+            }else if(myArray[0].match("Erabiltzailea_eta_pasahitza_txarto_sartuta_daude")){
                 document.getElementById("mal").removeAttribute("hidden")
                 document.getElementById("mal").innerHTML = "Pasahitza_txarto_sartuta_dago"
-            }else if(data.match("Erabiltzailea_ez_da_existitzen")){
+            }else if(myArray[0].match("Erabiltzailea_ez_da_existitzen")){
                 document.getElementById("mal").removeAttribute("hidden")
                 document.getElementById("mal").innerHTML = "Erabiltzailea_ez_da_existitzen"
             }
