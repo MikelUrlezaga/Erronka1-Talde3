@@ -39,6 +39,11 @@
             return $this->pasahitza;
         }
 
+        public function getRola(){
+            return $this->rola;
+        }
+
+
         // public function getRola(){
         //     return $this->rola;
         // }
@@ -76,7 +81,8 @@
                     // Erabiltzailea eta pasahitza zuzenak dira
                     // echo "Sesioan sartu zara.";
                     // return true;
-                    echo json_encode("Erabiltzailea_eta_pasahitza_ondo_sartuta_daude");
+                    $rol=$erabiltzaile->getRola();
+                    echo json_encode("Erabiltzailea_eta_pasahitza_ondo_sartuta_daude,".$rol.",");
                 } else {
                     // Pasahitza okerra
                     // echo "Pasahitza okerra.";
