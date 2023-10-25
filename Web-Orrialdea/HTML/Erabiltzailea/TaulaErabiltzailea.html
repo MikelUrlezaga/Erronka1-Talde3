@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../../script/menu.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../CSS/styles.css">
+    <link rel="icon" href="../../IMG/LOGO.png" type="image/x-icon">
+    <title>Home</title>
+    <header>
+        <img class="logo" src="../../IMG/LOGO.png">
+        <p class="titulo">ERABILTZAILEA</p>
+        <div class="headerdiv">
+            <a href="../../HTML/Orokorra/Home.html">
+                <img class="headerimg" src="../../IMG/arrow.png">
+            </a>
+            <p>&nbsp;</p>
+            <a href="../../HTML/Orokorra/Login.html">
+                <img class="headerimg" src="../../IMG/LogOut.png">
+            </a>
+        </div>
+    </header>
+</head>
+
+<div class="reborde">
+    <body>
+        <div class="all">
+            <div class="up">
+                <div class="botones">
+                    <div class="elementos">
+                        <div class="boto">
+                            <img src="../../IMG/edit.png" id="botonedit" onclick="editaErabiltzailea()">
+                            <img src="../../IMG/mas.png" onclick="txertatuErabiltzailea()">
+                            <img src="../../IMG/borrar.png" onclick="checkZiur();">
+                        </div>
+                    </div>
+                    <div class="submites">
+                        <!-- <div class="botonsubmit">
+                            <button onclick="lortuCheck();">Submit</button>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="search">
+                    <div class="elementos">
+                        <select id="selector">
+                            <option>Elige una opción</option>
+                        </select>
+                    </div>
+                    <div class="submites">
+                        <button>Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tablachula">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="background-color:#606175; width: 3vh;"></th>
+                            <th>NAN</th>
+                            <th>Izena</th>
+                            <th>Abizena</th>
+                            <th>Erabiltzailea</th>
+                            <th>Rola</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla">
+                        <!-- Datos se cargarán aquí -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</div>
+<div id="menuMugikorra"></div>
+</html>
+
+<script>
+    async function bistaratuFromPHP() {
+        let options = {
+            method: "GET",
+            mode: 'cors'
+        };
+        const da = null;
+        fetch("../../PHP/erabiltzailea_json.php", options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+                console.log(data);
+                console.log(data.length);
+                for (i = 0; i < data.length; i++) {
+                    var tableRow = "<tr></tr>";
+                    tableRow = tableRow.substring(0, tableRow.length - 5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" +
+                        data[i].nan + "'>" + "</td>" + tableRow.substring(tableRow.length - 5) + "<td>" + data[i].nan + "</td>" +
+                        tableRow.substring(tableRow.length - 5) + "<td>" + data[i].izena + "</td>" +
+                        tableRow.substring(tableRow.length - 5) + "<td>" + data[i].abizena + "</td>" +
+                        tableRow.substring(tableRow.length - 5) + "<td>" + data[i].erabiltzailea + "</td>" +
+                        tableRow.substring(tableRow.length - 5) + "<td>" + data[i].rola + "</td>";
+                    var trElement = document.createElement("tr");
+                    trElement.innerHTML = tableRow;
+                    document.getElementById("tabla").appendChild(trElement);
+                    var opElement = document.createElement("option");
+                    opElement.value = data[i].nan;
+                    opElement.innerText = data[i].izena;
+                    document.getElementById("selector").appendChild(opElement);
+                }
+            })
+            .catch(error => {
+                alert("Errorea." + error);
+            });
+    }
+    window.addEventListener("load", bistaratuFromPHP);
+
+    function lortuCheck() {
+        var checkboxes = document.querySelectorAll('input[name="c"]:checked');
+        var nans = [];
+        checkboxes.forEach(function (checkbox) {
+            nans.push(checkbox.id);
+        });
+        return nans;
+    }
+
+    function bloquearEdit() {
+        var nans = lortuCheck();
+        if (nans.length > 1) {
+            document.getElementById("botonedit").style.visibility = "hidden";
+        } else {
+            document.getElementById("botonedit").style.visibility = "visible";
+        }
+    }
+
+    function checkZiur() {
+        if (confirm("Ziur zaude hau ezabatu nahi duzula?")) {
+            deleteErabiltzailea();
+        } else {}
+    }
+
+    function deleteErabiltzailea() {
+        let nans = lortuCheck();
+        let js = JSON.stringify(nans);
+        fetch('../../PHP/erabiltzailea_json.php', { method: 'DELETE', body: js })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                if (data.match("Fatal error")) {
+                    alert("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu");
+                }
+            });
+    }
+
+    function editaErabiltzailea() {
+        let nans = lortuCheck();
+        let nan = nans[0];
+        window.location = "Eguneratu.html?nan=" + nan;
+    }
+
+    function txertatuErabiltzailea() {
+        window.location = "Txertatu.html";
+    }
+</script>
