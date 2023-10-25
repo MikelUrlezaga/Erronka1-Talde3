@@ -64,7 +64,7 @@
         exit;
     }elseif($_SERVER["REQUEST_METHOD"] == "POST"){
         $json_data = json_decode(file_get_contents("php://input"), true);
-        $emaitzak = txertatuErabiltzailea($json_data["izena"]);
+        $emaitzak = txertatuErabiltzailea($json_data["nan"], $json_data["izena"], $json_data["abizena"], $json_data["erabiltzailea"], $json_data["pasahitza"], $json_data["rola"]);
         echo json_decode("okai");
     }elseif($_SERVER["REQUEST_METHOD"] == "PUSH"){
         $json_data = json_decode(file_get_contents("php://input"), true);
@@ -82,7 +82,7 @@
         $json_data = json_decode(file_get_contents("php://input"), true);
         if(isset($json_data)){
             $nan = $json_data;
-            foreach($is as $value){
+            foreach($nan as $value){
                 ezabatuErabiltzailea($value);
             }
             echo "okey";

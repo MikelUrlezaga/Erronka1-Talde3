@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="ck">
-                <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="actuGela()">
+                <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="actuErabiltzailea()">
             </div>
     </body>
     <div id="menuMugikorra"></div>
@@ -69,22 +69,21 @@
         }
 
         function aldatuErabiltzaile() {
-            var NanUsuario = document.getElementByNan("selectore").value;
+            var NanUsuario = document.getElementById("selectore").value;
             gureNan = NanUsuario;
-            cargarDatosUsuario(NanUsuario);
+            cargarDatosUsuario(gureNan);
         }
 
-        window.addEventListener("load", function () {
-            cargarOpcionesSelectUsuarios();
-            document.getElementByNan("selectore").value = gureNan;
-        });
+        window.addEventListener("load", cargarOpcionesSelectUsuarios);
+        window.addEventListener("load", cargarDatosUsuario(gureNan));
+
 
         async function cargarOpcionesSelectUsuarios() {
         let options = {method: "GET"};
         fetch("../../PHP/erabiltzailea_json.php", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
-     
+                console.log(data);
                 for (let i = 0; i < data.length; i++) {
                     console.log(gureNan);
                     if(data[i].nan==gureNan){
@@ -104,28 +103,49 @@
             .catch(error => {
                 alert("Errorea." + error);
             });
-    }
+        }
 
-        async function cargarDatosUsuario(NanUsuario) {
-        console.log("Ha entrado")
-        let options = {method: "GET"};
-        fetch("https://localhost/php/Erronka_rep/Erronka1-Talde3/Web-Orrialdea/PHP/erabiltzailea_json.php?num="+gureNan+"", options)
-            .then(response => response.json())  // Analiza la respuesta JSON
-            .then(data => {
-                console.log(data);
-                console.log(data.length);
-                document.getElementById("nanEraEgu").value=data[0].nan;
-                document.getElementById("izenaEraEgu").value=data[0].izena;
-                document.getElementById("abizenaEraEgu").value=data[0].abizena;
-                document.getElementById("erabiltzaileaEraEgu").value=data[0].erabiltzailea;
-                document.getElementById("pasahitzaEraEgu").value=data[0].pasahitza;
-                document.getElementById("rolaEraEgu").value=data[0].rola;
-                document.getElementById("selectore").value=gureNan;
-                document.getElementById("titulo").innerText= data[0].izena + " Erabiltzailea eguneratu";
-            })
-            .catch(error => {
-                alert("Errorea." + error);
-            });
-    }
+        function cargarDatosUsuario(gureNan) {
+            console.log("Ha entrado")
+            let options = {method: "GET"};
+            fetch("https://localhost/php/Erronka_rep/Erronka1-Talde3/Web-Orrialdea/PHP/erabiltzailea_json.php?num="+gureNan+"", options)
+                .then(response => response.json())  // Analiza la respuesta JSON
+                .then(data => {
+                    console.log(data + " jhhhjh");
+                    console.log(data.length);
+                    document.getElementById("nanEraEgu").value=data[0].nan;
+                    document.getElementById("izenaEraEgu").value=data[0].izena;
+                    document.getElementById("abizenaEraEgu").value=data[0].abizena;
+                    document.getElementById("erabiltzaileaEraEgu").value=data[0].erabiltzailea;
+                    document.getElementById("pasahitzaEraEgu").value=data[0].pasahitza;
+                    document.getElementById("rolaEraEgu").value=data[0].rola;
+                    document.getElementById("selectore").value=gureNan;
+                    document.getElementById("titulo").innerText= data[0].izena + " Erabiltzailea eguneratu";
+                })
+                .catch(error => {
+                    alert("Errorea." + error);
+                });
+
+        }
+
+
+        function actuErabiltzailea() {
+            var nan = document.getElementById("selectore").value;
+            var izena = document.getElementById("izenaEraEgu").value;
+            var abizena = document.getElementById("abizenaEraEgu").value;
+            var erabiltzailea = document.getElementById("erabiltzaileaEraEgu").value;
+            var pasahitza = document.getElementById("pasahitzaEraEgu").value;
+            var rola = document.getElementById("rolaEraEgu").value;
+            var erabil = { nan, izena, abizena, erabiltzailea, pasahitza, rola };
+            var js = JSON.stringify(erabil);
+            fetch('../../PHP/erabiltzailea_json.php', { method: 'PUSH', body: js })
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(data => {
+                    console.log(data);
+                });
+        }
+    
     </script>
 </html>
