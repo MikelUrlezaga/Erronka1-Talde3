@@ -1,6 +1,11 @@
 *{
     margin: 0;
 }
+
+img:hover{
+    cursor: pointer;
+}
+
 html {
     font-family: "Collection", sans-serif;
     background-color: #CBCCF7; 
