@@ -59,6 +59,30 @@
     <div id="menuMugikorra"></div>
 </html>
 <script>
+    
+    function cargarKatego(){
+        let options = {
+            method: "GET",
+            mode: 'cors'
+        };
+        fetch("../../PHP/kategoriak_json.php", options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+                alert("A");
+                console.log(data);
+                console.log(data.length);
+                for (i = 0; i < data.length; i++) {
+                    var opElement = document.createElement("option");
+                    opElement.value = data[i].id;
+                    opElement.innerText = data[i].izena;
+                    document.getElementById("selectore").appendChild(opElement);
+                }
+            })
+            .catch(error => {
+                alert("Errorea." + error);
+            });
+    }
+    window.addEventListener("load", cargarKatego);
     function createErabiltzailea() {
         var izena = document.getElementById("izenaEkipamenduaTxertatu").value;
         var marka = document.getElementById("markaEkipamenduaTxertatu").value;
@@ -82,20 +106,5 @@
             // });
     }
     
-    fetch("../../PHP/kategoriak_json.php", options)
-            .then(response => response.json())  // Analiza la respuesta JSON
-            .then(data => {
-                alert("A");
-                console.log(data);
-                console.log(data.length);
-                for (i = 0; i < data.length; i++) {
-                    var opElement = document.createElement("option");
-                    opElement.value = data[i].id;
-                    opElement.innerText = data[i].izena;
-                    document.getElementById("selectore").appendChild(opElement);
-                }
-            })
-            .catch(error => {
-                alert("Errorea." + error);
-            });
+    
 </script>
