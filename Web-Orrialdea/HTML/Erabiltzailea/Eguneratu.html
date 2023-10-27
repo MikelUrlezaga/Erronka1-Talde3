@@ -108,7 +108,7 @@
         function cargarDatosUsuario(gureNan) {
             console.log("Ha entrado")
             let options = {method: "GET"};
-            fetch("https://localhost/php/Erronka_rep/Erronka1-Talde3/Web-Orrialdea/PHP/erabiltzailea_json.php?num="+gureNan+"", options)
+            fetch("../../PHP/erabiltzailea_json.php?num="+gureNan+"", options)
                 .then(response => response.json())  // Analiza la respuesta JSON
                 .then(data => {
                     console.log(data + " jhhhjh");

@@ -51,7 +51,7 @@ function loginComp() {
             console.log(data);
             var myArray=data.split(",");
             if (myArray[0].match("Erabiltzailea_eta_pasahitza_ondo_sartuta_daude")) {
-                window.location ="../../HTML/Orokorra/Home.html?tip="+myArray[1]+"";
+                window.location ="../../HTML/Orokorra/Home.html";
                 document.cookie = "AdminUser=" + myArray[1] + "; path=/";
             }else if(myArray[0].match("Erabiltzailea_eta_pasahitza_txarto_sartuta_daude")){
                 document.getElementById("mal").removeAttribute("hidden")

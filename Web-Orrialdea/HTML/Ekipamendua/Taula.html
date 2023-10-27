@@ -8,7 +8,7 @@
         <title>Home</title>
         <header> 
                 <img class="logo" src="../../IMG/LOGO.png">
-                <p class="titulo">GELA</p>
+                <p class="titulo">EKIPAMENDUA</p>
 
                 <div class="headerdiv">
                     <a href="../../HTML/Orokorra/Home.html">
@@ -44,7 +44,7 @@
                     </div>
                     <div class="search">
                         <div class="elementos">
-                            <select id="selector" onchange="aldatuGela()">
+                            <select id="selector" onchange="aldatuEkipamendua()">
                                 <option value="Nada">Elige una opcion</option>
                             </select>
                         </div>
@@ -60,18 +60,15 @@
                         <thead>
                             <tr>
                                 <th style="background-color:#606175; width: 3vh;"></th>
-                                <th>ID</th>
                                 <th>Izena</th>
-                                <th>Taldea</th>
+                                <th>Deskribapena</th>
+                                <th>Marka</th>
+                                <th>Modelo</th>
+                                <th>Stock</th>
+                                <th>Kategoria</th>
                             </tr>
                         </thead>
                         <tbody id="tabla" >
-                            <tr>
-                                <td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='1'></td>
-                                <td>1</td>
-                                <td>asdasd</td>
-                                <td>asdasd</td>
-                            </tr>
                         </tbody>  
                     </table>
                 </div>
@@ -88,7 +85,7 @@
     async function bistaratuFromPHP() {
         let options = {method: "GET", mode: 'cors'};
         const da = null;
-        fetch("../../PHP/gelak_json.php", options)
+        fetch("../../PHP/ekipamendua.php", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
@@ -96,9 +93,10 @@
                 for(i=0; i < data.length; i++){
                     var tableRow="<tr></tr>";
                     tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                    data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].id + "</td>" +
-                    tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" 
-                    + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].taldea + "</td>";
+                    data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" +
+                    tableRow.substring(tableRow.length-5) + "<td>" + data[i].deskribapena + "</td>" 
+                    + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].marka + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].modelo + "</td>"
+                    + tableRow.substring(tableRow.length-5) + "<td>" + data[i].stock + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].idKategoria + "</td>";
 
                     var trElement = document.createElement("tr");
                     trElement.innerHTML = tableRow;
@@ -176,34 +174,37 @@
         window.location="Txertatu.html";
     }
 
-    function aldatuGela(){
-        var idclase = document.getElementById("selector").value;
-        if(idclase.match("Nada")){
+    function aldatuEkipamendua(){
+        var ide = document.getElementById("selector").value;
+        if(ide.match("Nada")){
             bistaratuFromPHP();
         }else{
-            bistaratuFromPHP2(idclase);
+            bistaratuFromPHP2(ide);
         }
     }
 
-    function bistaratuFromPHP2(gureNan) {
+    function bistaratuFromPHP2(gureId) {
             console.log("Ha entrado")
+            console.log(gureId)
             let options = {method: "GET"};
-            fetch("../../PHP/gelak_json.php?num="+gureNan+"", options)
+            fetch("../../PHP/ekipamendua.php?num="+gureId+"", options)
                 .then(response => response.json())  // Analiza la respuesta JSON
                 .then(data => {
                     console.log(data);
                     console.log(data.length);
                     document.getElementById("tabla").innerHTML="";
                     for(i=0; i < data.length; i++){
-                            var tableRow="<tr></tr>";
-                            tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                            data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].id + "</td>" +
-                            tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" 
-                            + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].taldea + "</td>";
+                        var tableRow="<tr></tr>";
+                    tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
+                    data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" +
+                    tableRow.substring(tableRow.length-5) + "<td>" + data[i].deskribapena + "</td>" 
+                    + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].marka + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].modelo + "</td>"
+                    + tableRow.substring(tableRow.length-5) + "<td>" + data[i].stock + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].idKategoria + "</td>";
 
-                            var trElement = document.createElement("tr");
-                            trElement.innerHTML = tableRow;
-                            document.getElementById("tabla").appendChild(trElement);
+                    var trElement = document.createElement("tr");
+                    trElement.innerHTML = tableRow;
+                    document.getElementById("tabla").appendChild(trElement);
+
 
                         }
                 })
@@ -212,5 +213,4 @@
                 });
 
         }
-
 </script>

@@ -1,18 +1,16 @@
-<!-- No chuta -->
-
 <?php
     include "db_konexioa.php";
 
     $db = new Datubasea ();
 
     class Ekipamendua {
-        private $id;
-        private $izena;
-        private $deskribapena;
-        private $marka;
-        private $modelo;
-        private $stock;
-        private $idKategoria;
+        public $id;
+        public $izena;
+        public $deskribapena;
+        public $marka;
+        public $modelo;
+        public $stock;
+        public $idKategoria;
         
         public function __construct($id, $izena, $deskribapena, $marka, $modelo, $stock, $idKategoria) {
             $this->id = $id;
@@ -60,7 +58,7 @@
         }
     }
 
-    if ($_SERVER["REQUEST_METHOD"]=="GET"){
+    /* if ($_SERVER["REQUEST_METHOD"]=="GET"){
         if (isset($_GET["ezabatu"])){
             ezabatuEkipamendua($_GET["id"]);
         }elseif (isset($_GET["aldatu"])){
@@ -68,7 +66,53 @@
         }elseif (isset($_GET["id"])){
             txertatuEkipamendua( $_GET["id"], $_GET["izena"], $_GET["deskribapena"], $_GET["marka"], $_GET["modelo"], $_GET["stock"], $_GET["idKategoria"]);
         }           
+    } */
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+    if ($_SERVER["REQUEST_METHOD"]=="GET"){
+        $json_data = json_decode(file_get_contents("php://input"), true);
+        if(isset($_GET["num"])){
+            $emaitzak = lortuEkipamenduaById($_GET["num"]);
+            echo json_encode($emaitzak);
+        }else{
+            $emaitzak = lortuEkipamendua();
+            echo json_encode($emaitzak);
+        }
+        exit;
     }
+    //elseif($_SERVER["REQUEST_METHOD"] == "POST"){
+    //     $json_data = json_decode(file_get_contents("php://input"), true);
+    //     $emaitzak = txertatuErabiltzailea($json_data["nan"], $json_data["izena"], $json_data["abizena"], $json_data["erabiltzailea"], $json_data["pasahitza"], $json_data["rola"]);
+    //     echo json_decode("okai");
+    // }elseif($_SERVER["REQUEST_METHOD"] == "PUSH"){
+    //     $json_data = json_decode(file_get_contents("php://input"), true);
+    //     if(isset($json_data["nan"], $json_data["izena"], $json_data["abizena"], $json_data["erabiltzailea"], $json_data["pasahitza"], $json_data["rola"])){
+    //         $nan = $json_data["nan"];
+    //         $izena = $json_data["izena"];
+    //         $abizena = $json_data["abizena"];
+    //         $erabiltzailea = $json_data["erabiltzailea"];
+    //         $pasahitza = $json_data["pasahitza"];
+    //         $rola = $json_data["rola"];
+
+    //         eguneratuErabiltzailea($nan, $izena, $abizena, $erabiltzailea, $pasahitza, $rola);
+    //     }
+    // }elseif($_SERVER["REQUEST_METHOD"] == "DELETE"){
+    //     $json_data = json_decode(file_get_contents("php://input"), true);
+    //     if(isset($json_data)){
+    //         $nan = $json_data;
+    //         foreach($nan as $value){
+    //             ezabatuErabiltzailea($value);
+    //         }
+    //         echo "okey";
+    //     }
+    // }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
     function ezabatuEkipamendua($id) {
         global $db;
@@ -90,17 +134,30 @@
 
     function lortuEkipamendua() {
         global $db;
-        $emaitzak = $db->datuakLortu("SELECT * FROM ekipamendua");
+        $emaitzak = $db->datuakLortu("SELECT E.*, K.izena as kategoriaIzena  FROM ekipamendua E, kategoria K WHERE E.idKategoria = K.id");
         $ekipamendua = array();
         if (is_object($emaitzak)) {
             while ($row = $emaitzak->fetch_assoc()) {
-                $ekipamendua[] = new Ekipamendua($row["id"], $row["izena"], $row["deskribapena"], $row["marka"],  $row["modelo"], $row["stock"], $row["idKategoria"]);
+                $ekipamendua[] = new Ekipamendua($row["id"], $row["izena"], $row["deskribapena"], $row["marka"],  $row["modelo"], $row["stock"], $row["kategoriaIzena"]);
             }
             return $ekipamendua;
         }else{
             //echo "".$emaitzak;
         }
         
+    }
+    function lortuEkipamenduaById($id) {
+        global $db;
+        $emaitzak = $db->datuakLortu("SELECT E.*, K.izena as kategoriaIzena  FROM ekipamendua E, kategoria K WHERE E.id = '$id' AND E.idKategoria = K.id");
+        $ekipamendua = array();
+        if (is_object($emaitzak)) {
+            while ($row = $emaitzak->fetch_assoc()) {
+                $ekipamendua[] = new Ekipamendua($row["id"], $row["izena"], $row["deskribapena"], $row["marka"],  $row["modelo"], $row["stock"], $row["kategoriaIzena"]);
+            }
+            return $ekipamendua;
+        }else{
+            //echo "".$emaitzak;
+        }
     }
 ?>
 

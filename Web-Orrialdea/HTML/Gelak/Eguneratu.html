@@ -54,7 +54,7 @@
     async function bistaratuFromPHP2(idcls) {
         console.log("Ha entrado")
         let options = {method: "GET"};
-        fetch("https://localhost/php/Erronka_rep/Erronka1-Talde3/Web-Orrialdea/PHP/gelak_json.php?num="+idcls+"", options)
+        fetch("../../PHP/gelak_json.php?num="+idcls+"", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
