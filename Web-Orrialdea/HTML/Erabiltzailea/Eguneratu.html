@@ -1,53 +1,151 @@
 <!DOCTYPE html>
+<html>
     <head>
-        <script src="../../script/menu.js" ></script>
         <meta charset="UTF-8">
+        <script src="../../script/menu.js"></script>
         <link rel="stylesheet" href="../../CSS/styles.css">
         <link rel="icon" href="../../IMG/LOGO.png" type="image/x-icon">
         <title>Erabiltzailea Eguneratu</title>
     </head>
-    <header>
-            <img class="logo" src="../../IMG/LOGO.png">
-            <p class="titulo">ERABILTZAILEA EGUNERATU</p>
-    </header>
     <body>
+        <header>
+            <img class="logo" src="../../IMG/LOGO.png" alt="Logo">
+            <p class="titulo">ERABILTZAILEA EGUNERATU</p>
+            <div class="headerdiv">
+                <a href="Taula.html">
+                    <img class="headerimg" src="../../IMG/arrow.png">
+                </a>
+                <p>&nbsp;</p>
+                <a href="../../HTML/Orokorra/Login.html">
+                    <img class="headerimg" src="../../IMG/LogOut.png" alt="Logout">
+                </a>
+            </div>
+        </header>
         <div class="reborde">
-                <div class="custom-combobox">
-                    <select>
-                        <option value="opcion1">Opción 1</option>
-                        <option value="opcion2">Opción 2</option>
-                        <option value="opcion3">Opción 3</option>
-                        <option value="opcion4">Opción 4</option>
-                    </select>
+            <select id="selectore" onchange="aldatuErabiltzaile()">
+                <!-- Opciones se cargarán dinámicamente -->
+            </select>
+            <div class="dobleColumn">
+                <div>
+                    <p class="texto">NAN: </p>
+                    <input class="textBox" type="text" id="nanEraEgu" name="NAN">
                 </div>
-                <br><br><br><br>
-                <div class="dobleColumn">
-                    <div>
-                        <p class="texto">Nan: </p>
-                        <input class="textBox" type="text" id="nanErabiltzaileaEguneratu" name="NAN" >
-                    </div>
-                    <div>
-                        <p class="texto">Erabiltzailea: </p>
-                        <input class="textBox" type="text" id="erabiltzaileaErabiltzaileaEguneratu" name="Erabiltzailea">
-                    </div>
-                    <div>
-                        <p class="texto">Izena: </p>
-                        <input class="textBox" type="text" id="izenaErabiltzaileaEguneratu" name="Izena">
-                    </div>
-                    <div>
-                        <p class="texto">Pasahitza: </p>
-                        <input class="textBox" type="text" id="pasahitzaErabiltzaileaEguneratu" name="Pasahitza" >
-                    </div>
-                    <div>
-                        <p class="texto">Abizena: </p>
-                        <input class="textBox" type="text" id="abizenaErabiltzaileaEguneratu" name="Abizena">
-                    </div>
-                    <div>
-                        <p class="texto">Rola: </p>
-                        <input class="textBox" type="text" id="rolaErabiltzaileaEguneratu" name="Rola">
-                    </div>
+                <div>
+                    <p class="texto">Izena: </p>
+                    <input class="textBox" type="text" id="izenaEraEgu" name="Izena">
                 </div>
-        </div>
+                <div>
+                    <p class="texto">Abizena: </p>
+                    <input class="textBox" type="text" id="abizenaEraEgu" name="Abizena">
+                </div>
+                <div>
+                    <p class="texto">Erabiltzailea: </p>
+                    <input class="textBox" type="text" id="erabiltzaileaEraEgu" name="Erabiltzailea">
+                </div>
+                <div>
+                    <p class="texto">Pasahitza: </p>
+                    <input class="textBox" type="text" id="pasahitzaEraEgu" name="Pasahitza">
+                </div>
+                <div>
+                    <p class="texto">Rola: </p>
+                    <input class="textBox" type="text" id="rolaEraEgu" name="Rola">
+                </div>
+            </div>
+            <div class="ck">
+                <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="actuErabiltzailea()">
+            </div>
     </body>
     <div id="menuMugikorra"></div>
+    <script>
+        var paramstr = window.location.search.substr(1);
+        var paramarr = paramstr.split("&");
+        var params = {};
+        var gureNan = 0;
+
+        for (var i = 0; i < paramarr.length; i++) {
+            var tmparr = paramarr[i].split("=");
+            params[tmparr[0]] = tmparr[1];
+            gureNan = tmparr[1];
+        }
+
+        function aldatuErabiltzaile() {
+            var NanUsuario = document.getElementById("selectore").value;
+            gureNan = NanUsuario;
+            cargarDatosUsuario(gureNan);
+        }
+
+        window.addEventListener("load", cargarOpcionesSelectUsuarios);
+        window.addEventListener("load", cargarDatosUsuario(gureNan));
+
+
+        async function cargarOpcionesSelectUsuarios() {
+        let options = {method: "GET"};
+        fetch("../../PHP/erabiltzailea_json.php", options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+                console.log(data);
+                for (let i = 0; i < data.length; i++) {
+                    console.log(gureNan);
+                    if(data[i].nan==gureNan){
+                        console.log("Entra "+gureNan);
+                    }
+                    var opcion="<option value='"+data[i].nan+"'>"+data[i].izena+"</option>";
+                    var opElement = document.createElement("option");
+                    opElement.innerHTML = opcion;
+                    opElement.value = data[i].nan;
+                    if(data[i].nan==gureNan){
+                        opElement.selected="selected";
+                    }
+                    
+                    document.getElementById("selectore").appendChild(opElement);
+                }
+            })
+            .catch(error => {
+                alert("Errorea." + error);
+            });
+        }
+
+        function cargarDatosUsuario(gureNan) {
+            console.log("Ha entrado")
+            let options = {method: "GET"};
+            fetch("https://localhost/php/Erronka_rep/Erronka1-Talde3/Web-Orrialdea/PHP/erabiltzailea_json.php?num="+gureNan+"", options)
+                .then(response => response.json())  // Analiza la respuesta JSON
+                .then(data => {
+                    console.log(data + " jhhhjh");
+                    console.log(data.length);
+                    document.getElementById("nanEraEgu").value=data[0].nan;
+                    document.getElementById("izenaEraEgu").value=data[0].izena;
+                    document.getElementById("abizenaEraEgu").value=data[0].abizena;
+                    document.getElementById("erabiltzaileaEraEgu").value=data[0].erabiltzailea;
+                    document.getElementById("pasahitzaEraEgu").value=data[0].pasahitza;
+                    document.getElementById("rolaEraEgu").value=data[0].rola;
+                    document.getElementById("selectore").value=gureNan;
+                    document.getElementById("titulo").innerText= data[0].izena + " Erabiltzailea eguneratu";
+                })
+                .catch(error => {
+                    alert("Errorea." + error);
+                });
+
+        }
+
+
+        function actuErabiltzailea() {
+            var nan = document.getElementById("selectore").value;
+            var izena = document.getElementById("izenaEraEgu").value;
+            var abizena = document.getElementById("abizenaEraEgu").value;
+            var erabiltzailea = document.getElementById("erabiltzaileaEraEgu").value;
+            var pasahitza = document.getElementById("pasahitzaEraEgu").value;
+            var rola = document.getElementById("rolaEraEgu").value;
+            var erabil = { nan, izena, abizena, erabiltzailea, pasahitza, rola };
+            var js = JSON.stringify(erabil);
+            fetch('../../PHP/erabiltzailea_json.php', { method: 'PUSH', body: js })
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(data => {
+                    console.log(data);
+                });
+        }
+    
+    </script>
 </html>

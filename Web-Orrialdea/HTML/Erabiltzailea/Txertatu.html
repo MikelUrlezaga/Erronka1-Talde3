@@ -9,6 +9,15 @@
     <header>
             <img class="logo" src="../../IMG/LOGO.png">
             <p class="titulo">ERABILTZAILEA TXERTATU</p>
+            <div class="headerdiv">
+                <a href="Taula.html">
+                    <img class="headerimg" src="../../IMG/arrow.png">
+                </a>
+                <p>&nbsp;</p>
+                <a href="../../HTML/Orokorra/Login.html">
+                    <img class="headerimg" src="../../IMG/LogOut.png">
+                </a>
+            </div>
     </header>
     <body>
         <div class="reborde">
@@ -19,27 +28,54 @@
                         <input class="textBox" type="text" id="nanErabiltzaileaTxertatu" name="NAN" >
                     </div>
                     <div>
-                        <p class="texto">Erabiltzailea: </p>
-                        <input class="textBox" type="text" id="erabiltzaileaErabiltzaileaTxertatu" name="Erabiltzailea">
-                    </div>
-                    <div>
                         <p class="texto">Izena: </p>
                         <input class="textBox" type="text" id="izenaErabiltzaileaTxertatu" name="Izena">
-                    </div>
-                    <div>
-                        <p class="texto">Pasahitza: </p>
-                        <input class="textBox" type="text" id="pasahitzaErabiltzaileaTxertatu" name="Pasahitza" >
                     </div>
                     <div>
                         <p class="texto">Abizena: </p>
                         <input class="textBox" type="text" id="abizenaErabiltzaileaTxertatu" name="Abizena">
                     </div>
                     <div>
+                        <p class="texto">Erabiltzailea: </p>
+                        <input class="textBox" type="text" id="erabiltzaileaErabiltzaileaTxertatu" name="Erabiltzailea">
+                    </div>
+                    <div>
+                        <p class="texto">Pasahitza: </p>
+                        <input class="textBox" type="text" id="pasahitzaErabiltzaileaTxertatu" name="Pasahitza" >
+                    </div>
+                    <div>
                         <p class="texto">Rola: </p>
                         <input class="textBox" type="text" id="rolaErabiltzaileaTxertatu" name="Rola">
+                    </div>
+                    <div class="ck">
+                        <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="createErabiltzailea()">
                     </div>
                 </div>
         </div>
     </body>
     <div id="menuMugikorra"></div>
 </html>
+<script>
+    function createErabiltzailea() {
+        var nan = document.getElementById("nanErabiltzaileaTxertatu").value;
+        var izena = document.getElementById("izenaErabiltzaileaTxertatu").value;
+        var abizena = document.getElementById("abizenaErabiltzaileaTxertatu").value;
+        var erabiltzailea = document.getElementById("erabiltzaileaErabiltzaileaTxertatu").value;
+        var pasahitza = document.getElementById("pasahitzaErabiltzaileaTxertatu").value;
+        var rola = document.getElementById("rolaErabiltzaileaTxertatu").value;
+        var clasea = {nan, izena, abizena, erabiltzailea, pasahitza, rola};
+        var js = JSON.stringify(clasea);
+        console.log(js);
+        fetch('../../PHP/erabiltzailea_json.php', {method: 'POST', body: js})
+            .then(function (response) {
+                    return response.text();
+            })
+            .then(data=>{
+                console.log(data);
+                
+            })
+            // .catch(error => {
+            //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+            // });
+}
+</script>

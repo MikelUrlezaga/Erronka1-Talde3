@@ -56,15 +56,37 @@
         $json_data = json_decode(file_get_contents("php://input"), true);
         if(isset($_GET["num"])){
             $emaitzak = lortuErabiltzaileaById($_GET["num"]);
+            echo json_encode($emaitzak);
         }else{
-
+            $emaitzak = lortuErabiltzailea();
+            echo json_encode($emaitzak);
         }
+        exit;
     }elseif($_SERVER["REQUEST_METHOD"] == "POST"){
-
+        $json_data = json_decode(file_get_contents("php://input"), true);
+        $emaitzak = txertatuErabiltzailea($json_data["nan"], $json_data["izena"], $json_data["abizena"], $json_data["erabiltzailea"], $json_data["pasahitza"], $json_data["rola"]);
+        echo json_decode("okai");
     }elseif($_SERVER["REQUEST_METHOD"] == "PUSH"){
+        $json_data = json_decode(file_get_contents("php://input"), true);
+        if(isset($json_data["nan"], $json_data["izena"], $json_data["abizena"], $json_data["erabiltzailea"], $json_data["pasahitza"], $json_data["rola"])){
+            $nan = $json_data["nan"];
+            $izena = $json_data["izena"];
+            $abizena = $json_data["abizena"];
+            $erabiltzailea = $json_data["erabiltzailea"];
+            $pasahitza = $json_data["pasahitza"];
+            $rola = $json_data["rola"];
 
+            eguneratuErabiltzailea($nan, $izena, $abizena, $erabiltzailea, $pasahitza, $rola);
+        }
     }elseif($_SERVER["REQUEST_METHOD"] == "DELETE"){
-
+        $json_data = json_decode(file_get_contents("php://input"), true);
+        if(isset($json_data)){
+            $nan = $json_data;
+            foreach($nan as $value){
+                ezabatuErabiltzailea($value);
+            }
+            echo "okey";
+        }
     }
 
     function ezabatuErabiltzailea($nan) {
@@ -88,62 +110,34 @@
     function lortuErabiltzailea() {
         global $db;
         $emaitzak = $db->datuakLortu("SELECT * FROM erabiltzailea");
-        $erabiltzailea = array();
+        $erabiltzaileak = array();
         if (is_object($emaitzak)) {
             while ($row = $emaitzak->fetch_assoc()) {
-                $Erabiltzailea[] = new Erabiltzailea($row["nan"], $row["izena"], $row["abizena"], $row["erabiltzailea"],  $row["pasahitza"], $row["rola"]);
+                $erabiltzaileak[] = new Erabiltzailea($row["nan"], $row["izena"], $row["abizena"], $row["erabiltzailea"],  $row["pasahitza"], $row["rola"]);
             }
-            return $Erabiltzailea;
-        }else{
-            //echo "".$emaitzak;
+            return $erabiltzaileak;
         }
-        
+    }
+
+    function lortuErabiltzaileaById($nan) {
+        global $db;
+        $emaitzak = $db->datuakLortu("SELECT * FROM erabiltzailea WHERE nan = '$nan'");
+        $erabiltzaileak = array();
+        if (is_object($emaitzak)) {
+            while ($row = $emaitzak->fetch_assoc()) {
+                $erabiltzaileak[] = new Erabiltzailea($row["nan"], $row["izena"], $row["abizena"], $row["erabiltzailea"],  $row["pasahitza"], $row["rola"]);
+            }
+            return $erabiltzaileak;
+        }
     }
 ?>
 
-
+<!DOCTYPE html>
 <html>
-    <head>
-    </head>
-    <body>
-        <table border=1>
-            <tr>
-                <th>NAN</th><th>Izena</th><th>Abizena</th><th>Erabiltzailea</th><th>Pasahitza</th><th>Rola</th>
-            </tr>
-            <?php
-                $emaitzak = lortuErabiltzailea();
-                if (!empty($emaitzak)) {
-                    foreach ($emaitzak as $erabiltzailea) {
-            ?>
-            <tr>
-                <form action=<?php echo $_SERVER["PHP_SELF"]?> method=" GET">
-                <td><input type="text" name="nan" value="<?php echo $erabiltzailea->getNan(); ?>" readonly></td>
-                    <td><input type="text" name="izena" value="<?php echo $erabiltzailea->getIzena(); ?>"></td>
-                    <td><input type="text" name="abizena" value="<?php echo $erabiltzailea->getAbizena(); ?>"></td>
-                    <td><input type="text" name="erabiltzailea" value="<?php echo $erabiltzailea->getErabiltzailea(); ?>"></td>
-                    <td><input type="text" name="pasahitza" value="<?php echo $erabiltzailea->getPasahitza(); ?>"></td>
-                    <td><input type="text" name="rola" value="<?php echo $erabiltzailea->getRola(); ?>"></td>
-                    
-                    <td><button type="submit" name="aldatu" value="">Aldatu</button></td>
-                    <td><button type="submit" name="ezabatu" value="">Ezabatu</button></td>
-                </form>
-            </tr>
-            <?php    
-                    }
-                }
-            ?>
-        </table>
-        <br>
-        <div>
-        <form action=<?php echo $_SERVER["PHP_SELF"]?> method="GET">
-            <label>NAN: </label><input type=text name=nan>
-            <label>Izena: </label><input type=text name=izena>
-            <label>Abizena: </label><input type=text name=abizena>
-            <label>Erabiltzailea: </label><input type=text name=erabiltzailea>
-            <label>Pasahitza: </label><input type=text name=pasahitza>
-            <label>Rola: </label><input type=text name=rola>
-            <input type=submit value=Bidali>
-        </form>
-        </div>
-    </body>
+<head>
+    <title>php...</title>
+</head>
+<body>
+    
+</body>
 </html>
