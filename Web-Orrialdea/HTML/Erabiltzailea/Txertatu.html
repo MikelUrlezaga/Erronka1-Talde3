@@ -56,8 +56,38 @@
     <div id="menuMugikorra"></div>
 </html>
 <script>
+    
+    function validateDNI(dni) {
+    var numero, let, letra;
+    var expresion_regular_dni = /^[XYZ]?\d{5,8}[A-Z]$/;
+
+    dni = dni.toUpperCase();
+
+    if(expresion_regular_dni.test(dni) === true){
+        numero = dni.substr(0,dni.length-1);
+        numero = numero.replace('X', 0);
+        numero = numero.replace('Y', 1);
+        numero = numero.replace('Z', 2);
+        let = dni.substr(dni.length-1, 1);
+        numero = numero % 23;
+        letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
+        letra = letra.substring(numero, numero+1);
+        if (letra != let) {
+            //alert('Dni erroneo, la letra del NIF no se corresponde');
+            return false;
+        }else{
+            //alert('Dni correcto');
+            return true;
+        }
+    }else{
+        //alert('Dni erroneo, formato no válido');
+        return false;
+    }
+}
+
     function createErabiltzailea() {
         var nan = document.getElementById("nanErabiltzaileaTxertatu").value;
+        var nancorrecto= validateDNI(nan);
         var izena = document.getElementById("izenaErabiltzaileaTxertatu").value;
         var abizena = document.getElementById("abizenaErabiltzaileaTxertatu").value;
         var erabiltzailea = document.getElementById("erabiltzaileaErabiltzaileaTxertatu").value;
@@ -66,14 +96,20 @@
         var clasea = {nan, izena, abizena, erabiltzailea, pasahitza, rola};
         var js = JSON.stringify(clasea);
         console.log(js);
-        fetch('../../PHP/erabiltzailea_json.php', {method: 'POST', body: js})
+        if(nancorrecto==true){
+            fetch('../../PHP/erabiltzailea_json.php', {method: 'POST', body: js})
             .then(function (response) {
                     return response.text();
+                    alert("Se ha insertado")
             })
             .then(data=>{
                 console.log(data);
                 
             })
+        }else{
+            alert("El DNI esta mal")
+        }
+        
             // .catch(error => {
             //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
             // });
