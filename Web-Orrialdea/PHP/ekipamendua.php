@@ -81,33 +81,32 @@
             echo json_encode($emaitzak);
         }
         exit;
-    }
-    //elseif($_SERVER["REQUEST_METHOD"] == "POST"){
-    //     $json_data = json_decode(file_get_contents("php://input"), true);
-    //     $emaitzak = txertatuErabiltzailea($json_data["nan"], $json_data["izena"], $json_data["abizena"], $json_data["erabiltzailea"], $json_data["pasahitza"], $json_data["rola"]);
-    //     echo json_decode("okai");
-    // }elseif($_SERVER["REQUEST_METHOD"] == "PUSH"){
-    //     $json_data = json_decode(file_get_contents("php://input"), true);
-    //     if(isset($json_data["nan"], $json_data["izena"], $json_data["abizena"], $json_data["erabiltzailea"], $json_data["pasahitza"], $json_data["rola"])){
-    //         $nan = $json_data["nan"];
-    //         $izena = $json_data["izena"];
-    //         $abizena = $json_data["abizena"];
-    //         $erabiltzailea = $json_data["erabiltzailea"];
-    //         $pasahitza = $json_data["pasahitza"];
-    //         $rola = $json_data["rola"];
+    }elseif($_SERVER["REQUEST_METHOD"] == "POST"){
+        $json_data = json_decode(file_get_contents("php://input"), true);
+        $emaitzak = txertatuEkipamendua($json_data["izena"], $json_data["marka"], $json_data["deskribapena"], $json_data["modelo"], $json_data["idKategoria"], $json_data["stock"]);
+        echo json_decode("okai");
+    }elseif($_SERVER["REQUEST_METHOD"] == "PUSH"){
+        $json_data = json_decode(file_get_contents("php://input"), true);
+        if(isset($json_data["izena"], $json_data["marka"], $json_data["deskribapena"], $json_data["modelo"], $json_data["kategoria"], $json_data["stock"])){
+            $izena = $json_data["izena"];
+            $marka = $json_data["marka"];
+            $deskribapena = $json_data["deskribapena"];
+            $modelo = $json_data["modelo"];
+            $idKategoria = $json_data["kategoria"];
+            $stock = $json_data["stock"];
 
-    //         eguneratuErabiltzailea($nan, $izena, $abizena, $erabiltzailea, $pasahitza, $rola);
-    //     }
-    // }elseif($_SERVER["REQUEST_METHOD"] == "DELETE"){
-    //     $json_data = json_decode(file_get_contents("php://input"), true);
-    //     if(isset($json_data)){
-    //         $nan = $json_data;
-    //         foreach($nan as $value){
-    //             ezabatuErabiltzailea($value);
-    //         }
-    //         echo "okey";
-    //     }
-    // }
+            eguneratuEkipamendua($id, $izena, $marka, $deskribapena, $modelo, $idKategoria, $stock);
+        }
+    }elseif($_SERVER["REQUEST_METHOD"] == "DELETE"){
+        $json_data = json_decode(file_get_contents("php://input"), true);
+        if(isset($json_data)){
+            $nan = $json_data;
+            foreach($nan as $value){
+                ezabatuEkipamendua($value);
+            }
+            echo "okey";
+        }
+    }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -126,9 +125,9 @@
         $db->eguneratu($sql);
     }
 
-    function txertatuEkipamendua($id, $izena, $deskribapena, $marka, $modelo, $stock, $idKategoria) {
+    function txertatuEkipamendua($izena, $deskribapena, $marka, $modelo, $stock, $idKategoria) {
         global $db;
-        $sql = "INSERT INTO ekipamendua (id, izena, deskribapena, marka, modelo, stock, idKategoria) VALUES ('$id', '$izena', '$deskribapena', '$marka', '$modelo', '$stock', '$idKategoria')";
+        $sql = "INSERT INTO ekipamendua (izena, deskribapena, marka, modelo, stock, idKategoria) VALUES ('$izena', '$deskribapena', '$marka', '$modelo', '$stock', '$idKategoria')";
         $db->txertatu($sql);
     }
 
