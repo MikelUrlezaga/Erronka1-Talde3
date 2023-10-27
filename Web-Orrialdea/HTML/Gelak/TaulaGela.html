@@ -44,8 +44,8 @@
                     </div>
                     <div class="search">
                         <div class="elementos">
-                            <select id="selector">
-                                <option>Elige una opcion</option>
+                            <select id="selector" onchange="aldatuGela()">
+                                <option value="Nada">Elige una opcion</option>
                             </select>
                         </div>
                         <div class="submites">
@@ -175,4 +175,42 @@
     function txertatuGela(){
         window.location="Txertatu.html";
     }
+
+    function aldatuGela(){
+        var idclase = document.getElementById("selector").value;
+        if(idclase.match("Nada")){
+            bistaratuFromPHP();
+        }else{
+            bistaratuFromPHP2(idclase);
+        }
+    }
+
+    function bistaratuFromPHP2(gureNan) {
+            console.log("Ha entrado")
+            let options = {method: "GET"};
+            fetch("https://localhost/php/Erronka_rep/Erronka1-Talde3/Web-Orrialdea/PHP/gelak_json.php?num="+gureNan+"", options)
+                .then(response => response.json())  // Analiza la respuesta JSON
+                .then(data => {
+                    console.log(data);
+                    console.log(data.length);
+                    document.getElementById("tabla").innerHTML="";
+                    for(i=0; i < data.length; i++){
+                            var tableRow="<tr></tr>";
+                            tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
+                            data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].id + "</td>" +
+                            tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" 
+                            + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].taldea + "</td>";
+
+                            var trElement = document.createElement("tr");
+                            trElement.innerHTML = tableRow;
+                            document.getElementById("tabla").appendChild(trElement);
+
+                        }
+                })
+                .catch(error => {
+                    alert("Errorea." + error);
+                });
+
+        }
+
 </script>

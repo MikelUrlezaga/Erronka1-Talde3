@@ -41,8 +41,8 @@
                 </div>
                 <div class="search">
                     <div class="elementos">
-                        <select id="selector">
-                            <option>Elige una opción</option>
+                        <select id="selector" onchange="aldatuErabiltzaile()">
+                            <option value="Nada">Elige una opción</option>
                         </select>
                     </div>
                     <div class="submites">
@@ -154,4 +154,42 @@
     function txertatuErabiltzailea() {
         window.location = "Txertatu.html";
     }
+
+    function aldatuErabiltzaile(){
+        var ide = document.getElementById("selector").value;
+        if(ide.match("Nada")){
+            bistaratuFromPHP();
+        }else{
+            bistaratuFromPHP2(ide);
+        }
+    }
+
+    function bistaratuFromPHP2(gureNan) {
+            console.log("Ha entrado")
+            let options = {method: "GET"};
+            fetch("https://localhost/php/Erronka_rep/Erronka1-Talde3/Web-Orrialdea/PHP/erabiltzailea_json.php?num="+gureNan+"", options)
+                .then(response => response.json())  // Analiza la respuesta JSON
+                .then(data => {
+                    console.log(data);
+                    console.log(data.length);
+                    document.getElementById("tabla").innerHTML="";
+                    for(i=0; i < data.length; i++){
+                        var tableRow = "<tr></tr>";
+                            tableRow = tableRow.substring(0, tableRow.length - 5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" +
+                                data[i].nan + "'>" + "</td>" + tableRow.substring(tableRow.length - 5) + "<td>" + data[i].nan + "</td>" +
+                                tableRow.substring(tableRow.length - 5) + "<td>" + data[i].izena + "</td>" +
+                                tableRow.substring(tableRow.length - 5) + "<td>" + data[i].abizena + "</td>" +
+                                tableRow.substring(tableRow.length - 5) + "<td>" + data[i].erabiltzailea + "</td>" +
+                                tableRow.substring(tableRow.length - 5) + "<td>" + data[i].rola + "</td>";
+                            var trElement = document.createElement("tr");
+                            trElement.innerHTML = tableRow;
+                            document.getElementById("tabla").appendChild(trElement);
+
+                        }
+                })
+                .catch(error => {
+                    alert("Errorea." + error);
+                });
+
+        }
 </script>
