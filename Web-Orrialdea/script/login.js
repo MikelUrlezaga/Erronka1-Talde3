@@ -53,7 +53,7 @@ function loginComp() {
             if (myArray[0].match("Erabiltzailea_eta_pasahitza_ondo_sartuta_daude")) {
                 window.location ="../../HTML/Orokorra/Home.html";
                 document.cookie = "AdminUser=" + myArray[1] + "; path=/";
-            }else if(myArray[0].match("Erabiltzailea_eta_pasahitza_txarto_sartuta_daude")){
+            }else if(myArray[0].match("Pasahitza_txarto_sartuta_dago")){
                 document.getElementById("mal").removeAttribute("hidden")
                 document.getElementById("mal").innerHTML = "Pasahitza_txarto_sartuta_dago"
             }else if(myArray[0].match("Erabiltzailea_ez_da_existitzen")){
