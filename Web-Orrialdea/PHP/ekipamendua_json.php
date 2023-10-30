@@ -85,7 +85,7 @@
         $json_data = json_decode(file_get_contents("php://input"), true);
         $emaitzak = txertatuEkipamendua($json_data["izena"], $json_data["deskribapena"], $json_data["marka"], $json_data["modelo"], $json_data["stock"], $json_data["idKategoria"]);
         echo json_decode("okai");
-    }elseif($_SERVER["REQUEST_METHOD"] == "PUSH"){
+    }elseif($_SERVER["REQUEST_METHOD"] == "PUT"){
         $json_data = json_decode(file_get_contents("php://input"), true);
         if(isset($json_data["id"], $json_data["izena"], $json_data["deskribapena"], $json_data["marka"], $json_data["modelo"], $json_data["stock"], $json_data["idKategoria"])){
             $id = $json_data["id"];

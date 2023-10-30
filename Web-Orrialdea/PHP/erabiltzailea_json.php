@@ -66,7 +66,7 @@
         $json_data = json_decode(file_get_contents("php://input"), true);
         $emaitzak = txertatuErabiltzailea($json_data["nan"], $json_data["izena"], $json_data["abizena"], $json_data["erabiltzailea"], $json_data["pasahitza"], $json_data["rola"]);
         echo json_decode("okai");
-    }elseif($_SERVER["REQUEST_METHOD"] == "PUSH"){
+    }elseif($_SERVER["REQUEST_METHOD"] == "PUT"){
         $json_data = json_decode(file_get_contents("php://input"), true);
         if(isset($json_data["nan"], $json_data["izena"], $json_data["abizena"], $json_data["erabiltzailea"], $json_data["pasahitza"], $json_data["rola"])){
             $nan = $json_data["nan"];
@@ -103,8 +103,13 @@
 
     function txertatuErabiltzailea($nan, $izena, $abizena, $erabiltzailea, $pasahitza, $rola) {
         global $db;
-        $sql = "INSERT INTO erabiltzailea (nan, izena, abizena, erabiltzailea, pasahitza, rola) VALUES ('$nan', '$izena', '$abizena', '$erabiltzailea', '$pasahitza', '$rola')";
-        $db->txertatu($sql);
+        $bienMal = nanOndo($nan);
+        if($bienMal == "Mal") {
+        }else{
+            $sql = "INSERT INTO erabiltzailea (nan, izena, abizena, erabiltzailea, pasahitza, rola) VALUES ('$bienMal', '$izena', '$abizena', '$erabiltzailea', '$pasahitza', '$rola')";
+            $db->txertatu($sql);
+        }
+        
     }
 
     function lortuErabiltzailea() {
@@ -128,6 +133,42 @@
                 $erabiltzaileak[] = new Erabiltzailea($row["nan"], $row["izena"], $row["abizena"], $row["erabiltzailea"],  $row["pasahitza"], $row["rola"]);
             }
             return $erabiltzaileak;
+        }
+    }
+
+    function nanOndo($nan)
+    {
+        $dni = $nan;
+        $error = false;
+
+        function devuelveletra($nums) {
+            $letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+            $resto = $nums % 23;
+            return $letras[$resto];
+        }
+
+        $dni = strtoupper($dni);
+        $lon = strlen(str_replace(" ", "", $dni));
+
+        if ($lon !== 9 && $lon !== 8) {
+            echo "Longitud del DNI incorrecta";
+            $error = true;
+        }
+
+        if ($lon == 8) {
+            $letra2 = devuelveletra(intval(substr($dni, 0, 8)));
+            $dni = substr($dni, 0, 8) . $letra2;
+            return $dni;
+        } else {
+            if ($lon == 9) {
+                if (is_numeric(substr($dni, 0, 8)) && substr($dni, 8, 1) == devuelveletra(intval(substr($dni, 0, 8)))) {
+                    return $dni;
+                } else {
+                    $error = true;
+                }
+            }
+        } if ($error) {
+            return "Mal";
         }
     }
 ?>

@@ -106,7 +106,7 @@
             var izena = document.getElementById("izenaKategoriaEguneratu").value;
             var kategoria = { id, izena };
             var js = JSON.stringify(kategoria);
-            fetch('../../PHP/kategoriak_json.php', { method: 'PUSH', body: js })
+            fetch('../../PHP/kategoriak_json.php', { method: 'PUT', body: js })
                 .then(function (response) {
                     return response.text();
                 })

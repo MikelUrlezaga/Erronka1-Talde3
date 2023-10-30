@@ -156,7 +156,7 @@
         var clasea = {id, izena, deskribapena, modelo, marka, stock, idKategoria};
         var js = JSON.stringify(clasea);
         console.log(js + "hau da js");
-        fetch('../../PHP/ekipamendua_json.php', {method: 'PUSH', body: js})
+        fetch('../../PHP/ekipamendua_json.php', {method: 'PUT', body: js})
             .then(function (response) {
                     return response.text();
             })

@@ -96,16 +96,16 @@
 
     function createErabiltzailea() {
         var nan = document.getElementById("nanErabiltzaileaTxertatu").value;
-        var nancorrecto= validateDNI(nan);
+        //var nancorrecto= validateDNI(nan);
         var izena = document.getElementById("izenaErabiltzaileaTxertatu").value;
         var abizena = document.getElementById("abizenaErabiltzaileaTxertatu").value;
         var erabiltzailea = document.getElementById("erabiltzaileaErabiltzaileaTxertatu").value;
-        var pasahitza = document.getElementById("pasahitzaErabiltzaileaTxertatu").value;
-        var rola = document.getElementById("rolaErabiltzaileaTxertatu").value;
+        var pasahitza = document.getElementById("pasahitzaEraEgu").value;
+        var rola = document.getElementById("rolaEraEgu").value;
         var clasea = {nan, izena, abizena, erabiltzailea, pasahitza, rola};
         var js = JSON.stringify(clasea);
         console.log(js);
-        if(nancorrecto==true){
+        // if(nancorrecto==true){
             fetch('../../PHP/erabiltzailea_json.php', {method: 'POST', body: js})
             .then(function (response) {
                     return response.text();
@@ -115,9 +115,9 @@
                 console.log(data);
                 
             })
-        }else{
-            alert("El DNI esta mal")
-        }
+        // }else{
+        //     alert("El DNI esta mal")
+        // }
         
             // .catch(error => {
             //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
