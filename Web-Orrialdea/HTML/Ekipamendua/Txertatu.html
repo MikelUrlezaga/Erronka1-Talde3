@@ -21,7 +21,6 @@
     </header>
     <body onkeydown="teclado(event)">
         <div class="reborde">
-                
                 <br>
                 <div class="dobleColumn">
                     <div>
@@ -29,26 +28,25 @@
                         <input class="textBox" type="text" id="izenaEkipamenduaTxertatu" name="Izena" >
                     </div>
                     <div>
-                        <p class="texto">Marka: </p>
-                        <input class="textBox" type="text" id="markaEkipamenduaTxertatu" name="Marka">
-                    </div>
-                    <div>
                         <p class="texto">Deskribapena: </p>
                         <input class="textBox" type="text" id="deskribapenaEkipamenduaTxertatu" name="Deskribapena">
+                    </div>
+                    <div>
+                        <p class="texto">Marka: </p>
+                        <input class="textBox" type="text" id="markaEkipamenduaTxertatu" name="Marka">
                     </div>
                     <div>
                         <p class="texto">Modelo: </p>
                         <input class="textBox" type="text" id="modeloEkipamenduaTxertatu" name="Modelo" >
                     </div>
                     <div>
+                        <p class="texto">Stock: </p>
+                        <input class="textBox" type="text" id="stockEkipamenduaTxertatu" name="Stock">
+                    </div>
+                    <div>
                         <p class="texto">Kategoria: </p>
                         <select id="selecTxertatu" class="textBox">
                         </select>
-                        
-                    </div>
-                    <div>
-                        <p class="texto">Stock: </p>
-                        <input class="textBox" type="text" id="stockEkipamenduaTxertatu" name="Stock">
                     </div>
                     <div class="ck">
                         <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="createEkipamendua()">
@@ -95,10 +93,10 @@
         var modelo = document.getElementById("modeloEkipamenduaTxertatu").value;
         var kategoria = document.getElementById("kategoriaEkipamenduaTxertatu").value;
         var stock = document.getElementById("stockEkipamenduaTxertatu").value;
-        var clasea = {izena, marka, deskribapena, modelo, kategoria, stock};
+        var clasea = {izena, deskribapena, marka, modelo, stock, kategoria};
         var js = JSON.stringify(clasea);
         console.log(js);
-        fetch('../../PHP/ekipamendua.php', {method: 'POST', body: js})
+        fetch('../../PHP/ekipamendua_json.php', {method: 'POST', body: js})
             .then(function (response) {
                     return response.text();
             })
