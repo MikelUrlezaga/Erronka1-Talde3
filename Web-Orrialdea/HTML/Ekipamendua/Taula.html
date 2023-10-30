@@ -85,7 +85,7 @@
     async function bistaratuFromPHP() {
         let options = {method: "GET", mode: 'cors'};
         const da = null;
-        fetch("../../PHP/ekipamendua.php", options)
+        fetch("../../PHP/ekipamendua_json.php", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);

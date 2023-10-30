@@ -19,7 +19,7 @@
                 </a>
             </div>
     </header>
-    <body>
+    <body onkeydown="teclado(event)">
         <div class="reborde">
                 <br><br><br><br>
                 <div class="dobleColumn">
@@ -56,6 +56,13 @@
     <div id="menuMugikorra"></div>
 </html>
 <script>
+
+    function teclado(event) {
+        var codigo = event.which || event.keyCode;
+        if (codigo==13) {
+            createErabiltzailea()
+        }
+    }
     
     function validateDNI(dni) {
     var numero, let, letra;

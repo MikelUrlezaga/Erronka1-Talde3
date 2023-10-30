@@ -19,7 +19,7 @@
                 </a>
             </div>
     </header>
-    <body>
+    <body onkeydown="teclado(event)">
         <div class="reborde">
                 <br>
                 <p class="texto1Columna">Izena: </p>
@@ -34,6 +34,12 @@
     <div id="menuMugikorra"></div>
 </html>
 <script>
+    function teclado(event) {
+    var codigo = event.which || event.keyCode;
+    if (codigo==13) {
+        createGela()
+    }
+}
     function createGela() {
         var izena = document.getElementById("IzenaGelaTxertatu").value;
         var taldea = document.getElementById("TaldeaGelaTxertatu").value;
