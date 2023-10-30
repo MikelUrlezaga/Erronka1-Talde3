@@ -73,6 +73,8 @@ function deleteGela() {
             console.log(data);
             if(data.match("Fatal error")){
                 alert("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu");
+            }else{
+                location.reload();
             }
         })
         // .catch(error => {
