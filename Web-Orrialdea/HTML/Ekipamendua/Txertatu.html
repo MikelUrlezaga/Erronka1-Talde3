@@ -68,7 +68,6 @@
         fetch("../../PHP/kategoriak_json.php", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
-                alert("A");
                 console.log(data);
                 console.log(data.length);
                 for (i = 0; i < data.length; i++) {

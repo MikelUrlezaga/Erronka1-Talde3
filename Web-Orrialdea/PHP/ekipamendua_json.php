@@ -95,7 +95,7 @@
             $idKategoria = $json_data["kategoria"];
             $stock = $json_data["stock"];
 
-            eguneratuEkipamendua($id, $izena, $marka, $deskribapena, $modelo, $idKategoria, $stock);
+            eguneratuEkipamendua($id, $izena, $deskribapena, $marka, $modelo, $stock, $idKategoria);
         }
     }elseif($_SERVER["REQUEST_METHOD"] == "DELETE"){
         $json_data = json_decode(file_get_contents("php://input"), true);

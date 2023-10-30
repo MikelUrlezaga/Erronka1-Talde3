@@ -22,86 +22,133 @@
     <body>
         <div class="reborde">
                 <div class="custom-combobox">
-                    <select id="selecTxertatu">
-                        <option value="opcion1">Opción 1</option>
-                        <option value="opcion2">Opción 2</option>
-                        <option value="opcion3">Opción 3</option>
-                        <option value="opcion4">Opción 4</option>
+                    <select>
+                        <select id="selectore" onchange="aldatuEkipamendua()">
+                        </select>
                     </select>
                 </div>
                 <br>
                 <div class="dobleColumn">
                     <div>
                         <p class="texto">Izena: </p>
-                        <input class="textBox" type="text" id="izenaEkipamenduaEguneratu" name="Izena" >
-                    </div>
-                    <div>
-                        <p class="texto">Marka: </p>
-                        <input class="textBox" type="text" id="markaEkipamenduaEguneratu" name="Marka">
+                        <input class="textBox" type="text" id="izenaEkiEgu" name="Izena" >
                     </div>
                     <div>
                         <p class="texto">Deskribapena: </p>
-                        <input class="textBox" type="text" id="deskribapenaEkipamenduaEguneratu" name="Deskribapena">
+                        <input class="textBox" type="text" id="deskribapenaEkiEgu" name="Deskribapena">
+                    </div>
+                    <div>
+                        <p class="texto">Marka: </p>
+                        <input class="textBox" type="text" id="markaEkiEgu" name="Marka">
                     </div>
                     <div>
                         <p class="texto">Modelo: </p>
-                        <input class="textBox" type="text" id="modeloEkipamenduaEguneratu" name="Modelo" >
+                        <input class="textBox" type="text" id="modeloEkiEgu" name="Modelo" >
                     </div>
                     <div>
                         <p class="texto">Id Kategoria: </p>
-                        <input class="textBox" type="text" id="idKategoriaEkipamenduaEguneratu" name="IdKategoria">
+                        <input class="textBox" type="text" id="kategoriaEkiEgu" name="IdKategoria">
                     </div>
                     <div>
                         <p class="texto">Stock: </p>
-                        <input class="textBox" type="text" id="stockEkipamenduaEguneratu" name="Stock">
+                        <input class="textBox" type="text" id="stockEkiEgu" name="Stock">
                     </div>
                     <div class="ck">
                         <img src="../../IMG/unnamed.png" alt="check" class="checkicon">
                     </div>
                 </div>
-                
         </div>
-        
     </body>
-
     <div id="menuMugikorra"></div>
-
 </html>
+
 <script>
+    var paramstr = window.location.search.substr(1);
+    console.log(window.location.search.substr(1));
+    var paramarr = paramstr.split ("&");
+    var params = {};
+    var nuestraId=0;
     
-    function cargarKatego(){
-        let options = {
-            method: "GET",
-            mode: 'cors'
-        };
-        fetch("../../PHP/kategoriak_json.php", options)
+    for ( var i = 0; i < paramarr.length; i++) {
+        var tmparr = paramarr[i].split("=");
+        params[tmparr[0]] = tmparr[1];
+        console.log(tmparr[1]);
+        nuestraId=tmparr[1];
+    }
+
+    async function bistaratuFromPHP2(idcls) {
+        console.log("Ha entrado")
+        let options = {method: "GET"};
+        fetch("../../PHP/ekipamendua_json.php?num="+idcls+"", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
                 console.log(data.length);
-                for (i = 0; i < data.length; i++) {
+                document.getElementById("izenaEkiEgu").value=data[0].izena;
+                document.getElementById("deskribapenaEkiEgu").value=data[0].deskribapena;
+                document.getElementById("markaEkiEgu").value=data[0].marka;
+                document.getElementById("modeloEkiEgu").value=data[0].modelo;
+                document.getElementById("stockEkiEgu").value=data[0].stock;
+                document.getElementById("kategoriaEkiEgu").value=data[0].idKategoria;
+                document.getElementById("selectore").value=idcls;
+                document.getElementById("titulo").innerText= data[0].izena + " Ekipamendua eguneratu";
+            })
+            .catch(error => {
+                alert("Errorea." + error);
+            });
+    }
+
+    function aldatuEkipamendua(){
+        var idclase = document.getElementById("selectore").value;
+        console.log(document.getElementById("selectore").value);
+
+        bistaratuFromPHP2(idclase);
+        nuestraId= idclase;
+    }
+
+    async function bistaratuFromPHP() {
+        let options = {method: "GET"};
+        fetch("../../PHP/ekipamendua_json.php",options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+     
+                for (let i = 0; i < data.length; i++) {
+                    console.log(nuestraId);
+                    if(data[i].id==nuestraId){
+                        console.log("Entra "+nuestraId);
+                    }
+                    var opcion="<option value='"+data[i].id+"'>"+data[i].izena+"</option>";
                     var opElement = document.createElement("option");
+                    opElement.innerHTML = opcion;
                     opElement.value = data[i].id;
-                    opElement.innerText = data[i].izena;
-                    document.getElementById("selecTxertatu").appendChild(opElement);
+                    if(data[i].id==nuestraId){
+                        opElement.selected="selected";
+                    }
+                    
+                    document.getElementById("selectore").appendChild(opElement);
                 }
             })
             .catch(error => {
                 alert("Errorea." + error);
             });
     }
-    window.addEventListener("load", cargarKatego);
-    function updateErabiltzailea() {
-        var izena = document.getElementById("izenaEkipamenduaEguneratu").value;
-        var marka = document.getElementById("markaEkipamenduaEguneratu").value;
-        var deskribapena = document.getElementById("deskribapenaEkipamenduaEguneratu").value;
-        var modelo = document.getElementById("modeloEkipamenduaEguneratu").value;
-        var kategoria = document.getElementById("kategoriaEkipamenduaEguneratu").value;
-        var stock = document.getElementById("stockEkipamenduaEguneratu").value;
-        var clasea = {izena, marka, deskribapena, modelo, kategoria, stock};
+
+    
+    window.addEventListener("load", bistaratuFromPHP);
+    window.addEventListener("load", bistaratuFromPHP2(nuestraId));
+
+    function actuEkipamendua() {
+        var id = document.getElementById("selectore").value;
+        var izena = document.getElementById("izenaEkiEgu").value;
+        var deskribapena = document.getElementById("deskribapenaEkiEgu").value;
+        var marka = document.getElementById("markaEkiEgu").value;
+        var modelo = document.getElementById("modeloEkiEgu").value;
+        var stock = document.getElementById("stockEkiEgu").value;
+        var kategoria = document.getElementById("kategoriaEkiEgu").value;
+        var clasea = {id,izena,taldea};
         var js = JSON.stringify(clasea);
         console.log(js);
-        fetch('../../PHP/ekipamendua.php', {method: 'PUSH', body: js})
+        fetch('../../PHP/ekipamendua_json.php', {method: 'PUSH', body: js})
             .then(function (response) {
                     return response.text();
             })
@@ -113,6 +160,4 @@
             //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
             // });
     }
-    
-    
 </script>
