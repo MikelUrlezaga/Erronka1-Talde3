@@ -150,7 +150,7 @@
         var ids = lortuCheck();
         var js = JSON.stringify(ids);
         console.log(js);
-        fetch('../../PHP/gelak_json.php', {method: 'DELETE', body: js})
+        fetch('../../PHP/ekipamendua_json.php', {method: 'DELETE', body: js})
             .then(function (response) {
                 return response.text();
             })
@@ -188,7 +188,7 @@
             console.log("Ha entrado")
             console.log(gureId)
             let options = {method: "GET"};
-            fetch("../../PHP/ekipamendua.php?num="+gureId+"", options)
+            fetch("../../PHP/ekipamendua_json.php?num="+gureId+"", options)
                 .then(response => response.json())  // Analiza la respuesta JSON
                 .then(data => {
                     console.log(data);

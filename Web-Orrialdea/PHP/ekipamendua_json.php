@@ -83,16 +83,17 @@
         exit;
     }elseif($_SERVER["REQUEST_METHOD"] == "POST"){
         $json_data = json_decode(file_get_contents("php://input"), true);
-        $emaitzak = txertatuEkipamendua($json_data["izena"], $json_data["marka"], $json_data["deskribapena"], $json_data["modelo"], $json_data["idKategoria"], $json_data["stock"]);
+        $emaitzak = txertatuEkipamendua($json_data["izena"], $json_data["deskribapena"], $json_data["marka"], $json_data["modelo"], $json_data["stock"], $json_data["idKategoria"]);
         echo json_decode("okai");
     }elseif($_SERVER["REQUEST_METHOD"] == "PUSH"){
         $json_data = json_decode(file_get_contents("php://input"), true);
-        if(isset($json_data["izena"], $json_data["marka"], $json_data["deskribapena"], $json_data["modelo"], $json_data["kategoria"], $json_data["stock"])){
+        if(isset($json_data["id"], $json_data["izena"], $json_data["deskribapena"], $json_data["marka"], $json_data["modelo"], $json_data["stock"], $json_data["idKategoria"])){
+            $id = $json_data["id"];
             $izena = $json_data["izena"];
             $marka = $json_data["marka"];
             $deskribapena = $json_data["deskribapena"];
             $modelo = $json_data["modelo"];
-            $idKategoria = $json_data["kategoria"];
+            $idKategoria = $json_data["idKategoria"];
             $stock = $json_data["stock"];
 
             eguneratuEkipamendua($id, $izena, $deskribapena, $marka, $modelo, $stock, $idKategoria);
@@ -100,8 +101,8 @@
     }elseif($_SERVER["REQUEST_METHOD"] == "DELETE"){
         $json_data = json_decode(file_get_contents("php://input"), true);
         if(isset($json_data)){
-            $nan = $json_data;
-            foreach($nan as $value){
+            $id = $json_data;
+            foreach($id as $value){
                 ezabatuEkipamendua($value);
             }
             echo "okey";
@@ -121,7 +122,7 @@
 
     function eguneratuEkipamendua($id, $izena, $deskribapena, $marka, $modelo, $stock, $idKategoria) {
         global $db;
-        $sql = "UPDATE ekipamendua SET izena = '$izena', marka = '$marka', deskribapena = '$deskribapena', modelo = '$modelo', stock = '$stock', idKategoria = '$idKategoria' WHERE id = '$id'";
+        $sql = "UPDATE ekipamendua SET izena = '$izena', marka = '$marka', deskribapena = '$deskribapena', modelo = '$modelo', stock = '$stock', idKategoria = (SELECT id FROM kategoria WHERE izena = '$idKategoria') WHERE id = '$id'";
         $db->eguneratu($sql);
     }
 
@@ -165,46 +166,6 @@
     <head>
     </head>
     <body>
-        <table border=1>
-            <tr>
-                <th>ID</th><th>Izena</th><th>Deskribapena</th><th>Marka</th><th>Modelo</th><th>Stock</th><th>ID Kategoria</th>
-            </tr>
-            <?php
-                $emaitzak = lortuEkipamendua();
-                if (!empty($emaitzak)) {
-                    foreach ($emaitzak as $ekipamendua) {
-            ?>
-            <tr>
-                <form action=<?php echo $_SERVER["PHP_SELF"]?> method=" GET">
-                    <td><input type="text" name="id" value="<?php echo $ekipamendua->getId(); ?>" readonly></td>
-                    <td><input type="text" name="izena" value="<?php echo $ekipamendua->getIzena(); ?>"></td>
-                    <td><input type="text" name="deskribapena" value="<?php echo $ekipamendua->getDeskribapena(); ?>"></td>
-                    <td><input type="text" name="marka" value="<?php echo $ekipamendua->getMarka(); ?>"></td>
-                    <td><input type="text" name="modelo" value="<?php echo $ekipamendua->getModelo(); ?>"></td>
-                    <td><input type="text" name="stock" value="<?php echo $ekipamendua->getStock(); ?>"></td>
-                    <td><input type="text" name="idKategoria" value="<?php echo $ekipamendua->getIdKategoria(); ?>"></td>
-                    
-                    <td><button type="submit" name="aldatu" value="">Aldatu</button></td>
-                    <td><button type="submit" name="ezabatu" value="">Ezabatu</button></td>
-                </form>
-            </tr>
-            <?php    
-                    }
-                }
-            ?>
-        </table>
-        <br>
-        <div>
-            <form action=<?php echo $_SERVER["PHP_SELF"]?> method="GET">
-                <label>ID: </label><input type=text name=id>
-                <label>Izena: </label><input type=text name=izena>
-                <label>Deskribapena: </label><input type=text name=deskribapena>
-                <label>Marka: </label><input type=text name=marka>
-                <label>Modelo: </label><input type=text name=modelo>
-                <label>Stock: </label><input type=text name=stock>
-                <label>ID Kategoria: </label><input type=text name=idKategoria>
-                <input type=submit value=Bidali>
-            </form>
-        </div>
+        
     </body>
 </html>
