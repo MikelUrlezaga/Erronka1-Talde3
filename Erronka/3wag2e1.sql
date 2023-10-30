@@ -41,10 +41,6 @@ CREATE TABLE `ekipamendua` (
 -- Volcado de datos para la tabla `ekipamendua`
 --
 
-INSERT INTO `ekipamendua` (`id`, `izena`, `deskribapena`, `marka`, `modelo`, `stock`, `idKategoria`) VALUES
-(1, 'hola', 'nuse', 'opel', 'astra', 11, 12),
-(2, 'AAA', 'DSASSS', 'FD', 'DS', 25, 12);
-
 -- --------------------------------------------------------
 
 --
@@ -64,9 +60,6 @@ CREATE TABLE `erabiltzailea` (
 -- Volcado de datos para la tabla `erabiltzailea`
 --
 
-INSERT INTO `erabiltzailea` (`nan`, `izena`, `abizena`, `erabiltzailea`, `pasahitza`, `rola`) VALUES
-('79078583Y', 'Alba', 'del Rio', 'alba', 'aaa', 'A');
-
 -- --------------------------------------------------------
 
 --
@@ -83,9 +76,6 @@ CREATE TABLE `gela` (
 -- Volcado de datos para la tabla `gela`
 --
 
-INSERT INTO `gela` (`id`, `izena`, `taldea`) VALUES
-(6, 'sda', '2'),
-(8, 'haaa', '1');
 
 -- --------------------------------------------------------
 
@@ -103,8 +93,6 @@ CREATE TABLE `inbentarioa` (
 -- Volcado de datos para la tabla `inbentarioa`
 --
 
-INSERT INTO `inbentarioa` (`etiketa`, `idEkipamendu`, `erosketaData`) VALUES
-('INF', 1, '2023-10-03');
 
 -- --------------------------------------------------------
 
@@ -120,14 +108,6 @@ CREATE TABLE `kategoria` (
 --
 -- Volcado de datos para la tabla `kategoria`
 --
-
-INSERT INTO `kategoria` (`id`, `izena`) VALUES
-(12, 'dddsss'),
-(14, 'ssa'),
-(16, 'aaa'),
-(17, 'hyh'),
-(18, 'hyh');
-
 -- --------------------------------------------------------
 
 --
@@ -144,9 +124,6 @@ CREATE TABLE `kokalekua` (
 --
 -- Volcado de datos para la tabla `kokalekua`
 --
-
-INSERT INTO `kokalekua` (`etiketa`, `idGela`, `hasieraData`, `amaieraData`) VALUES
-('INF', 6, '2023-10-04', '2023-04-23');
 
 --
 -- Índices para tablas volcadas
