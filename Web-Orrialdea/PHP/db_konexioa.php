@@ -6,7 +6,7 @@
         private $datubase;
         private $conn;
 
-        public function __construct($servername = "localhost", $username = "root", $password = "", $datubase = "3wag2e1") {
+        public function __construct($servername = "192.168.201.103", $username = "talde3", $password = "talde3", $datubase = "3WAG2E1") {
             $this->servername = $servername;
             $this->username = $username;
             $this->password = $password;
