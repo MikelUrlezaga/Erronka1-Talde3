@@ -128,7 +128,7 @@
 
     function txertatuEkipamendua($izena, $deskribapena, $marka, $modelo, $stock, $idKategoria) {
         global $db;
-        $sql = "INSERT INTO ekipamendua (izena, deskribapena, marka, modelo, stock, idKategoria) VALUES ('$izena', '$deskribapena', '$marka', '$modelo', '$stock', (SELECT id FROM kategoria WHERE izena = '$idKategoria'))";
+        $sql = "INSERT INTO ekipamendua (izena, deskribapena, marka, modelo, stock, idKategoria) VALUES ('$izena', '$deskribapena', '$marka', '$modelo', '$stock','$idKategoria')";
         $db->txertatu($sql);
     }
 

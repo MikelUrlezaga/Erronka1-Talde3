@@ -48,7 +48,7 @@
         $json_data = json_decode(file_get_contents("php://input"), true);
                 $emaitzak = txertatuGela($json_data["izena"],$json_data["taldea"]);
                 echo json_encode("okai");
-    } elseif ($_SERVER["REQUEST_METHOD"] == "PUSH") {
+    } elseif ($_SERVER["REQUEST_METHOD"] == "PUT") {
         $json_data = json_decode(file_get_contents("php://input"), true);
         // Realizar actualización de datos en la base de datos
         if (isset($json_data["id"], $json_data["izena"], $json_data["taldea"])) {
