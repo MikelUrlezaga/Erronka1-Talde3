@@ -77,6 +77,7 @@
             mode: 'cors'
         };
         const da = null;
+        document.getElementById("tabla").innerHTML="";
         fetch("../../PHP/kategoriak_json.php", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
