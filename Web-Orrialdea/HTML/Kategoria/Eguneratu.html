@@ -20,7 +20,7 @@
             </a>
         </div>
     </header>
-    <body>
+    <body onkeydown="teclado(event)">
         <div class="reborde">
             <div class="custom-combobox">
                 <select id="selectore" onchange="cambiarClase()">
@@ -35,6 +35,14 @@
     </body>
     <div id="menuMugikorra"></div>
     <script>
+
+    function teclado(event) {
+        var codigo = event.which || event.keyCode;
+        if (codigo==13) {
+            actuKategoria()
+        }
+    }
+
         var paramstr = window.location.search.substr(1);
         var paramarr = paramstr.split("&");
         var params = {};
