@@ -107,13 +107,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login</title>
     </head>
     <body>
-        <form action=<?php echo $_SERVER["PHP_SELF"]?> method = "POST">
-            <label>Erabiltzailea: </label><input type="text" name = "erabiltzailea">
-            <label>Pasahitza: </label><input type="password" name = "pasahitza">
-            <button type = "submit" name = "bidali" value = "bidali">Bidali</button>
-        </form>
     </body>
 </html>

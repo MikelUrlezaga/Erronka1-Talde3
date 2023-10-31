@@ -1,5 +1,6 @@
 <!DOCTYPE html>
     <head>
+        <script src="../../script/aldagaiGlobalak.js" ></script>
         <!--<script src="/Erronka/script/login.js" > </script>-->
         <script src="../../script/menu.js" ></script>
         <meta charset="UTF-8">
@@ -44,7 +45,7 @@
                     </div>
                     <div class="search">
                         <div class="elementos">
-                            <select id="selector" onchange="aldatuEkipamendua()">
+                            <select id="selector" onchange="aldatuInbentarioa()">
                                 <option value="Nada">Elige una opcion</option>
                             </select>
                         </div>
@@ -61,8 +62,7 @@
                             <tr>
                                 <th style="background-color:#606175; width: 3vh;"></th>
                                 <th>Etiketa</th>
-                                <th>Marka</th>
-                                <th>Modelo</th>
+                                <th>Ekipamendua</th>
                                 <th>Erosketa Data</th>
                             </tr>
                         </thead>
@@ -83,7 +83,7 @@
     async function bistaratuFromPHP() {
         let options = {method: "GET", mode: 'cors'};
         const da = null;
-        fetch("../../PHP/inbentarioa_json.php", options)
+        fetch(rutaBack + "inbentarioa_json.php", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
@@ -94,13 +94,13 @@
                 opElement.value = "Nada";
                 opElement.innerText="Elige una opcion";
                 document.getElementById("selector").appendChild(opElement);
+
                 for(i=0; i < data.length; i++){
                     var tableRow="<tr></tr>";
                     tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                    data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" +
-                    tableRow.substring(tableRow.length-5) + "<td>" + data[i].deskribapena + "</td>" 
-                    + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].marka + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].modelo + "</td>"
-                    + tableRow.substring(tableRow.length-5) + "<td>" + data[i].stock + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].idKategoria + "</td>";
+                    data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].etiketa + "</td>" +
+                    tableRow.substring(tableRow.length-5) + "<td>" +  data[i].marka + " " + data[i].modelo + "</td>"
+                    + tableRow.substring(tableRow.length-5) + "<td>" + data[i].erosketaData + "</td>";
 
                     var trElement = document.createElement("tr");
                     trElement.innerHTML = tableRow;
@@ -108,7 +108,7 @@
 
                     var opElement = document.createElement("option");
                     opElement.value = data[i].id;
-                    opElement.innerText=data[i].izena;
+                    opElement.innerText=data[i].etiketa;
                     document.getElementById("selector").appendChild(opElement);
                 }
             })
@@ -145,14 +145,13 @@
         if (confirm("Ziur zaude hau ezabatu nahi duzula?")){
             deleteInbentarioa();
         }else{}
-        
     }
 
     function deleteInbentarioa() {
         var ids = lortuCheck();
         var js = JSON.stringify(ids);
         console.log(js);
-        fetch('../../PHP/inbentarioa_json.php', {method: 'DELETE', body: js})
+        fetch(rutaBack + "inbentarioa_json.php", {method: 'DELETE', body: js})
             .then(function (response) {
                 return response.text();
             })
@@ -179,7 +178,7 @@
         window.location="Txertatu.html";
     }
 
-    function aldatuEkipamendua(){
+    function aldatuInbentarioa(){
         var ide = document.getElementById("selector").value;
         if(ide.match("Nada")){
             bistaratuFromPHP();
@@ -192,26 +191,25 @@
             console.log("Ha entrado")
             console.log(gureId)
             let options = {method: "GET"};
-            fetch("../../PHP/inbentarioa_json.php?num="+gureId+"", options)
+            fetch(rutaBack + "inbentarioa_json.php?num="+gureId+"", options)
                 .then(response => response.json())  // Analiza la respuesta JSON
                 .then(data => {
                     console.log(data);
                     console.log(data.length);
                     document.getElementById("tabla").innerHTML="";
+
                     for(i=0; i < data.length; i++){
                         var tableRow="<tr></tr>";
-                    tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                    data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" +
-                    tableRow.substring(tableRow.length-5) + "<td>" + data[i].deskribapena + "</td>" 
-                    + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].marka + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].modelo + "</td>"
-                    + tableRow.substring(tableRow.length-5) + "<td>" + data[i].stock + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].idKategoria + "</td>";
+                        tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
+                        data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" +
+                        tableRow.substring(tableRow.length-5) + "<td>" + data[i].deskribapena + "</td>" 
+                        + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].marka + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].modelo + "</td>"
+                        + tableRow.substring(tableRow.length-5) + "<td>" + data[i].stock + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].idKategoria + "</td>";
 
-                    var trElement = document.createElement("tr");
-                    trElement.innerHTML = tableRow;
-                    document.getElementById("tabla").appendChild(trElement);
-
-
-                        }
+                        var trElement = document.createElement("tr");
+                        trElement.innerHTML = tableRow;
+                        document.getElementById("tabla").appendChild(trElement);
+                    }
                 })
                 .catch(error => {
                     alert("Errorea." + error);

@@ -73,17 +73,16 @@
 
     function lortuInbentarioa() {
         global $db;
-        $emaitzak = $db->datuakLortu("SELECT * FROM inbentarioa WHERE idEkipamendu = (SELECT id FROM ekipamendu WHERE id = '$idEkipamendu')");
+        $emaitzak = $db->datuakLortu("SELECT I.*, E.marka, E.modelo FROM inbentarioa I, ekipamendua E WHERE I.idEkipamendu = E.id");
         $inbentarioa = array();
         if (is_object($emaitzak)) {
             while ($row = $emaitzak->fetch_assoc()) {
-                $inbentarioa[] = new Inbentarioa($row["etiketa"], $row["idEkipamendu"], $row["erosketaData"]);
+                $inbentarioa[] = new Inbentarioa($row["etiketa"], $row["idEkipamendu"], $row["erosketaData"], $row["marka"], $row["modelo"]);
             }
             return $inbentarioa;
         }else{
             //echo "".$emaitzak;
         }
-        
     }
 
 ?>
