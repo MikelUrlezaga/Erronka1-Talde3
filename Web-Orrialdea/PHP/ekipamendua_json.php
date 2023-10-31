@@ -113,7 +113,6 @@
 
 
 
-
     function ezabatuEkipamendua($id) {
         global $db;
         $sql = "DELETE FROM ekipamendua WHERE id = '$id'";

@@ -23,23 +23,129 @@
     <body onkeydown="teclado(event)">
         <div class="reborde">
                 <div class="custom-combobox">
-                    <select>
-                        <option value="opcion1">Opción 1</option>
-                        <option value="opcion2">Opción 2</option>
-                        <option value="opcion3">Opción 3</option>
-                        <option value="opcion4">Opción 4</option>
-                    </select>
+                    <div class="custom-combobox">
+                        <select id="selectore" onchange="aldatuInbentarioa()"></select>
+                    </div>
                 </div>
                 <p class="texto1Columna">Etiketa: </p>
-                <input class="textBox1Columna" type="text" id="EtiketaInbEguneratu" name="Etiqueta" >
-                <p class="texto1Columna">ID Ekipamendu: </p>
-                <input class="textBox1Columna" type="text" id="IdEkipamenduInbEguneratu" name="IdEkipamendu">
+                <input class="textBox1Columna" type="text" id="EtiketaInbEguneratu" name="Etiketa" >
+                <p class="texto1Columna">Marka: </p>
+                <input class="textBox1Columna" type="text" id="MarkaEguneratu" name="MarkaEkipamendu">
+                <p class="texto1Columna">Modelo: </p>
+                <input class="textBox1Columna" type="text" id="ModeloEguneratu" name="ModeloEkipamendu">
                 <p class="texto1Columna">Erosketa Data: </p>
                 <input class="textBox1Columna" type="text" id="ErosketaDataInbEguneratu" name="ErosketaData">
                 <div class="ck">
-                    <img src="../../IMG/unnamed.png" alt="check" class="checkicon">
+                    <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="actuInbentarioa()">
                 </div>
         </div>
     </body>
     <div id="menuMugikorra"></div>
 </html>
+
+<script>
+    
+    function teclado(event) {
+        var codigo = event.which || event.keyCode;
+        if (codigo==13) {
+            actuInbentarioa()
+        }
+    }
+
+    var paramstr = window.location.search.substr(1);
+    console.log(window.location.search.substr(1));
+    var paramarr = paramstr.split ("&");
+    var params = {};
+    var nuestraId=0;
+    
+    for ( var i = 0; i < paramarr.length; i++) {
+        var tmparr = paramarr[i].split("=");
+        params[tmparr[0]] = tmparr[1];
+        console.log(tmparr[1]);
+        nuestraId=tmparr[1];
+    }
+
+    async function bistaratuFromPHP2(idcls) {
+        console.log("Ha entrado")
+        let options = {method: "GET"};
+        fetch("../../PHP/inbentarioa_json.php?num="+idcls+"", options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+                console.log(data);
+                console.log(data.length);
+                document.getElementById("EtiketaInbEguneratu").value=data[0].etiketa;
+                document.getElementById("MarkaEguneratu").value=data[0].marka;
+                document.getElementById("ModeloEguneratu").value=data[0].modelo;
+                document.getElementById("ErosketaDataInbEguneratu").value=data[0].erosketaData;
+                document.getElementById("selectore").value=idcls;
+                document.getElementById("titulo").innerText= data[0].etiketa + " Inbentarioa eguneratu";
+            })
+            .catch(error => {
+                alert("Errorea." + error);
+            });
+    }
+
+    function aldatuInbentarioa(){
+        var idclase = document.getElementById("selectore").value;
+        console.log(document.getElementById("selectore").value);
+
+        bistaratuFromPHP2(idclase);
+        nuestraId= idclase;
+    }
+
+    async function bistaratuFromPHP() {
+        let options = {method: "GET", mode: 'cors'};
+        fetch("../../PHP/inbentarioa_json.php",options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+     
+                for (let i = 0; i < data.length; i++) {
+                    console.log(nuestraId + "holi");
+                    console.log(data[i].id);
+                    if(data[i].id==nuestraId){
+                        console.log("Entra "+nuestraId);
+                    }
+                    var opcion="<option value='"+data[i].id+"'>"+data[i].marka+
+                    "</option>";
+                    //+data[i].marka+data[i].modelo+data[i].stock+data[i].idKategoria
+                    var opElement = document.createElement("option");
+                    opElement.innerHTML = opcion;
+                    opElement.value = data[i].id;
+                    if(data[i].id==nuestraId){
+                        opElement.selected="selected";
+                    }
+                    
+                    document.getElementById("selectore").appendChild(opElement);
+                }
+            })
+            .catch(error => {
+                alert("Errorea." + error);
+            });
+    }
+
+    
+    window.addEventListener("load", bistaratuFromPHP);
+    window.addEventListener("load", bistaratuFromPHP2(nuestraId));
+
+    function actuInbentarioa() {
+        var id = document.getElementById("selectore").value;
+        var etiketa = document.getElementById("EtiketaInbEguneratu").value;
+        var marka = document.getElementById("MarkaEguneratu").value;
+        var modelo = document.getElementById("ModeloEguneratu").value;
+        var erosketaData = document.getElementById("ErosketaDataInbEguneratu").value;
+        var clasea = {id, etiketa, marka, modelo, marka, erosketaData};
+        var js = JSON.stringify(clasea);
+        console.log(js + "hau da js");
+        fetch('../../PHP/inbentarioa_json.php', {method: 'PUT', body: js})
+            .then(function (response) {
+                    return response.text();
+            })
+            .then(data=>{
+                console.log(data);
+                
+            })
+            .catch(error => {
+                console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+            });
+    }
+</script>
