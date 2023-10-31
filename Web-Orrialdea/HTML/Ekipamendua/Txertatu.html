@@ -1,5 +1,6 @@
 <!DOCTYPE html>
     <head>
+        <script src="../../script/aldagaiGlobalak.js" ></script>
         <script src="../../script/menu.js" ></script>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../CSS/styles.css">
@@ -69,7 +70,7 @@
             method: "GET",
             mode: 'cors'
         };
-        fetch("../../PHP/kategoriak_json.php", options)
+        fetch(rutaBack + "kategoriak_json.php", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
@@ -96,7 +97,7 @@
         var clasea = {izena, deskribapena, marka, modelo, stock, idKategoria};
         var js = JSON.stringify(clasea);
         console.log(js);
-        fetch('../../PHP/ekipamendua_json.php', {method: 'POST', body: js})
+        fetch(rutaBack + 'ekipamendua_json.php', {method: 'POST', body: js})
             .then(function (response) {
                     return response.text();
             })

@@ -2,7 +2,7 @@ async function bistaratuFromPHP() {
     let options = {method: "GET", mode: 'cors'};
     const da = null;
     document.getElementById("tabla").innerHTML="";
-    fetch("../../PHP/gelak_json.php", options)
+    fetch(rutaBack + "gelak_json.php", options)
         .then(response => response.json())  // Analiza la respuesta JSON
         .then(data => {
             console.log(data);
@@ -65,7 +65,7 @@ function deleteGela() {
     var ids = lortuCheck();
     var js = JSON.stringify(ids);
     console.log(js);
-    fetch('../../PHP/gelak_json.php', {method: 'DELETE', body: js})
+    fetch(rutaBack + 'gelak_json.php', {method: 'DELETE', body: js})
         .then(function (response) {
             return response.text();
         })
@@ -104,7 +104,7 @@ function aldatuGela(){
 function bistaratuFromPHP2(gureNan) {
         console.log("Ha entrado")
         let options = {method: "GET"};
-        fetch("../../PHP/gelak_json.php?num="+gureNan+"", options)
+        fetch(rutaBack + "gelak_json.php?num="+gureNan+"", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);

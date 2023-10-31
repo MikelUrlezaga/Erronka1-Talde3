@@ -1,5 +1,6 @@
 <!DOCTYPE html>
     <head>
+        <script src="../../script/aldagaiGlobalak.js" ></script>
         <!--<script src="/Erronka/script/login.js" > </script>-->
         <script src="../../script/menu.js" ></script>
         <meta charset="UTF-8">
@@ -85,7 +86,7 @@
     async function bistaratuFromPHP() {
         let options = {method: "GET", mode: 'cors'};
         const da = null;
-        fetch("../../PHP/ekipamendua_json.php", options)
+        fetch(rutaBack + "ekipamendua_json.php", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
@@ -154,7 +155,7 @@
         var ids = lortuCheck();
         var js = JSON.stringify(ids);
         console.log(js);
-        fetch('../../PHP/ekipamendua_json.php', {method: 'DELETE', body: js})
+        fetch(rutaBack + 'ekipamendua_json.php', {method: 'DELETE', body: js})
             .then(function (response) {
                 return response.text();
             })
@@ -194,7 +195,7 @@
             console.log("Ha entrado")
             console.log(gureId)
             let options = {method: "GET"};
-            fetch("../../PHP/ekipamendua_json.php?num="+gureId+"", options)
+            fetch(rutaBack + "ekipamendua_json.php?num="+gureId+"", options)
                 .then(response => response.json())  // Analiza la respuesta JSON
                 .then(data => {
                     console.log(data);

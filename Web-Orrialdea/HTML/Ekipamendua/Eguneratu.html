@@ -84,7 +84,7 @@
     async function bistaratuFromPHP2(idcls) {
         console.log("Ha entrado")
         let options = {method: "GET"};
-        fetch("../../PHP/ekipamendua_json.php?num="+idcls+"", options)
+        fetch(rutaBack + "ekipamendua_json.php?num="+idcls+"", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
@@ -113,7 +113,7 @@
 
     async function bistaratuFromPHP() {
         let options = {method: "GET", mode: 'cors'};
-        fetch("../../PHP/ekipamendua_json.php",options)
+        fetch(rutaBack + "ekipamendua_json.php",options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
      
@@ -156,7 +156,7 @@
         var clasea = {id, izena, deskribapena, modelo, marka, stock, idKategoria};
         var js = JSON.stringify(clasea);
         console.log(js + "hau da js");
-        fetch('../../PHP/ekipamendua_json.php', {method: 'PUT', body: js})
+        fetch(rutaBack + 'ekipamendua_json.php', {method: 'PUT', body: js})
             .then(function (response) {
                     return response.text();
             })

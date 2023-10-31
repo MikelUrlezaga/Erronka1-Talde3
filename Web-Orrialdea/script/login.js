@@ -43,7 +43,7 @@ function loginComp() {
     var erabpass = {erabiltzailea, pasahitza};
     var js = JSON.stringify(erabpass);
     console.log(js);
-    fetch('../../PHP/logina.php', {method: 'POST', body: js})
+    fetch(rutaBack + 'logina.php', {method: 'POST', body: js})
         .then(function (response) {
                 return response.text();
         })

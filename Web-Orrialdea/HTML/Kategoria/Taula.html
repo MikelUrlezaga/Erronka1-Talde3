@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="../../script/aldagaiGlobalak.js" ></script>
     <script src="../../script/menu.js"></script>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../CSS/styles.css">
@@ -77,7 +78,7 @@
         };
         const da = null;
         document.getElementById("tabla").innerHTML="";
-        fetch("../../PHP/kategoriak_json.php", options)
+        fetch(rutaBack + "kategoriak_json.php", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
@@ -132,7 +133,7 @@
     function deleteKategoria() {
         let ids = lortuCheck();
         let js = JSON.stringify(ids);
-        fetch('../../PHP/kategoriak_json.php', { method: 'DELETE', body: js })
+        fetch(rutaBack + 'kategoriak_json.php', { method: 'DELETE', body: js })
             .then(response => response.text())
             .then(data => {
                 console.log(data);

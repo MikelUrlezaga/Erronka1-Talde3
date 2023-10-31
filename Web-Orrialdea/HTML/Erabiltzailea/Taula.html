@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="../../script/aldagaiGlobalak.js" ></script>
     <script src="../../script/menu.js"></script>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../CSS/styles.css">
@@ -81,7 +82,7 @@
         };
         const da = null;
         document.getElementById("tabla").innerHTML="";
-        fetch("../../PHP/erabiltzailea_json.php", options)
+        fetch(rutaBack + "erabiltzailea_json.php", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
@@ -140,7 +141,7 @@
     function deleteErabiltzailea() {
         let nans = lortuCheck();
         let js = JSON.stringify(nans);
-        fetch('../../PHP/erabiltzailea_json.php', { method: 'DELETE', body: js })
+        fetch(rutaBack + 'erabiltzailea_json.php', { method: 'DELETE', body: js })
             .then(response => response.text())
             .then(data => {
                 console.log(data);
@@ -174,7 +175,7 @@
     function bistaratuFromPHP2(gureNan) {
             console.log("Ha entrado")
             let options = {method: "GET"};
-            fetch("../../PHP/erabiltzailea_json.php?num="+gureNan+"", options)
+            fetch(rutaBack + "erabiltzailea_json.php?num="+gureNan+"", options)
                 .then(response => response.json())  // Analiza la respuesta JSON
                 .then(data => {
                     console.log(data);

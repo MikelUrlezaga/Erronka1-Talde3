@@ -1,0 +1,1 @@
+window.rutaBack = "../../PHP/";

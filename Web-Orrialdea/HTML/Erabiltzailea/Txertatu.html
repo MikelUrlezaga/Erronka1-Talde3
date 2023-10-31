@@ -1,5 +1,6 @@
 <!DOCTYPE html>
     <head>
+        <script src="../../script/aldagaiGlobalak.js" ></script>
         <script src="../../script/menu.js" ></script>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../CSS/styles.css">
@@ -148,7 +149,7 @@
         var js = JSON.stringify(clasea);
         console.log(js);
         // if(nancorrecto==true){
-            fetch('../../PHP/erabiltzailea_json.php', {method: 'POST', body: js})
+            fetch(rutaBack + 'erabiltzailea_json.php', {method: 'POST', body: js})
             .then(function (response) {
                     return response.text();
                     alert("Se ha insertado")
