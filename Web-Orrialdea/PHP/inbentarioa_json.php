@@ -4,14 +4,18 @@
     $db = new Datubasea ();
 
     class Inbentarioa {
-        private $idEkipamendu;
-        private $etiketa;
-        private $erosketaData;
+        public $idEkipamendu;
+        public $etiketa;
+        public $erosketaData;
+        public $marka;
+        public $modelo;
         
-        public function __construct($etiketa, $idEkipamendu, $erosketaData) {
+        public function __construct($etiketa, $idEkipamendu, $erosketaData, $marka, $modelo) {
             $this->etiketa = $etiketa;
             $this->idEkipamendu = $idEkipamendu;
             $this->erosketaData = $erosketaData;
+            $this->marka = $marka;
+            $this->modelo = $modelo;
         }
     }
 
@@ -73,7 +77,21 @@
 
     function lortuInbentarioa() {
         global $db;
-        $emaitzak = $db->datuakLortu("SELECT I.*, E.marka, E.modelo FROM inbentarioa I, ekipamendua E WHERE I.idEkipamendu = E.id");
+        $emaitzak = $db->datuakLortu("SELECT I.*, E.marka, E.modelo FROM inbentarioa I INNER JOIN ekipamendua E ON I.idEkipamendu = E.id");
+        $inbentarioa = array();
+        if (is_object($emaitzak)) {
+            while ($row = $emaitzak->fetch_assoc()) {
+                $inbentarioa[] = new Inbentarioa($row["etiketa"], $row["idEkipamendu"], $row["erosketaData"], $row["marka"], $row["modelo"]);
+            }
+            return $inbentarioa;
+        }else{
+            //echo "".$emaitzak;
+        }
+    }
+
+    function lortuInbentarioaById() {
+        global $db;
+        $emaitzak = $db->datuakLortu("SELECT I.*, E.marka, E.modelo FROM inbentarioa I INNER JOIN ekipamendua E ON I.idEkipamendu = E.id");
         $inbentarioa = array();
         if (is_object($emaitzak)) {
             while ($row = $emaitzak->fetch_assoc()) {
