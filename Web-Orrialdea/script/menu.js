@@ -7,6 +7,8 @@ fetch('../Orokorra/Menu.html')
                 document.getElementById('menuMugikorra').innerHTML = data;
                 if (obtenerCookie().match("A")) {
                     document.getElementById("menuErab").hidden = false
+                }else if(obtenerCookie().match("NoLoged")){
+                    window.location = "../Orokorra/Login.html"
                 }else{
                     document.getElementById("menuErab").hidden = true
                 }

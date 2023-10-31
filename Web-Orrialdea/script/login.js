@@ -1,3 +1,5 @@
+document.cookie = "AdminUser=" + "NoLoged" + "; path=/";
+
 function vernover() {
     if ((document.getElementById("ojo").src).includes("ojo1")) {
         document.getElementById("ojo").src = "../../IMG/ojo2.png"
