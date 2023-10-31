@@ -47,7 +47,7 @@
                     </div>
                     <div>
                         <p class="texto">Admin: </p>
-                        <input class="textBox" type="checkbox" id="rolaEraEgu" name="Rola">
+                        <input class="textBox" type="checkbox" id="rolaEraEgu" name="Rola" onchange="leerRol()">
                     </div>
                     <div class="ck">
                         <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="createErabiltzailea()">
@@ -136,13 +136,14 @@
     // console.log(resultado);
 
     function createErabiltzailea() {
+       
         var nan = document.getElementById("nanErabiltzaileaTxertatu").value;
         //var nancorrecto= validateDNI(nan);
         var izena = document.getElementById("izenaErabiltzaileaTxertatu").value;
         var abizena = document.getElementById("abizenaErabiltzaileaTxertatu").value;
         var erabiltzailea = document.getElementById("erabiltzaileaErabiltzaileaTxertatu").value;
         var pasahitza = document.getElementById("pasahitzaEraEgu").value;
-        var rola = document.getElementById("rolaEraEgu").value;
+        var rola =  leerRol();
         var clasea = {nan, izena, abizena, erabiltzailea, pasahitza, rola};
         var js = JSON.stringify(clasea);
         console.log(js);
@@ -174,5 +175,16 @@ function vernover() {
                 document.getElementById("pasahitzaEraEgu").type = "text"
             }
             
+        }
+
+        function leerRol(){
+            if( document.getElementById("rolaEraEgu").checked){
+                console.log("Check");
+                return "A";
+            }else{
+                console.log("No")
+                return "B";
+            }
+               
         }
 </script>
