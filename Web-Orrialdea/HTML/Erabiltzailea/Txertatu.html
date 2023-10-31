@@ -94,52 +94,54 @@
         }
     }
 
-    // function nanOndo(nan) {
-    //     let dni = nan;
-    //     let error = false;
+     function nanOndo(nan) {
+         let dni = nan;
+         let error = false;
 
-    //     function devuelveletra(nums) {
-    //         const letras = "TRWAGMYFPDXBNJZSQVHLCKE";
-    //         const resto = nums % 23;
-    //         return letras.charAt(resto);
-    //     }
+         function devuelveletra(nums) {
+             const letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+             const resto = nums % 23;
+             return letras.charAt(resto);
+         }
 
-    //     dni = dni.toUpperCase();
-    //     const lon = dni.replace(/ /g, "").length;
+         dni = dni.toUpperCase();
+         const lon = dni.replace(/ /g, "").length;
 
-    //     if (lon !== 9 && lon !== 8) {
-    //         console.log("Longitud del DNI incorrecta");
-    //         error = true;
-    //     }
+         if (lon !== 9 && lon !== 8) {
+             console.log("Longitud del DNI incorrecta");
+             error = true;
+         }
 
-    //     if (lon === 8) {
-    //         const letra2 = devuelveletra(parseInt(dni.substring(0, 8), 10));
-    //         dni = dni.substring(0, 8) + letra2;
-    //         return dni;
-    //     } else {
-    //         if (lon === 9) {
-    //             if (!isNaN(dni.substring(0, 8)) && dni.charAt(8) === devuelveletra(parseInt(dni.substring(0, 8), 10))) {
-    //                 return dni;
-    //             } else {
-    //                 error = true;
-    //             }
-    //         }
-    //     }
+         if (lon === 8) {
+             const letra2 = devuelveletra(parseInt(dni.substring(0, 8), 10));
+             dni = dni.substring(0, 8) + letra2;
+             return dni;
+         } else {
+             if (lon === 9) {
+                 if (!isNaN(dni.substring(0, 8)) && dni.charAt(8) === devuelveletra(parseInt(dni.substring(0, 8), 10))) {
+                 return dni;
+                 } else {
+                     error = true;
+                 }
+             }
+         }
 
-    //     if (error) {
-    //         return "Mal";
-    //     }
-    // }
+         if (error) {
+             return "Mal";
+         }
+     }
 
     // Ejemplo de uso:
     // const resultado = nanOndo("12345678A");
     // console.log(resultado);
 
     function createErabiltzailea() {
-       
-        var nan = document.getElementById("nanErabiltzaileaTxertatu").value;
-        //var nancorrecto= validateDNI(nan);
-        var izena = document.getElementById("izenaErabiltzaileaTxertatu").value;
+        var nan = nanOndo(document.getElementById("nanErabiltzaileaTxertatu").value);
+        if(nan=="Mal"){
+
+        }else{
+ //var nancorrecto= validateDNI(nan);
+ var izena = document.getElementById("izenaErabiltzaileaTxertatu").value;
         var abizena = document.getElementById("abizenaErabiltzaileaTxertatu").value;
         var erabiltzailea = document.getElementById("erabiltzaileaErabiltzaileaTxertatu").value;
         var pasahitza = document.getElementById("pasahitzaEraEgu").value;
@@ -157,6 +159,8 @@
                 console.log(data);
                 
             })
+        }
+       
         // }else{
         //     alert("El DNI esta mal")
         // }
@@ -180,7 +184,7 @@ function vernover() {
         function leerRol(){
             if( document.getElementById("rolaEraEgu").checked){
                 console.log("Check");
-                return "A";
+                return "A"; 
             }else{
                 console.log("No")
                 return "B";

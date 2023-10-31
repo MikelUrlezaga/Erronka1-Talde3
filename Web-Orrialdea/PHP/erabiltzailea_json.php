@@ -103,12 +103,8 @@
 
     function txertatuErabiltzailea($nan, $izena, $abizena, $erabiltzailea, $pasahitza, $rola) {
         global $db;
-        $bienMal = nanOndo($nan);
-        if($bienMal == "Mal") {
-        }else{
-            $sql = "INSERT INTO erabiltzailea (nan, izena, abizena, erabiltzailea, pasahitza, rola) VALUES ('$bienMal', '$izena', '$abizena', '$erabiltzailea', '$pasahitza', '$rola')";
-            $db->txertatu($sql);
-        }
+        $sql = "INSERT INTO erabiltzailea (nan, izena, abizena, erabiltzailea, pasahitza, rola) VALUES ('$nan', '$izena', '$abizena', '$erabiltzailea', '$pasahitza', '$rola')";
+        $db->txertatu($sql);
         
     }
 
@@ -136,7 +132,7 @@
         }
     }
 
-    function nanOndo($nan)
+    /*function nanOndo($nan)
     {
         $dni = $nan;
         $error = false;
@@ -170,7 +166,7 @@
         } if ($error) {
             return "Mal";
         }
-    }
+    }*/
 ?>
 
 <!DOCTYPE html>
