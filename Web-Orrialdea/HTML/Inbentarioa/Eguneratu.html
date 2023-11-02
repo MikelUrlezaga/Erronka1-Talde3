@@ -100,18 +100,17 @@
             .then(data => {
      
                 for (let i = 0; i < data.length; i++) {
-                    console.log(nuestraId + "holi");
-                    console.log(data[i].id);
-                    if(data[i].id==nuestraId){
+                    console.log(data + "holi");
+                    if(data[i].idEkipamendu==nuestraId){
                         console.log("Entra "+nuestraId);
                     }
-                    var opcion="<option value='"+data[i].id+"'>"+data[i].marka+
+                    var opcion="<option value='"+data[i].idEkipamendu+"'>"+data[i].marka+
                     "</option>";
                     //+data[i].marka+data[i].modelo+data[i].stock+data[i].idKategoria
                     var opElement = document.createElement("option");
                     opElement.innerHTML = opcion;
-                    opElement.value = data[i].id;
-                    if(data[i].id==nuestraId){
+                    opElement.value = data[i].idEkipamendu;
+                    if(data[i].idEkipamendu==nuestraId){
                         opElement.selected="selected";
                     }
                     
@@ -133,7 +132,7 @@
         var marka = document.getElementById("MarkaEguneratu").value;
         var modelo = document.getElementById("ModeloEguneratu").value;
         var erosketaData = document.getElementById("ErosketaDataInbEguneratu").value;
-        var clasea = {id, etiketa, marka, modelo, marka, erosketaData};
+        var clasea = {id, etiketa, marka, modelo, erosketaData};
         var js = JSON.stringify(clasea);
         console.log(js + "hau da js");
         fetch('../../PHP/inbentarioa_json.php', {method: 'PUT', body: js})
