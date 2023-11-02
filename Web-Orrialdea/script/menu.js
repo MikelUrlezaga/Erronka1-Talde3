@@ -12,6 +12,8 @@ fetch('../Orokorra/Menu.html')
                 }else{
                     document.getElementById("menuErab").hidden = true
                 }
+            }).catch(error => {
+                console.log("Errorea." + error);
             });
 
 
@@ -53,5 +55,5 @@ function obtenerCookie() {
             return cookie.substring("AdminUser=".length, cookie.length);
         }
     }
-    return null;
+    return "NoLoged";
 }
