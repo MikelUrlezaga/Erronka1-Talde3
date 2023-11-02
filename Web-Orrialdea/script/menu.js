@@ -12,8 +12,6 @@ fetch('../Orokorra/Menu.html')
                 }else{
                     document.getElementById("menuErab").hidden = true
                 }
-            }).catch(error => {
-                console.log("Errorea." + error);
             });
 
 
