@@ -131,13 +131,12 @@ button:hover{
 .logohomediv{
     display: flex;
     align-items: center;
-    flex-direction: column;
+    flex-direction:column;
 }
 
 footer{
     background-color: #252427;
     padding: 1vh;
-    margin-top: -36vh;
 }
 
 footer .allinfo a{
