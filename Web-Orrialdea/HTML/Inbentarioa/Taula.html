@@ -98,7 +98,7 @@
                 for(i=0; i < data.length; i++){
                     var tableRow="<tr></tr>";
                     tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                    data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].etiketa + "</td>" +
+                    data[i].idEkipamendu +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].etiketa + "</td>" +
                     tableRow.substring(tableRow.length-5) + "<td>" +  data[i].marka + " " + data[i].modelo + "</td>"
                     + tableRow.substring(tableRow.length-5) + "<td>" + data[i].erosketaData + "</td>";
 
@@ -107,7 +107,7 @@
                     document.getElementById("tabla").appendChild(trElement);
 
                     var opElement = document.createElement("option");
-                    opElement.value = data[i].id;
+                    opElement.value = data[i].idEkipamendu;
                     opElement.innerText=data[i].etiketa;
                     document.getElementById("selector").appendChild(opElement);
                 }
@@ -127,7 +127,7 @@
             ids.push(checkbox.id);              //mire los que estan checked y agarre sus ids para meterlas en un array previamente
                                                 //creado
         });
-        
+        console.log(ids)
         return ids;
     }
 
@@ -170,6 +170,7 @@
 
     function editaInbentarioa(){
         $id=lortuCheck();
+        console.log($id)
         numero=$id[0];
         window.location="Eguneratu.html?num="+numero+"";
     }
@@ -197,14 +198,13 @@
                     console.log(data);
                     console.log(data.length);
                     document.getElementById("tabla").innerHTML="";
-
+                    
                     for(i=0; i < data.length; i++){
                         var tableRow="<tr></tr>";
                         tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                        data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" +
-                        tableRow.substring(tableRow.length-5) + "<td>" + data[i].deskribapena + "</td>" 
-                        + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].marka + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].modelo + "</td>"
-                        + tableRow.substring(tableRow.length-5) + "<td>" + data[i].stock + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].idKategoria + "</td>";
+                        data[i].idEkipamendu +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].etiketa + "</td>" +
+                        tableRow.substring(tableRow.length-5) + "<td>" +  data[i].marka + " " + data[i].modelo + "</td>"
+                        + tableRow.substring(tableRow.length-5) + "<td>" + data[i].erosketaData + "</td>";
 
                         var trElement = document.createElement("tr");
                         trElement.innerHTML = tableRow;
