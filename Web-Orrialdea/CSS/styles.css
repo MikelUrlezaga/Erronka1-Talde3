@@ -129,7 +129,6 @@ button:hover{
 }
 
 .logohomediv{
-    height: 600px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -138,6 +137,7 @@ button:hover{
 footer{
     background-color: #252427;
     padding: 1vh;
+    margin-top: -36vh;
 }
 
 
