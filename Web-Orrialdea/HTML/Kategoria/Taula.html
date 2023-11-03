@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <script src="../../script/aldagaiGlobalak.js" ></script>
     <script src="../../script/menu.js"></script>
-    <meta charset="UTF-8">
     <link rel="stylesheet" href="../../CSS/styles.css">
     <link rel="icon" href="../../IMG/LOGO.png" type="image/x-icon">
-    <title>Home</title>
+    <title>Kategoriak</title>
     <header>
         <img class="logo" src="../../IMG/LOGO.png">
         <p class="titulo">KATEGORIA</p>
@@ -21,53 +21,52 @@
         </div>
     </header>
 </head>
-
-<div class="reborde">
     <body>
-        <div class="all">
-            <div class="up">
-                <div class="botones">
-                    <div class="elementos">
-                        <div class="boto">
-                            <img src="../../IMG/edit.png" id="botonedit" onclick="editaKategoria()">
-                            <img src="../../IMG/mas.png" onclick="txertatuKategoria()">
-                            <img src="../../IMG/borrar.png" onclick="checkZiur();">
+        <div class="reborde">
+            <div class="all">
+                <div class="up">
+                    <div class="botones">
+                        <div class="elementos">
+                            <div class="boto">
+                                <img src="../../IMG/edit.png" id="botonedit" onclick="editaKategoria()">
+                                <img src="../../IMG/mas.png" onclick="txertatuKategoria()">
+                                <img src="../../IMG/borrar.png" onclick="checkZiur();">
+                            </div>
+                        </div>
+                        <div class="submites">
+                            <!-- <div class="botonsubmit">
+                                <button onclick="lortuCheck();">Submit</button>
+                            </div> -->
                         </div>
                     </div>
-                    <div class="submites">
-                        <!-- <div class="botonsubmit">
-                            <button onclick="lortuCheck();">Submit</button>
-                        </div> -->
+                    <div class="search">
+                        <div class="elementos">
+                            <select id="selector">
+                                <option>Elige una opción</option>
+                            </select>
+                        </div>
+                        <div class="submites">
+                            <button>Search</button>
+                        </div>
                     </div>
                 </div>
-                <div class="search">
-                    <div class="elementos">
-                        <select id="selector">
-                            <option>Elige una opción</option>
-                        </select>
-                    </div>
-                    <div class="submites">
-                        <button>Search</button>
-                    </div>
+                <div class="tablachula">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="background-color:#606175; width: 3vh;"></th>
+                                <th>Izena</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla">
+                            <!-- Datos se cargarán aquí -->
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-            <div class="tablachula">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="background-color:#606175; width: 3vh;"></th>
-                            <th>Izena</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla">
-                        <!-- Datos se cargarán aquí -->
-                    </tbody>
-                </table>
             </div>
         </div>
     </body>
-</div>
-<div id="menuMugikorra"></div>
+    <div id="menuMugikorra"></div>
 </html>
 
 <script>
