@@ -140,6 +140,14 @@ footer{
     margin-top: -36vh;
 }
 
+footer .allinfo a{
+    color: white;
+}
+
+footer .allinfo{
+    color: white;
+}
+
 
 /* Menú */
 
