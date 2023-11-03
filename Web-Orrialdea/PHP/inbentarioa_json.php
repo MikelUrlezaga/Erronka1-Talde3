@@ -31,7 +31,7 @@
         exit;
     }elseif($_SERVER["REQUEST_METHOD"] == "POST"){
         $json_data = json_decode(file_get_contents("php://input"), true);
-        $emaitzak = txertatuInbentarioa($json_data["etiketa"], $json_data["idEkipamendu"], $json_data["erosketaData"]);
+        $emaitzak = txertatuInbentarioa($json_data["etiketa"], $json_data["id"], $json_data["erosketaData"]);
         echo json_decode("okai");
     }elseif($_SERVER["REQUEST_METHOD"] == "PUT"){
         $json_data = json_decode(file_get_contents("php://input"), true);
@@ -48,7 +48,7 @@
         if (isset($json_data)) {
             foreach ($json_data as $item) {
                 $etiketa = $item['etiketa'];
-                $idEkipamendu = $item['idEkipamendu'];
+                $idEkipamendu = $item['id'];
                 ezabatuInbentarioa($etiketa, $idEkipamendu);
             }
         }
