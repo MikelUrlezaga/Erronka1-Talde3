@@ -11,6 +11,7 @@ async function bistaratuFromPHP() {
                 var opElement = document.createElement("option");
                 opElement.value = "Nada";
                 opElement.innerText="Elige una opcion";
+                document.getElementById("selector").appendChild(opElement);
             for(i=0; i < data.length; i++){
                 var tableRow="<tr></tr>";
                 tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
@@ -114,6 +115,7 @@ function bistaratuFromPHP2(gureNan) {
                 console.log(data);
                 console.log(data.length);
                 document.getElementById("tabla").innerHTML="";
+                
                 for(i=0; i < data.length; i++){
                         var tableRow="<tr></tr>";
                         tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 

@@ -4,12 +4,12 @@
         <script src="../../script/menu.js" ></script>
         <link rel="stylesheet" href="../../CSS/styles.css">
         <link rel="icon" href="../../IMG/LOGO.png" type="image/x-icon">
-        <title>Ekipamendua Txertatu</title>
+        <title>Inbentarioa Txertatu</title>
     </head>
     <body onkeydown="teclado(event)">
         <header>
             <img class="logo" src="../../IMG/LOGO.png">
-            <p class="titulo">EKIPAMENDUA TXERTATU</p>
+            <p class="titulo">INBENTARIOA TXERTATU</p>
             <div class="headerdiv">
                 <a href="Taula.html">
                     <img class="headerimg" src="../../IMG/arrow.png">
@@ -24,32 +24,20 @@
                 <br>
                 <div class="dobleColumn">
                     <div>
-                        <p class="texto">Izena: </p>
-                        <input class="textBox" type="text" id="izenaEkipamenduaTxertatu" name="Izena" >
+                        <p class="texto">Etiketa: </p>
+                        <input class="textBox" type="text" id="etiketaInbentarioaTxertatu" name="etiketa" >
                     </div>
                     <div>
-                        <p class="texto">Deskribapena: </p>
-                        <input class="textBox" type="text" id="deskribapenaEkipamenduaTxertatu" name="Deskribapena">
-                    </div>
-                    <div>
-                        <p class="texto">Marka: </p>
-                        <input class="textBox" type="text" id="markaEkipamenduaTxertatu" name="Marka">
-                    </div>
-                    <div>
-                        <p class="texto">Modelo: </p>
-                        <input class="textBox" type="text" id="modeloEkipamenduaTxertatu" name="Modelo" >
-                    </div>
-                    <div>
-                        <p class="texto">Stock: </p>
-                        <input class="textBox" type="text" id="stockEkipamenduaTxertatu" name="Stock">
-                    </div>
-                    <div>
-                        <p class="texto">Kategoria: </p>
+                        <p class="texto">Ekipamendua: </p>
                         <select id="selecTxertatu" class="textBox">
                         </select>
                     </div>
+                    <div>
+                        <p class="texto">Erosketa Data: </p>
+                        <input class="textBox" type="text" id="erosDataInbentarioaTxertatu" name="erosketaData">
+                    </div>
                     <div class="ck">
-                        <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="createEkipamendua()">
+                        <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="createInbentarioa()">
                     </div>
                 </div>
         </div>
@@ -61,15 +49,15 @@
     function teclado(event) {
     var codigo = event.which || event.keyCode;
     if (codigo==13) {
-        createEkipamendua()
+        createInbentarioa()
     }
 }
-    function cargarKatego(){
+    function cargarEkipamendua(){
         let options = {
             method: "GET",
             mode: 'cors'
         };
-        fetch("../../PHP/kategoriak_json.php", options)
+        fetch("../../PHP/ekipamendua_json.php", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
@@ -85,18 +73,18 @@
                 alert("Errorea." + error);
             });
     }
-    window.addEventListener("load", cargarKatego);
-    function createEkipamendua() {
-        var izena = document.getElementById("izenaEkipamenduaTxertatu").value;
-        var marka = document.getElementById("markaEkipamenduaTxertatu").value;
-        var deskribapena = document.getElementById("deskribapenaEkipamenduaTxertatu").value;
-        var modelo = document.getElementById("modeloEkipamenduaTxertatu").value;
+    window.addEventListener("load", cargarEkipamendua);
+    function createInbentarioa() {
+        var izena = document.getElementById("izenaInbentarioaTxertatu").value;
+        var marka = document.getElementById("markaInbentarioaTxertatu").value;
+        var deskribapena = document.getElementById("deskribapenaInbentarioaTxertatu").value;
+        var modelo = document.getElementById("modeloInbentarioaTxertatu").value;
         var idKategoria = document.getElementById("selecTxertatu").value;
-        var stock = document.getElementById("stockEkipamenduaTxertatu").value;
+        var stock = document.getElementById("stockInbentarioaTxertatu").value;
         var clasea = {izena, deskribapena, marka, modelo, stock, idKategoria};
         var js = JSON.stringify(clasea);
         console.log(js);
-        fetch('../../PHP/ekipamendua_json.php', {method: 'POST', body: js})
+        fetch('../../PHP/Inbentarioa_json.php', {method: 'POST', body: js})
             .then(function (response) {
                     return response.text();
             })
