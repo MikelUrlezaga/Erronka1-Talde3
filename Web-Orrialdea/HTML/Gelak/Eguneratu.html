@@ -79,11 +79,13 @@
     }
 
     function aldatuGela(){
-        var idclase = document.getElementById("selectore").value;
-        console.log(document.getElementById("selectore").value);
-
-        bistaratuFromPHP2(idclase);
-        nuestraId= idclase;
+        
+        var ide = document.getElementById("selector").value;
+        if(ide.match("Nada")){
+            bistaratuFromPHP();
+        }else{
+            bistaratuFromPHP2(ide);
+        }
     }
 
     async function bistaratuFromPHP() {

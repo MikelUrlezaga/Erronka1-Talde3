@@ -41,8 +41,8 @@
                     </div>
                     <div class="search">
                         <div class="elementos">
-                            <select id="selector">
-                                <option>Elige una opción</option>
+                            <select id="selector" onchange="aldatuKategoria()">
+                                <option value="Nada">Elige una opcion</option>
                             </select>
                         </div>
                         <div class="submites">
@@ -112,6 +112,15 @@
             ids.push(checkbox.id);
         });
         return ids;
+    }
+
+    function aldatuKategoria(){
+        var ide = document.getElementById("selector").value;
+        if(ide.match("Nada")){
+            bistaratuFromPHP();
+        }else{
+            bistaratuFromPHP2(ide);
+        }
     }
 
     function bloquearEdit() {
