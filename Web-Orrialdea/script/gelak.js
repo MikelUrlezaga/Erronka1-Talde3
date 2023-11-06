@@ -7,6 +7,7 @@ async function bistaratuFromPHP() {
         .then(data => {
             console.log(data);
             console.log(data.length);
+            document.getElementById("selector").innerHTML = "";
             for(i=0; i < data.length; i++){
                 var tableRow="<tr></tr>";
                 tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
