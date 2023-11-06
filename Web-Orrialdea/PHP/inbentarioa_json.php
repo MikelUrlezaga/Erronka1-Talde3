@@ -31,12 +31,12 @@
         exit;
     }elseif($_SERVER["REQUEST_METHOD"] == "POST"){
         $json_data = json_decode(file_get_contents("php://input"), true);
-        $emaitzak = txertatuInbentarioa($json_data["etiketa"], $json_data["id"], $json_data["erosketaData"]);
+        $emaitzak = txertatuInbentarioa($json_data["etiketa"], $json_data["idEkipamendu"], $json_data["erosketaData"]);
         echo json_decode("okai");
     }elseif($_SERVER["REQUEST_METHOD"] == "PUT"){
         $json_data = json_decode(file_get_contents("php://input"), true);
-        if(isset($json_data["id"], $json_data["etiketa"], $json_data["erosketaData"])){
-            $idEkipamendu = $json_data["id"];
+        if(isset($json_data["idEkipamendu"], $json_data["etiketa"], $json_data["erosketaData"])){
+            $idEkipamendu = $json_data["idEkipamendu"];
             $etiketa = $json_data["etiketa"];
             $erosketaData = $json_data["erosketaData"];
 
@@ -46,10 +46,16 @@
         $json_data = json_decode(file_get_contents("php://input"), true);
     
         if (isset($json_data)) {
-            foreach ($json_data as $item) {
-                $etiketa = $item['etiketa'];
-                $idEkipamendu = $item['id'];
-                ezabatuInbentarioa($etiketa, $idEkipamendu);
+            // foreach ($json_data as $item) {
+            //     $etiketa = $item['etiketa'];
+            //     $idEkipamendu = $item['idEkipamendu'];
+            //     ezabatuInbentarioa($etiketa, $idEkipamendu);
+            // }
+            for ($i=0; $i < count($json_data); $i++) { 
+                $datuak = explode(',', $json_data[$i]);
+                $etiketa=$datuak[0];
+                $id=$datuak[1];
+                ezabatuInbentarioa($etiketa, $id);
             }
         }
     }
@@ -71,8 +77,32 @@
 
     function txertatuInbentarioa($etiketa, $idEkipamendu, $erosketaData) {
         global $db;
-        $sql = "INSERT INTO inbentarioa (etiketa, idEkipamendu, erosketaData) VALUES ('$etiketa', '$idEkipamendu', '$erosketaData')";
-        $db->txertatu($sql);
+        $sqlMax = "SELECT stock FROM ekipamendua WHERE id = '$idEkipamendu'";
+        $sqlCount = "SELECT count(etiketa) FROM inbentarioa WHERE idEkipamendu = '$idEkipamendu'";
+        $sqlMaximo = $db->datuakLortu($sqlMax);
+        $sqlCuenta = $db->datuakLortu($sqlCount);
+        $arr1 = array();
+        $arr2 = array();
+        if (is_object($sqlMaximo)){
+            while ($row = $sqlMaximo->fetch_assoc()) {
+                $arr1[] = $row;
+            }
+            echo $arr1[0]["stock"];
+        }
+
+        if (is_object($sqlCuenta)){
+            while ($row =  $sqlCuenta->fetch_assoc()) {
+                $arr2[] = $row;
+            }
+            echo $arr2[0]["count(etiketa)"];
+        }
+        //echo $arr1[0]. " ".$arr2[0];
+        if($arr1[0]["stock"] >  $arr2[0]["count(etiketa)"]){
+            $sql = "INSERT INTO inbentarioa (etiketa, idEkipamendu, erosketaData) VALUES ('$etiketa', '$idEkipamendu', '$erosketaData')";
+            $db->txertatu($sql);
+        }else{
+            echo "No hay stock suficiente.";
+        }
     }
 
     function lortuInbentarioa() {

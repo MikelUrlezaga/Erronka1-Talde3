@@ -34,7 +34,7 @@
                     </div>
                     <div>
                         <p class="texto">Erosketa Data: </p>
-                        <input class="textBox" type="text" id="erosDataInbentarioaTxertatu" name="erosketaData">
+                        <input class="textBox" type="date" id="erosDataInbentarioaTxertatu" name="erosketaData">
                     </div>
                     <div class="ck">
                         <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="createInbentarioa()">
@@ -65,7 +65,7 @@
                 for (i = 0; i < data.length; i++) {
                     var opElement = document.createElement("option");
                     opElement.value = data[i].id;
-                    opElement.innerText = data[i].izena;
+                    opElement.innerText = data[i].marka +" "+data[i].modelo;
                     document.getElementById("selecTxertatu").appendChild(opElement);
                 }
             })
@@ -75,13 +75,10 @@
     }
     window.addEventListener("load", cargarEkipamendua);
     function createInbentarioa() {
-        var izena = document.getElementById("izenaInbentarioaTxertatu").value;
-        var marka = document.getElementById("markaInbentarioaTxertatu").value;
-        var deskribapena = document.getElementById("deskribapenaInbentarioaTxertatu").value;
-        var modelo = document.getElementById("modeloInbentarioaTxertatu").value;
-        var idKategoria = document.getElementById("selecTxertatu").value;
-        var stock = document.getElementById("stockInbentarioaTxertatu").value;
-        var clasea = {izena, deskribapena, marka, modelo, stock, idKategoria};
+        var etiketa = document.getElementById("etiketaInbentarioaTxertatu").value;
+        var idEkipamendu = document.getElementById("selecTxertatu").value;
+        var erosketaData = document.getElementById("erosDataInbentarioaTxertatu").value;
+        var clasea = {etiketa, idEkipamendu, erosketaData};
         var js = JSON.stringify(clasea);
         console.log(js);
         fetch('../../PHP/Inbentarioa_json.php', {method: 'POST', body: js})
@@ -90,7 +87,10 @@
             })
             .then(data=>{
                 console.log(data);
-                
+                if(data == "No hay stock suficiente."){
+                    alert("No puedes insertar más stock.")
+                }
+                //AQUÍ UN WINDOW PROMPT DEL STOCK DISPONIBLE DE ESE EKIPAMENDU
             })
             .catch(error => {
                 console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
