@@ -1,13 +1,14 @@
 <!DOCTYPE html>
     <head>
+        <meta charset="UTF-8">
         <script src="../../script/aldagaiGlobalak.js" ></script>
         <script src="../../script/menu.js" ></script>
-        <meta charset="UTF-8">
         <link rel="stylesheet" href="../../CSS/styles.css">
         <link rel="icon" href="../../IMG/LOGO.png" type="image/x-icon">
         <title>Kokalekua Eguneratu</title>
     </head>
-    <header>
+    <body onkeydown="teclado(event)">
+        <header>
             <img class="logo" src="../../IMG/LOGO.png">
             <p class="titulo">KOKALEKUA EGUNERATU</p>
             <div class="headerdiv">
@@ -19,28 +20,27 @@
                     <img class="headerimg" src="../../IMG/LogOut.png">
                 </a>
             </div>
-    </header>
-    <body onkeydown="teclado(event)">
+        </header>
         <div class="reborde">
-                <div class="custom-combobox">
-                    <select>
-                        <option value="opcion1">Opción 1</option>
-                        <option value="opcion2">Opción 2</option>
-                        <option value="opcion3">Opción 3</option>
-                        <option value="opcion4">Opción 4</option>
-                    </select>
-                </div>
-                <p class="texto1Columna">Etiqueta: </p>
-                <input class="textBox1Columna" type="text" id="etiquetaKokalekua" name="Etiqueta" >
-                <p class="texto1Columna">ID gela: </p>
-                <input class="textBox1Columna" type="text" id="idgelaKokalekua" name="IdGela">
-                <p class="texto1Columna">Hasiera data: </p>
-                <input class="textBox1Columna" type="date" id="hdataKokalekua" name="HasieraData">
-                <p class="texto1Columna">Amaiera data: </p>
-                <input class="textBox1Columna" type="date" id="adataKokalekua" name="AmaieraData">
-                <div class="ck">
-                    <img src="../../IMG/unnamed.png" alt="check" class="checkicon">
-                </div>
+            <div class="custom-combobox">
+                <select>
+                    <option value="opcion1">Opción 1</option>
+                    <option value="opcion2">Opción 2</option>
+                    <option value="opcion3">Opción 3</option>
+                    <option value="opcion4">Opción 4</option>
+                </select>
+            </div>
+            <p class="texto1Columna">Etiqueta: </p>
+            <input class="textBox1Columna" type="text" id="etiquetaKokalekua" name="Etiqueta" >
+            <p class="texto1Columna">ID gela: </p>
+            <input class="textBox1Columna" type="text" id="idgelaKokalekua" name="IdGela">
+            <p class="texto1Columna">Hasiera data: </p>
+            <input class="textBox1Columna" type="date" id="hdataKokalekua" name="HasieraData">
+            <p class="texto1Columna">Amaiera data: </p>
+            <input class="textBox1Columna" type="date" id="adataKokalekua" name="AmaieraData">
+            <div class="ck">
+                <img src="../../IMG/unnamed.png" alt="check" class="checkicon">
+            </div>
         </div>
     </body>
     <div id="menuMugikorra"></div>

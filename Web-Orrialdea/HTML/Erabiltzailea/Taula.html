@@ -1,77 +1,77 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <script src="../../script/aldagaiGlobalak.js" ></script>
-    <script src="../../script/menu.js"></script>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../CSS/styles.css">
-    <link rel="icon" href="../../IMG/LOGO.png" type="image/x-icon">
-    <title>Home</title>
-    <header>
-        <img class="logo" src="../../IMG/LOGO.png">
-        <p class="titulo">ERABILTZAILEA</p>
-        <div class="headerdiv">
-            <a href="../../HTML/Orokorra/Home.html">
-                <img class="headerimg" src="../../IMG/arrow.png">
-            </a>
-            <p>&nbsp;</p>
-            <a href="../../HTML/Orokorra/Login.html">
-                <img class="headerimg" src="../../IMG/LogOut.png">
-            </a>
-        </div>
-    </header>
-</head>
-
-<div class="reborde">
+    <head>
+        <meta charset="UTF-8">
+        <script src="../../script/aldagaiGlobalak.js" ></script>
+        <script src="../../script/menu.js"></script>
+        <link rel="stylesheet" href="../../CSS/styles.css">
+        <link rel="icon" href="../../IMG/LOGO.png" type="image/x-icon">
+        <title>ErabiltzaileaK</title>
+        
+    </head>
     <body>
-        <div class="all">
-            <div class="up">
-                <div class="botones">
-                    <div class="elementos">
-                        <div class="boto">
-                            <img src="../../IMG/edit.png" id="botonedit" onclick="editaErabiltzailea()">
-                            <img src="../../IMG/mas.png" onclick="txertatuErabiltzailea()">
-                            <img src="../../IMG/borrar.png" onclick="checkZiur();">
+        <header>
+            <img class="logo" src="../../IMG/LOGO.png">
+            <p class="titulo">ERABILTZAILEA</p>
+            <div class="headerdiv">
+                <a href="../../HTML/Orokorra/Home.html">
+                    <img class="headerimg" src="../../IMG/arrow.png">
+                </a>
+                <p>&nbsp;</p>
+                <a href="../../HTML/Orokorra/Login.html">
+                    <img class="headerimg" src="../../IMG/LogOut.png">
+                </a>
+            </div>
+        </header>
+        <div class="reborde">
+            <div class="all">
+                <div class="up">
+                    <div class="botones">
+                        <div class="elementos">
+                            <div class="boto">
+                                <img src="../../IMG/edit.png" id="botonedit" onclick="editaErabiltzailea()">
+                                <img src="../../IMG/mas.png" onclick="txertatuErabiltzailea()">
+                                <img src="../../IMG/borrar.png" onclick="checkZiur();">
+                            </div>
+                        </div>
+                        <div class="submites">
+                            <!-- <div class="botonsubmit">
+                                <button onclick="lortuCheck();">Submit</button>
+                            </div> -->
                         </div>
                     </div>
-                    <div class="submites">
-                        <!-- <div class="botonsubmit">
-                            <button onclick="lortuCheck();">Submit</button>
-                        </div> -->
+                    <div class="search">
+                        <div class="elementos">
+                            <select id="selector" onchange="aldatuErabiltzaile()">
+                                <option value="Nada">Elige una opción</option>
+                            </select>
+                        </div>
+                        <div class="submites">
+                            <button>Search</button>
+                        </div>
                     </div>
                 </div>
-                <div class="search">
-                    <div class="elementos">
-                        <select id="selector" onchange="aldatuErabiltzaile()">
-                            <option value="Nada">Elige una opción</option>
-                        </select>
-                    </div>
-                    <div class="submites">
-                        <button>Search</button>
-                    </div>
+                <div class="tablachula">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="background-color:#606175; width: 3vh;"></th>
+                                <th>NAN</th>
+                                <th>Izena</th>
+                                <th>Abizena</th>
+                                <th>Erabiltzailea</th>
+                                <th>Rola</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla">
+                            <!-- Datos se cargarán aquí -->
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-            <div class="tablachula">
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="background-color:#606175; width: 3vh;"></th>
-                            <th>NAN</th>
-                            <th>Izena</th>
-                            <th>Abizena</th>
-                            <th>Erabiltzailea</th>
-                            <th>Rola</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla">
-                        <!-- Datos se cargarán aquí -->
-                    </tbody>
-                </table>
             </div>
         </div>
     </body>
-</div>
-<div id="menuMugikorra"></div>
+    <div id="menuMugikorra"></div>
 </html>
 
 <script>

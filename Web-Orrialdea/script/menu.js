@@ -36,15 +36,6 @@ function menuopenclose () {
         a = !a;
 }
 
-function A () {
-    xd++;
-    console.log(xd)
-    if(xd==50){
-        document.getElementById("mysecreto").style.visibility="visible";
-        document.getElementById("ellogo").style.visibility="hidden";
-    }
-}
-
 function obtenerCookie() {
     var cookies = document.cookie.split(';');
     for (var i = 0; i < cookies.length; i++) {
@@ -53,5 +44,5 @@ function obtenerCookie() {
             return cookie.substring("AdminUser=".length, cookie.length);
         }
     }
-    return null;
+    return "NoLoged";
 }

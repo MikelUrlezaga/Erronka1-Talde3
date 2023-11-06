@@ -1,30 +1,29 @@
 <!DOCTYPE html>
     <head>
+        <meta charset="UTF-8">
         <script src="../../script/aldagaiGlobalak.js" ></script>
         <!--<script src="/Erronka/script/login.js" > </script>-->
         <script src="../../script/menu.js" ></script>
-        <meta charset="UTF-8">
         <link rel="stylesheet" href="../../CSS/styles.css">
         <link rel="icon" href="../../IMG/LOGO.png" type="image/x-icon">
-        <title>Home</title>
-        <header> 
-                <img class="logo" src="../../IMG/LOGO.png">
-                <p class="titulo">INBENTARIOA</p>
-
-                <div class="headerdiv">
-                    <a href="../../HTML/Orokorra/Home.html">
-                        <img class="headerimg" src="../../IMG/arrow.png">
-                    </a>
-                    <p>&nbsp;</p>
-                    <a href="../../HTML/Orokorra/Login.html">
-                        <img class="headerimg" src="../../IMG/LogOut.png">
-                    </a>
-                </div>
-        </header>
+        <title>Inbentarioa</title>
     </head>
-    
-    <div class="reborde">
-        <body>
+    <body>
+        <header> 
+            <img class="logo" src="../../IMG/LOGO.png">
+            <p class="titulo">INBENTARIOA</p>
+
+            <div class="headerdiv">
+                <a href="../../HTML/Orokorra/Home.html">
+                    <img class="headerimg" src="../../IMG/arrow.png">
+                </a>
+                <p>&nbsp;</p>
+                <a href="../../HTML/Orokorra/Login.html">
+                    <img class="headerimg" src="../../IMG/LogOut.png">
+                </a>
+            </div>
+        </header>
+        <div class="reborde">
             <div class="all">
                 <div class="up">
                     <div class="botones">
@@ -72,9 +71,8 @@
                 </div>
                 
             </div>
-           
-        </body>
-    </div>
+        </div>
+    </body>
     <div id="menuMugikorra"></div>
 </html>
 
@@ -98,7 +96,7 @@
                 for(i=0; i < data.length; i++){
                     var tableRow="<tr></tr>";
                     tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                    data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].etiketa + "</td>" +
+                    data[i].idEkipamendu +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].etiketa + "</td>" +
                     tableRow.substring(tableRow.length-5) + "<td>" +  data[i].marka + " " + data[i].modelo + "</td>"
                     + tableRow.substring(tableRow.length-5) + "<td>" + data[i].erosketaData + "</td>";
 
@@ -107,7 +105,7 @@
                     document.getElementById("tabla").appendChild(trElement);
 
                     var opElement = document.createElement("option");
-                    opElement.value = data[i].id;
+                    opElement.value = data[i].idEkipamendu;
                     opElement.innerText=data[i].etiketa;
                     document.getElementById("selector").appendChild(opElement);
                 }
@@ -127,7 +125,7 @@
             ids.push(checkbox.id);              //mire los que estan checked y agarre sus ids para meterlas en un array previamente
                                                 //creado
         });
-        
+        console.log(ids)
         return ids;
     }
 
@@ -170,6 +168,7 @@
 
     function editaInbentarioa(){
         $id=lortuCheck();
+        console.log($id)
         numero=$id[0];
         window.location="Eguneratu.html?num="+numero+"";
     }
@@ -197,14 +196,13 @@
                     console.log(data);
                     console.log(data.length);
                     document.getElementById("tabla").innerHTML="";
-
+                    
                     for(i=0; i < data.length; i++){
                         var tableRow="<tr></tr>";
                         tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                        data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" +
-                        tableRow.substring(tableRow.length-5) + "<td>" + data[i].deskribapena + "</td>" 
-                        + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].marka + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].modelo + "</td>"
-                        + tableRow.substring(tableRow.length-5) + "<td>" + data[i].stock + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].idKategoria + "</td>";
+                        data[i].idEkipamendu +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].etiketa + "</td>" +
+                        tableRow.substring(tableRow.length-5) + "<td>" +  data[i].marka + " " + data[i].modelo + "</td>"
+                        + tableRow.substring(tableRow.length-5) + "<td>" + data[i].erosketaData + "</td>";
 
                         var trElement = document.createElement("tr");
                         trElement.innerHTML = tableRow;

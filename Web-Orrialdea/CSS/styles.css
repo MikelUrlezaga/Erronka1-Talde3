@@ -1,5 +1,6 @@
 *{
     margin: 0;
+    max-height: 100vh;
 }
 
 img:hover{
@@ -129,11 +130,24 @@ button:hover{
 }
 
 .logohomediv{
-    height: 500px;
     display: flex;
     align-items: center;
-    flex-direction: column;
+    flex-direction:column;
 }
+
+footer{
+    background-color: #252427;
+    padding: 1vh;
+}
+
+footer .allinfo a{
+    color: white;
+}
+
+footer .allinfo{
+    color: white;
+}
+
 
 /* Menú */
 
@@ -167,6 +181,7 @@ hr{
     margin-left: 12vw;
     width: 2vw;
     height: auto;
+    margin-top: 1vw;
 }
 
 .checkicon {
@@ -253,12 +268,23 @@ hr{
 
 .menutext{
     text-decoration: none;
-    margin-left: 10%;
     color: white;
     font-size: 1vw;
-    margin-bottom: 700px;
-    
+    margin-left: 0%;
+}
 
+.menutext p{
+    margin-left: 10%;
+    padding: 3%;
+}
+
+.menudiv:hover{
+    background-color: rgb(159, 159, 159);
+    cursor: pointer;
+}
+
+.menudiv:hover .menutext{
+    color: black;
 }
 
 .puertahome{

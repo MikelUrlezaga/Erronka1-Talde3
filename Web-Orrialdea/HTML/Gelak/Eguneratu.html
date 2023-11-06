@@ -1,13 +1,14 @@
 <!DOCTYPE html>
     <head>
-        <script src="../../script/aldagaiGlobalak.js" ></script>
         <meta charset="UTF-8">
+        <script src="../../script/aldagaiGlobalak.js" ></script>
         <script src="../../script/menu.js" ></script>
         <link rel="stylesheet" href="../../CSS/styles.css">
         <link rel="icon" href="../../IMG/LOGO.png" type="image/x-icon">
         <title >Gelak Eguneratu</title>
     </head>
-    <header>
+    <body onkeydown="teclado(event)">
+        <header>
             <img class="logo" src="../../IMG/LOGO.png">
             <p id="titulo" class="titulo">GELAK EGUNERATU</p>
             <div class="headerdiv">
@@ -20,7 +21,6 @@
                 </a>
             </div>
     </header>
-    <body onkeydown="teclado(event)">
         <div class="reborde">
                 <div class="custom-combobox">
                     <select id="selectore" onchange="aldatuGela()">
