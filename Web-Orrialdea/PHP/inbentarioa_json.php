@@ -31,8 +31,14 @@
         exit;
     }elseif($_SERVER["REQUEST_METHOD"] == "POST"){
         $json_data = json_decode(file_get_contents("php://input"), true);
-        $emaitzak = txertatuInbentarioa($json_data["etiketa"], $json_data["idEkipamendu"], $json_data["erosketaData"]);
+        if(isset($json_data["gehitu"])){
+            $emaitzak = txertatuInbentarioaPlusStock($json_data["etiketa"], $json_data["idEkipamendu"], $json_data["erosketaData"]);
         echo json_decode("okai");
+        }else{
+            $emaitzak = txertatuInbentarioa($json_data["etiketa"], $json_data["idEkipamendu"], $json_data["erosketaData"]);
+            echo json_decode("okai");
+        }
+        
     }elseif($_SERVER["REQUEST_METHOD"] == "PUT"){
         $json_data = json_decode(file_get_contents("php://input"), true);
         if(isset($json_data["idEkipamendu"], $json_data["etiketa"], $json_data["erosketaData"])){
@@ -44,7 +50,6 @@
         }
     }if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
         $json_data = json_decode(file_get_contents("php://input"), true);
-    
         if (isset($json_data)) {
             // foreach ($json_data as $item) {
             //     $etiketa = $item['etiketa'];
@@ -65,7 +70,7 @@
         $sql = "DELETE FROM inbentarioa WHERE etiketa = '$etiketa'";
         $db->ezabatu($sql);
 
-        $sql2 = "UPDATE ekipamendua SET stock = (SELECT stock FROM ekipamendua WHERE id = '$idEkipamendu') - 1 WHERE id = '$idEkipamendu'";
+        $sql2 = "UPDATE ekipamendua SET stock = stock - 1 WHERE id = '$idEkipamendu'";
         $db->eguneratu($sql2);
     }
 
@@ -103,6 +108,18 @@
         }else{
             echo "No hay stock suficiente.";
         }
+    }
+
+    function txertatuInbentarioaPlusStock($etiketa, $idEkipamendu, $erosketaData) {
+        global $db;
+            $sql = "INSERT INTO inbentarioa (etiketa, idEkipamendu, erosketaData) VALUES ('$etiketa', '$idEkipamendu', '$erosketaData')";
+            $db->txertatu($sql);
+
+            $sql2 = "UPDATE ekipamendua SET stock = stock + 1 WHERE id = '$idEkipamendu'";
+            echo $sql2;
+            $db->eguneratu($sql2);
+            echo "Listo";
+
     }
 
     function lortuInbentarioa() {
