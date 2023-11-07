@@ -4,10 +4,10 @@
     $db = new Datubasea ();
 
     class Kokalekua {
-        private $idGela;
-        private $etiketa;
-        private $hasieraData;
-        private $amaieraData;
+        public $idGela;
+        public $etiketa;
+        public $hasieraData;
+        public $amaieraData;
         
         public function __construct($etiketa, $idGela, $hasieraData, $amaieraData) {
             $this->etiketa = $etiketa;
