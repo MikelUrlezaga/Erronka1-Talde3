@@ -37,14 +37,36 @@
         }
     }
 
-    if ($_SERVER["REQUEST_METHOD"]=="GET"){
-        if (isset($_GET["ezabatu"])){
-            ezabatuKokalekua($_GET["etiketa"], $_GET["hasieraData"]);
-        }elseif (isset($_GET["aldatu"])){
-            eguneratuKokalekua($_GET["etiketa"], $_GET["idGela"], $_GET["hasieraData"], $_GET["amaieraData"]);
-        }elseif (isset($_GET["etiketa"])){
-            txertatuKokalekua($_GET["etiketa"], $_GET["idGela"], $_GET["hasieraData"], $_GET["amaieraData"]);
-        }           
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        $json_data = json_decode(file_get_contents("php://input"), true);
+        if (isset($_GET["num"])) {
+            $emaitzak = lortuKokalekuaById($_GET["num"]);
+            echo json_encode($emaitzak);
+        } else {
+            $emaitzak = lortuKokalekuak();
+            echo json_encode($emaitzak);
+        }
+        exit;
+    } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $json_data = json_decode(file_get_contents("php://input"), true);
+        $emaitzak = txertatuKokalekua($json_data["izena"]);
+        echo json_encode("okai");
+    } elseif ($_SERVER["REQUEST_METHOD"] == "PUT") {
+        $json_data = json_decode(file_get_contents("php://input"), true);
+        if (isset($json_data["id"], $json_data["izena"])) {
+            $id = $json_data["id"];
+            $izena = $json_data["izena"];
+            eguneratuKokalekua($id, $izena);
+        }
+    } elseif ($_SERVER["REQUEST_METHOD"] == "DELETE") {
+        $json_data = json_decode(file_get_contents("php://input"), true);
+        if (isset($json_data)) {
+            $id = $json_data;
+            foreach ($id as $value) {
+                ezabatuKokalekua($value);
+            }
+            echo "OK";
+        }
     }
 
     function ezabatuKokalekua($etiketa, $hasieraData) {
