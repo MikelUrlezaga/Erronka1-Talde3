@@ -18,29 +18,29 @@
 
         public function getEtiketa()
         {
-        return $this->etiketa;
+            return $this->etiketa;
         }
 
         public function getIdGela()
         {
-        return $this->idGela;
+            return $this->idGela;
         }
 
         public function getHasieraData()
         {
-        return $this->hasieraData;
+            return $this->hasieraData;
         }
 
         public function getAmaieraData()
         {
-        return $this->amaieraData;
+            return $this->amaieraData;
         }
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $json_data = json_decode(file_get_contents("php://input"), true);
         if (isset($_GET["num"])) {
-            $emaitzak = lortuKokalekuaById($_GET["num"]);
+            $emaitzak = lortuKokalekuaByEtiketa($_GET["num"]);
             echo json_encode($emaitzak);
         } else {
             $emaitzak = lortuKokalekuak();
@@ -69,15 +69,15 @@
         }
     }
 
-    function ezabatuKokalekua($etiketa, $hasieraData) {
+    function ezabatuKokalekua($etiketa, $idGela, $hasieraData) {
         global $db;
-        $sql = "DELETE FROM kokalekua WHERE etiketa = '$etiketa' AND hasieraData = '$hasieraData'";
+        $sql = "DELETE FROM kokalekua WHERE etiketa = '$etiketa' AND hasieraData = '$hasieraData' AND idGela = '$idGela'";
         $db->ezabatu($sql);
     }
 
     function eguneratuKokalekua($etiketa, $idGela, $hasieraData, $amaieraData) {
         global $db;
-        $sql = "UPDATE kokalekua SET idGela = '$idGela', amaieraData = '$amaieraData' WHERE etiketa = '$etiketa' AND hasieraData = '$hasieraData'";
+        $sql = "UPDATE kokalekua SET idGela = '$idGela', hasieraData = '$hasieraData', amaieraData = '$amaieraData' WHERE etiketa = '$etiketa'";
         $db->eguneratu($sql);
     }
 
@@ -89,58 +89,30 @@
 
     function lortuKokalekuak() {
         global $db;
-        $emaitzak = $db->datuakLortu("SELECT * FROM kokalekua");
+        $emaitzak = $db->datuakLortu("SELECT * FROM kokalekua K, ekipamendua E, inbentarioa I WHERE K.etiketa = I.etiketa AND I.idEkipamendu = E.id");
         $kokalekuak = array();
         if (is_object($emaitzak)) {
             while ($row = $emaitzak->fetch_assoc()) {
-                $kokalekuak[] = new Kokalekua($row["etiketa"], $row["idGela"], $row["hasieraData"], $row["amaieraData"]);
+                $kokalekuak[] = array($row["etiketa"], $row["marka"], $row["modelo"], $row["idGela"], $row["hasieraData"], $row["amaieraData"]);
             }
             return $kokalekuak;
         }else{
             //echo "".$emaitzak;
-        }
-        
+        } 
     }
 
+
+    function lortuKokalekuakByEtiketa($etiketa) {
+        global $db;
+        $emaitzak = $db->datuakLortu("SELECT * FROM kokalekua K, ekipamendua E, inbentarioa I WHERE K.etiketa = '$etiketa', K.etiketa = I.etiketa AND I.idEkipamendu = E.id");
+        $inbentarioa = array();
+        if (is_object($emaitzak)) {
+            while ($row = $emaitzak->fetch_assoc()) {
+                $kokalekuak[] = array($row["etiketa"], $row["marka"], $row["modelo"], $row["idGela"], $row["hasieraData"], $row["amaieraData"]);
+            }
+            return $inbentarioa;
+        }else{
+            //echo "".$emaitzak;
+        }
+    }
 ?>
-<html>
-    <head>
-    </head>
-    <body>
-        <table border=1>
-            <tr>
-                <th>Etiketa</th><th>ID gela</th><th>Hasiera data</th><th>Amaiera data</th>
-            </tr>
-            <?php
-                $emaitzak = lortuKokalekuak();
-                if (!empty($emaitzak)) {
-                    foreach ($emaitzak as $kokalekua) {
-            ?>
-            <tr>
-                <form action=<?php echo $_SERVER["PHP_SELF"]?> method=" GET">
-                <td><input type="text" name="etiketa" value="<?php echo $kokalekua->getEtiketa(); ?>" readonly></td>
-                    <td><input type="text" name="idGela" value="<?php echo $kokalekua->getIdGela(); ?>"></td>
-                    <td><input type="text" name="hasieraData" value="<?php echo $kokalekua->getHasieraData(); ?>" readonly></td>
-                    <td><input type="text" name="amaieraData" value="<?php echo $kokalekua->getAmaieraData(); ?>"></td>
-                    
-                    <td><button type="submit" name="aldatu" value="">Aldatu</button></td>
-                    <td><button type="submit" name="ezabatu" value="">Ezabatu</button></td>
-                </form>
-            </tr>
-            <?php    
-                    }
-                }
-            ?>
-        </table>
-        <br>
-        <div>
-        <form action=<?php echo $_SERVER["PHP_SELF"]?> method="GET">
-            <label>Etiketa: </label><input type=text name=etiketa>
-            <label>ID Gela: </label><input type=text name=idGela>
-            <label>Hasiera data: </label><input type=text name=hasieraData>
-            <label>Amaiera data: </label><input type=text name=amaieraData>
-            <input type=submit value=Bidali>
-        </form>
-        </div>
-    </body>
-</html>
