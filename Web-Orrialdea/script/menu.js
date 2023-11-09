@@ -46,3 +46,4 @@ function obtenerCookie() {
     }
     return "NoLoged";
 }
+
