@@ -89,7 +89,7 @@
 
     function lortuKokalekuak() {
         global $db;
-        $emaitzak = $db->datuakLortu("SELECT * FROM kokalekua K, ekipamendua E, inbentarioa I WHERE K.etiketa = I.etiketa AND I.idEkipamendu = E.id");
+        $emaitzak = $db->datuakLortu("SELECT I.etiketa, E.marka, E.modelo, K.idGela, K.hasieraData, K.amaieraData FROM kokalekua K, ekipamendua E, inbentarioa I, gela G WHERE K.etiketa = I.etiketa AND  I.idEkipamendu = E.id AND G.id = K.idGela;");
         $kokalekuak = array();
         if (is_object($emaitzak)) {
             while ($row = $emaitzak->fetch_assoc()) {
@@ -97,7 +97,6 @@
             }
             return $kokalekuak;
         }else{
-            //echo "".$emaitzak;
         } 
     }
 
