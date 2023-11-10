@@ -28,11 +28,7 @@
                     </div>
                 </div>
                 <p class="texto1Columna">Etiketa: </p>
-                <input class="textBox1Columna" type="text" id="EtiketaInbEguneratu" name="Etiketa" >
-                <p class="texto1Columna">Marka: </p>
-                <input class="textBox1Columna" type="text" id="MarkaEguneratu" name="MarkaEkipamendu">
-                <p class="texto1Columna">Modelo: </p>
-                <input class="textBox1Columna" type="text" id="ModeloEguneratu" name="ModeloEkipamendu">
+                <input class="textBox1Columna" type="text" id="EtiketaInbEguneratu" name="Etiketa" disabled>
                 <p class="texto1Columna">Erosketa Data: </p>
                 <input class="textBox1Columna" type="text" id="ErosketaDataInbEguneratu" name="ErosketaData">
                 <div class="ck">
@@ -74,14 +70,11 @@
                 console.log(data);
                 console.log(data.length);
                 document.getElementById("EtiketaInbEguneratu").value=data[0].etiketa;
-                document.getElementById("MarkaEguneratu").value=data[0].marka;
-                document.getElementById("ModeloEguneratu").value=data[0].modelo;
                 document.getElementById("ErosketaDataInbEguneratu").value=data[0].erosketaData;
                 document.getElementById("selectore").value=idcls;
-                document.getElementById("titulo").innerText= data[0].etiketa + " Inbentarioa eguneratu";
             })
             .catch(error => {
-                alert("Errorea." + error);
+                console.log("Errorea." + error);
             });
     }
 
@@ -104,7 +97,7 @@
                     if(data[i].idEkipamendu==nuestraId){
                         console.log("Entra "+nuestraId);
                     }
-                    var opcion="<option value='"+data[i].idEkipamendu+"'>"+data[i].marka+
+                    var opcion="<option value='"+data[i].idEkipamendu+"'>"+data[i].marka+ " " +data[i].modelo+
                     "</option>";
                     //+data[i].marka+data[i].modelo+data[i].stock+data[i].idKategoria
                     var opElement = document.createElement("option");
@@ -127,12 +120,10 @@
     window.addEventListener("load", bistaratuFromPHP2(nuestraId));
 
     function actuInbentarioa() {
-        var id = document.getElementById("selectore").value;
+        var idEkipamendu = document.getElementById("selectore").value;
         var etiketa = document.getElementById("EtiketaInbEguneratu").value;
-        var marka = document.getElementById("MarkaEguneratu").value;
-        var modelo = document.getElementById("ModeloEguneratu").value;
         var erosketaData = document.getElementById("ErosketaDataInbEguneratu").value;
-        var clasea = {id, etiketa, marka, modelo, erosketaData};
+        var clasea = {idEkipamendu, etiketa, erosketaData};
         var js = JSON.stringify(clasea);
         console.log(js + "hau da js");
         fetch('../../PHP/inbentarioa_json.php', {method: 'PUT', body: js})

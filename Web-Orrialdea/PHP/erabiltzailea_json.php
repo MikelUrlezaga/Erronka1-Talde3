@@ -97,6 +97,7 @@
 
     function eguneratuErabiltzailea($nan, $izena, $abizena, $erabiltzailea, $pasahitza, $rola) {
         global $db;
+        ezabatuErabiltzailea($nan);
         $sql = "UPDATE erabiltzailea SET izena = '$izena', erabiltzailea = '$erabiltzailea', abizena = '$abizena', pasahitza = '$pasahitza', rola = '$rola' WHERE nan = '$nan'";
         $db->eguneratu($sql);
     }

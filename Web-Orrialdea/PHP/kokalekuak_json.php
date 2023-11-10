@@ -49,7 +49,7 @@
         exit;
     } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
         $json_data = json_decode(file_get_contents("php://input"), true);
-        $emaitzak = txertatuKokalekua($json_data["izena"]);
+        $emaitzak = txertatuKokalekua($json_data["etiketa"], $json_data["idGela"], $json_data["hasieraData"], $json_data["amaieraData"]);
         echo json_encode("okai");
     } elseif ($_SERVER["REQUEST_METHOD"] == "PUT") {
         $json_data = json_decode(file_get_contents("php://input"), true);
@@ -89,17 +89,16 @@
 
     function lortuKokalekuak() {
         global $db;
-        $emaitzak = $db->datuakLortu("SELECT I.etiketa, I.idEkipamendu, E.marka, E.modelo, K.idGela, K.hasieraData, K.amaieraData FROM kokalekua K, ekipamendua E, inbentarioa I, gela G WHERE K.etiketa = I.etiketa AND  I.idEkipamendu = E.id AND G.id = K.idGela;");
+        $emaitzak = $db->datuakLortu("SELECT I.etiketa, G.izena, I.idEkipamendu, E.marka, E.modelo, K.idGela, K.hasieraData, K.amaieraData FROM kokalekua K, ekipamendua E, inbentarioa I, gela G WHERE K.etiketa = I.etiketa AND  I.idEkipamendu = E.id AND G.id = K.idGela;");
         $kokalekuak = array();
         if (is_object($emaitzak)) {
             while ($row = $emaitzak->fetch_assoc()) {
-                $kokalekuak[] = array($row["etiketa"],  $row["idEkipamendu"], $row["marka"], $row["modelo"], $row["idGela"], $row["hasieraData"], $row["amaieraData"]);
+                $kokalekuak[] = array($row["etiketa"],  $row["idEkipamendu"], $row["marka"], $row["modelo"], $row["idGela"], $row["hasieraData"], $row["amaieraData"], $row["izena"]);
             }
             return $kokalekuak;
         }else{
         } 
     }
-
 
     function lortuKokalekuakByEtiketa($etiketa) {
         global $db;

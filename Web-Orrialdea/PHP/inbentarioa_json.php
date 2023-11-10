@@ -119,7 +119,6 @@
             echo $sql2;
             $db->eguneratu($sql2);
             echo "Listo";
-
     }
 
     function lortuInbentarioa() {
@@ -136,9 +135,9 @@
         }
     }
 
-    function lortuInbentarioaById() {
+    function lortuInbentarioaById($id) {
         global $db;
-        $emaitzak = $db->datuakLortu("SELECT I.*, E.marka, E.modelo FROM inbentarioa I INNER JOIN ekipamendua E ON I.idEkipamendu = E.id");
+        $emaitzak = $db->datuakLortu("SELECT I.*, E.marka, E.modelo FROM inbentarioa I INNER JOIN ekipamendua E ON I.idEkipamendu = E.id WHERE E.id=$id");
         $inbentarioa = array();
         if (is_object($emaitzak)) {
             while ($row = $emaitzak->fetch_assoc()) {
