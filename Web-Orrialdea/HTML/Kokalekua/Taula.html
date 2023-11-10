@@ -6,12 +6,12 @@
         <script src="../../script/menu.js" ></script>
         <link rel="stylesheet" href="../../CSS/styles.css">
         <link rel="icon" href="../../IMG/LOGO.png" type="image/x-icon">
-        <title>Ekipamendua</title>
+        <title>KOKALEKUA</title>
     </head>
     <body>
         <header> 
             <img class="logo" src="../../IMG/LOGO.png">
-            <p class="titulo">EKIPAMENDUA</p>
+            <p class="titulo">KOKALEKUA</p>
 
             <div class="headerdiv">
                 <a href="../../HTML/Orokorra/Home.html">
@@ -29,8 +29,8 @@
                     <div class="botones">
                         <div class="elementos">
                             <div class="boto">
-                                <img src="../../IMG/edit.png" id="botonedit" onclick="editaEkipamendua()">
-                                <img src="../../IMG/mas.png"  onclick="txertatuEkipamendua()">
+                                <img src="../../IMG/edit.png" id="botonedit" onclick="editaKokalekua()">
+                                <img src="../../IMG/mas.png"  onclick="txertatuKokalekua()">
                                 <img src="../../IMG/borrar.png" onclick="checkZiur();">
                             </div>
                         </div>
@@ -38,11 +38,13 @@
                             <!-- <div class="botonsubmit">
                                 <button onclick="lortuCheck();">Submit</button>
                             </div> -->
-                        </div> 
+                        </div>
+                        
+                        
                     </div>
                     <div class="search">
                         <div class="elementos">
-                            <select id="selector" onchange="aldatuEkipamendua()">
+                            <select id="selector" onchange="aldatuKokalekua()">
                                 <option value="Nada">Elige una opcion</option>
                             </select>
                         </div>
@@ -51,17 +53,19 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="tablachula">
+                    
                     <table >
                         <thead>
                             <tr>
                                 <th style="background-color:#606175; width: 3vh;"></th>
-                                <th>Izena</th>
-                                <th>Deskribapena</th>
-                                <th>Marka</th>
-                                <th>Modelo</th>
-                                <th>Stock</th>
-                                <th>Kategoria</th>
+                                <th>Etiketa</th>
+                                <th>Ekipamendua</th>
+                                <th>Gela</th>
+                                <th>Hasiera Data</th>
+                                <th>Amaiera Data</th>
+
                             </tr>
                         </thead>
                         <tbody id="tabla" >
@@ -80,7 +84,7 @@
     async function bistaratuFromPHP() {
         let options = {method: "GET", mode: 'cors'};
         const da = null;
-        fetch(rutaBack + "ekipamendua_json.php", options)
+        fetch(rutaBack + "kokalekuak_json.php", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
@@ -91,21 +95,25 @@
                 opElement.value = "Nada";
                 opElement.innerText="Elige una opcion";
                 document.getElementById("selector").appendChild(opElement);
+
                 for(i=0; i < data.length; i++){
                     var tableRow="<tr></tr>";
                     tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                    data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" +
-                    tableRow.substring(tableRow.length-5) + "<td>" + data[i].deskribapena + "</td>" 
-                    + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].marka + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].modelo + "</td>"
-                    + tableRow.substring(tableRow.length-5) + "<td>" + data[i].stock + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].idKategoria + "</td>";
+                        data[i][1] + "'>" + "</td>"+
+                    tableRow.substring(tableRow.length-5) + "<td>" +data[i][0]+"</td>" + 
+                    tableRow.substring(tableRow.length-5) + "<td>" + data[i][2] + " " + data[i][3] + "</td>" +
+                    tableRow.substring(tableRow.length-5) + "<td>" + data[i][4] + "</td>" +
+                    tableRow.substring(tableRow.length-5) + "<td>" + data[i][5] + "</td>" +
+                    tableRow.substring(tableRow.length-5) + "<td>" + data[i][6] + "</td>";
+                    
 
                     var trElement = document.createElement("tr");
                     trElement.innerHTML = tableRow;
                     document.getElementById("tabla").appendChild(trElement);
 
                     var opElement = document.createElement("option");
-                    opElement.value = data[i].id;
-                    opElement.innerText=data[i].izena;
+                    opElement.value = data[i][1];
+                    opElement.innerText=data[i][2]+" "+data[i][3];
                     document.getElementById("selector").appendChild(opElement);
                 }
             })
@@ -124,7 +132,7 @@
             ids.push(checkbox.id);              //mire los que estan checked y agarre sus ids para meterlas en un array previamente
                                                 //creado
         });
-        
+        console.log(ids)
         return ids;
     }
 
@@ -140,16 +148,16 @@
     function checkZiur()
     {
         if (confirm("Ziur zaude hau ezabatu nahi duzula?")){
-            deleteEkipamendua();
+            deleteKokalekua();
         }else{}
-        
     }
 
-    function deleteEkipamendua() {
+    
+    function deleteKokalekua() {
         var ids = lortuCheck();
         var js = JSON.stringify(ids);
         console.log(js);
-        fetch(rutaBack + 'ekipamendua_json.php', {method: 'DELETE', body: js})
+        fetch(rutaBack + "kokalekuak_json.php", {method: 'DELETE', body: js})
             .then(function (response) {
                 return response.text();
             })
@@ -166,17 +174,18 @@
             // });
     }
 
-    function editaEkipamendua(){
+    function editaKokalekua(){
         $id=lortuCheck();
+        console.log($id)
         numero=$id[0];
         window.location="Eguneratu.html?num="+numero+"";
     }
 
-    function txertatuEkipamendua(){
+    function txertatuKokalekua(){
         window.location="Txertatu.html";
     }
 
-    function aldatuEkipamendua(){
+    function aldatuKokalekua(){
         var ide = document.getElementById("selector").value;
         if(ide.match("Nada")){
             bistaratuFromPHP();
@@ -189,30 +198,25 @@
             console.log("Ha entrado")
             console.log(gureId)
             let options = {method: "GET"};
-            fetch(rutaBack + "ekipamendua_json.php?num="+gureId+"", options)
+            fetch(rutaBack + "kokalekuak_json.php?num="+gureId+"", options)
                 .then(response => response.json())  // Analiza la respuesta JSON
                 .then(data => {
                     console.log(data);
                     console.log(data.length);
                     document.getElementById("tabla").innerHTML="";
-                    document.getElementById("selector").innerHTML = "";
-                    var opElement = document.createElement("option");
-                    opElement.value = "Nada";
-                    opElement.innerText="Elige una opcion";
+                    
                     for(i=0; i < data.length; i++){
                         var tableRow="<tr></tr>";
-                    tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                    data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" +
-                    tableRow.substring(tableRow.length-5) + "<td>" + data[i].deskribapena + "</td>" 
-                    + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].marka + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].modelo + "</td>"
-                    + tableRow.substring(tableRow.length-5) + "<td>" + data[i].stock + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].idKategoria + "</td>";
+                        tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
+                        data[i].etiketa + "," + data[i].idGela +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].etiketa + "</td>" +
+                        tableRow.substring(tableRow.length-5) + "<td>" + data[i].ekipamendua + "</td>"
+                        tableRow.substring(tableRow.length-5) + "<td>" + data[i].hasieradata + "</td>"
+                        tableRow.substring(tableRow.length-5) + "<td>" + data[i].amaieradata + "</td>";
 
-                    var trElement = document.createElement("tr");
-                    trElement.innerHTML = tableRow;
-                    document.getElementById("tabla").appendChild(trElement);
-
-
-                        }
+                        var trElement = document.createElement("tr");
+                        trElement.innerHTML = tableRow;
+                        document.getElementById("tabla").appendChild(trElement);
+                    }
                 })
                 .catch(error => {
                     alert("Errorea." + error);

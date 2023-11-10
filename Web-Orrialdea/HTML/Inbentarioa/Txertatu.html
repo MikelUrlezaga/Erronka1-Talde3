@@ -24,32 +24,20 @@
                 <br>
                 <div class="dobleColumn">
                     <div>
-                        <p class="texto">Izena: </p>
-                        <input class="textBox" type="text" id="izenaEkipamenduaTxertatu" name="Izena" >
+                        <p class="texto">Etiketa: </p>
+                        <input class="textBox" type="text" id="etiketaInbentarioaTxertatu" name="etiketa" >
                     </div>
                     <div>
-                        <p class="texto">Deskribapena: </p>
-                        <input class="textBox" type="text" id="deskribapenaEkipamenduaTxertatu" name="Deskribapena">
-                    </div>
-                    <div>
-                        <p class="texto">Marka: </p>
-                        <input class="textBox" type="text" id="markaEkipamenduaTxertatu" name="Marka">
-                    </div>
-                    <div>
-                        <p class="texto">Modelo: </p>
-                        <input class="textBox" type="text" id="modeloEkipamenduaTxertatu" name="Modelo" >
-                    </div>
-                    <div>
-                        <p class="texto">Stock: </p>
-                        <input class="textBox" type="text" id="stockEkipamenduaTxertatu" name="Stock">
-                    </div>
-                    <div>
-                        <p class="texto">Kategoria: </p>
+                        <p class="texto">Ekipamendua: </p>
                         <select id="selecTxertatu" class="textBox">
                         </select>
                     </div>
+                    <div>
+                        <p class="texto">Erosketa Data: </p>
+                        <input class="textBox" type="date" id="erosDataInbentarioaTxertatu" name="erosketaData">
+                    </div>
                     <div class="ck">
-                        <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="createEkipamendua()">
+                        <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="createInbentarioa()">
                     </div>
                 </div>
         </div>
@@ -61,15 +49,15 @@
     function teclado(event) {
     var codigo = event.which || event.keyCode;
     if (codigo==13) {
-        createEkipamendua()
+        createInbentarioa()
     }
 }
-    function cargarKatego(){
+    function cargarEkipamendua(){
         let options = {
             method: "GET",
             mode: 'cors'
         };
-        fetch("../../PHP/kategoriak_json.php", options)
+        fetch("../../PHP/ekipamendua_json.php", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
@@ -77,7 +65,7 @@
                 for (i = 0; i < data.length; i++) {
                     var opElement = document.createElement("option");
                     opElement.value = data[i].id;
-                    opElement.innerText = data[i].izena;
+                    opElement.innerText = data[i].marka +" "+data[i].modelo;
                     document.getElementById("selecTxertatu").appendChild(opElement);
                 }
             })
@@ -85,24 +73,52 @@
                 alert("Errorea." + error);
             });
     }
-    window.addEventListener("load", cargarKatego);
-    function createEkipamendua() {
-        var izena = document.getElementById("izenaEkipamenduaTxertatu").value;
-        var marka = document.getElementById("markaEkipamenduaTxertatu").value;
-        var deskribapena = document.getElementById("deskribapenaEkipamenduaTxertatu").value;
-        var modelo = document.getElementById("modeloEkipamenduaTxertatu").value;
-        var idKategoria = document.getElementById("selecTxertatu").value;
-        var stock = document.getElementById("stockEkipamenduaTxertatu").value;
-        var clasea = {izena, deskribapena, marka, modelo, stock, idKategoria};
+    function gehituStock(){
+        var etiketa = document.getElementById("etiketaInbentarioaTxertatu").value;
+        var idEkipamendu = document.getElementById("selecTxertatu").value;
+        var erosketaData = document.getElementById("erosDataInbentarioaTxertatu").value;
+        var gehitu = "bai";
+        var clasea = {etiketa, idEkipamendu, erosketaData,gehitu};
         var js = JSON.stringify(clasea);
         console.log(js);
-        fetch('../../PHP/ekipamendua_json.php', {method: 'POST', body: js})
+        fetch('../../PHP/Inbentarioa_json.php', {method: 'POST', body: js})
             .then(function (response) {
                     return response.text();
             })
             .then(data=>{
                 console.log(data);
-                
+                if(data.match("No hay stock suficiente")){
+                    
+                }
+
+                //AQUÍ UN WINDOW PROMPT DEL STOCK DISPONIBLE DE ESE EKIPAMENDU
+            })
+            .catch(error => {
+                console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+            });
+    }
+    window.addEventListener("load", cargarEkipamendua);
+    function createInbentarioa() {
+        var etiketa = document.getElementById("etiketaInbentarioaTxertatu").value;
+        var idEkipamendu = document.getElementById("selecTxertatu").value;
+        var erosketaData = document.getElementById("erosDataInbentarioaTxertatu").value;
+        var clasea = {etiketa, idEkipamendu, erosketaData};
+        var js = JSON.stringify(clasea);
+        console.log(js);
+        fetch('../../PHP/Inbentarioa_json.php', {method: 'POST', body: js})
+            .then(function (response) {
+                    return response.text();
+            })
+            .then(data=>{
+                console.log(data);
+                if(data.match("No hay stock suficiente")){
+                    if(confirm("No puedes insertar más stock. Deseas añadir?")){
+                        gehituStock();
+                    }else{
+
+                    }
+                }
+                //AQUÍ UN WINDOW PROMPT DEL STOCK DISPONIBLE DE ESE EKIPAMENDU
             })
             .catch(error => {
                 console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);

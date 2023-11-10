@@ -379,7 +379,8 @@ input[type='checkbox'] {
     
     border: 2px solid #606175;
     border-radius: 100px;
-    height: 50vh;
+    min-height: 10vh;
+    max-height: 15vh;
     width: 80vw;
     table-layout: fixed;
     border-collapse: collapse;
@@ -411,6 +412,7 @@ input[type='checkbox'] {
     text-align: center;
     font-size: 3vh;
     min-width: 1000vh;
+    max-height: 1vh;
 
 }
 

@@ -53,6 +53,9 @@
                     <p class="texto">Admin: </p>
                     <input class="textBox" type="checkbox" id="rolaEraEgu" name="Rola">
                 </div>
+                <div>
+                    <input class="textBox" type="text" id="dniAntiguo" name="Rola" style="visibility: hidden;">
+                </div>
             </div>
             <div class="ck">
                 <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="actuErabiltzailea()">
@@ -129,6 +132,10 @@
                     document.getElementById("abizenaEraEgu").value=data[0].abizena;
                     document.getElementById("erabiltzaileaEraEgu").value=data[0].erabiltzailea;
                     document.getElementById("pasahitzaEraEgu").value=data[0].pasahitza;
+                    document.getElementById("dniAntiguo").style.visibility="visible";
+                    document.getElementById("dniAntiguo").value=data[0].nan;
+                    document.getElementById("dniAntiguo").style.visibility="hidden";
+                    
                     if (data[0].rola == "A") {
                         document.getElementById("rolaEraEgu").checked = true
                     }else{
@@ -145,18 +152,22 @@
 
 
         function actuErabiltzailea() {
-            var nan = document.getElementById("selectore").value;
+            var nan = document.getElementById("nanEraEgu").value;
             var izena = document.getElementById("izenaEraEgu").value;
             var abizena = document.getElementById("abizenaEraEgu").value;
             var erabiltzailea = document.getElementById("erabiltzaileaEraEgu").value;
             var pasahitza = document.getElementById("pasahitzaEraEgu").value;
+            document.getElementById("dniAntiguo").style.visibility="visible";
+            var aurrekoNan = document.getElementById("dniAntiguo").value;
+            document.getElementById("dniAntiguo").style.visibility="hidden";
             if (document.getElementById("rolaEraEgu").checked) {
                 var rola = "A";
             } else {
                 var rola = "B";
             }
-            var erabil = { nan, izena, abizena, erabiltzailea, pasahitza, rola };
+            var erabil = { nan, izena, abizena, erabiltzailea, pasahitza, rola, aurrekoNan };
             var js = JSON.stringify(erabil);
+            console.log(js);
             fetch(rutaBack + 'erabiltzailea_json.php', { method: 'PUT', body: js })
                 .then(function (response) {
                     return response.text();

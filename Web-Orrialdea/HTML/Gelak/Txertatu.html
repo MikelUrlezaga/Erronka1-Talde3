@@ -53,6 +53,9 @@
             })
             .then(data=>{
                 console.log(data);
+                if(data.includes("Data too long")){
+                    alert("Gelaren izena oso luzea da. Gehienez 4 karaktere izan ditzake.")
+                }
                 
             })
             // .catch(error => {

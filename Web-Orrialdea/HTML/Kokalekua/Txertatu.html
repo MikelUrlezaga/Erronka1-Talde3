@@ -24,32 +24,100 @@
         <div class="reborde">
             <p class="texto1Columna" style="margin-top: 1%; margin-bottom: -1%; margin-left: -19%;">Ekipamendua:</p>
             <div class="custom-combobox" id="boxKokalekuEkipamendua">
-                <select>
-                    <option value="opcion1">Opción 1</option>
-                    <option value="opcion2">Opción 2</option>
-                    <option value="opcion3">Opción 3</option>
-                    <option value="opcion4">Opción 4</option>
+                <select id="selectEki">
                 </select>
             </div>
             <p class="texto1Columna" style="margin-top: 2%; margin-bottom: -1%; margin-left: -22%;">Gela:</p>
             <div class="custom-combobox" id="boxKokalekuGela">
-                <select>
-                    <option value="opcion1">Opción 1</option>
-                    <option value="opcion2">Opción 2</option>
-                    <option value="opcion3">Opción 3</option>
-                    <option value="opcion4">Opción 4</option>
+                <select  id="selectGela">
                 </select>
             </div>
-            <p class="texto1Columna">Kantitatea: </p>
-            <input class="textBox1Columna" type="text" id="IdEkipamenduInbEguneratu" name="Kantitatea">
             <p class="texto1Columna">Hasiera Data: </p>
-            <input class="textBox1Columna" type="date" id="ErosketaDataInbEguneratu" name="ErosketaData">
+            <input class="textBox1Columna" type="date" id="hasieraDataTxertatu" name="ErosketaData">
             <p class="texto1Columna">Amaiera Data: </p>
-            <input class="textBox1Columna" type="date" id="ErosketaDataInbEguneratu" name="ErosketaData">
+            <input class="textBox1Columna" type="date" id="amaieraDataTxertatu" name="ErosketaData">
             <div class="ck">
-                <img src="../../IMG/unnamed.png" alt="check" class="checkicon">
+                <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="createKokalekua()">
             </div>
         </div>
     </body>
     <div id="menuMugikorra"></div>
 </html>
+<script>
+
+    function teclado(event) {
+    var codigo = event.which || event.keyCode;
+    if (codigo==13) {
+        createEkipamendua()
+    }
+}
+async function bistaratuFromPHPTxertatu() {
+        let options = {method: "GET", mode: 'cors'};
+        const da = null;
+        fetch(rutaBack + "inbentarioa_json.php", options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+                console.log(data);
+                console.log(data.length);
+                var opElement = document.createElement("option");
+                opElement.value = "Nada";
+                opElement.innerText="Aukeratu bat";
+                document.getElementById("selectEki").appendChild(opElement);
+
+                for(i=0; i < data.length; i++){
+                    var opElement = document.createElement("option");
+                    opElement.value = data[i].etiketa;
+                    opElement.innerText=data[i].marka+" "+data[i].modelo;
+                    document.getElementById("selectEki").appendChild(opElement);
+                }
+            })
+            .catch(error => {
+                alert("Errorea." + error);
+            });
+
+
+            fetch(rutaBack + "gelak_json.php", options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+                console.log(data);
+                console.log(data.length);
+                var opElemento = document.createElement("option");
+                opElemento.value = "Nada";
+                opElemento.innerText="Aukeratu bat";
+                document.getElementById("selectGela").appendChild(opElemento);
+
+                for(i=0; i < data.length; i++){
+                    var opElemento = document.createElement("option");
+                    opElemento.value = data[i].id;
+                    opElemento.innerText=data[i].izena;
+                    document.getElementById("selectGela").appendChild(opElemento);
+                }
+            })
+            .catch(error => {
+                alert("Errorea." + error);
+            });
+    }
+
+
+    window.addEventListener("load", bistaratuFromPHPTxertatu);
+    function createKokalekua() {
+        var etiketa = document.getElementById("selectEki").value;
+        var idGela = document.getElementById("selectGela").value;
+        var hasieraData = document.getElementById("hasieraDataTxertatu").value;
+        var amaieraData = document.getElementById("amaieraDataTxertatu").value;
+        var clasea = {etiketa, idGela, hasieraData, amaieraData};
+        alert(clasea);
+        var js = JSON.stringify(clasea);
+        console.log(js);
+        fetch(rutaBack + 'kokalekuak_json.php', {method: 'POST', body: js})
+            .then(function (response) {
+                    return response.text();
+            })
+            .then(data=>{
+                console.log(data);
+            })
+            .catch(error => {
+                console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+            });
+    }
+</script>
