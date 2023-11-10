@@ -70,7 +70,7 @@ function deleteGela() {
     var ids = lortuCheck();
     var js = JSON.stringify(ids);
     console.log(js);
-    fetch(rutaBack + 'gelak_json.php', {method: 'DELETE', body: js, mode: 'no-cors'})
+    fetch(rutaBack + 'gelak_json.php', {method: 'DELETE', body: js, mode: 'cors'})
         .then(function (response) {
             return response.text();
         })
