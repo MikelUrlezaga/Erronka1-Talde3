@@ -200,8 +200,8 @@ footer{
 nav{
     position: fixed;
     top: 0;
-    left: -30vw;
-    width: 15vw; /* 100% del ancho de la ventana */
+    left: -300px;
+    width: 200px; /* 100% del ancho de la ventana */
     height: 100vh; /* 100% de la altura de la ventana */
     background-color: rgba(37, 36, 39);
     background-image: url('../../IMG/LOGO.png');
@@ -225,7 +225,7 @@ hr{
 
 .menuiconos img{
     margin-left: 12vw;
-    width: 2vw;
+    width: 0vw;
     height: auto;
     margin-top: 1vw;
 }
@@ -249,7 +249,7 @@ hr{
 
 @keyframes moveAnimation {
     0% {
-        left: -30vw;
+        left: -300px;
     }
     100% {
         left: 0;
@@ -261,7 +261,7 @@ hr{
         left: 0;
     }
     100% {
-        left: -30vw;
+        left: -300px;
     }
 
 }
@@ -272,7 +272,7 @@ hr{
 }
 .animateMClose {
     animation : closeAnimation 0.5s linear;
-    left: -30vw;
+    left: -300px;
 }
 
 .animateFN {
@@ -299,6 +299,7 @@ hr{
 .menuEstekak{
     padding-top: 20%;
     padding-bottom: 50%;
+    margin-top: 14vh;
     /* Para que se quede en el centro - Paciencia
     align-self: center; 
     */
@@ -315,7 +316,7 @@ hr{
 .menutext{
     text-decoration: none;
     color: white;
-    font-size: 1vw;
+    font-size: 20px;
     margin-left: 0%;
 }
 
@@ -345,11 +346,11 @@ hr{
     left: 0;
     position: fixed;
     margin: 1%;
-    width: 3vw;
-    height: auto; 
-
+    height: 30px;
+    width: auto; 
+    margin-top: 14vh;
     background-color: #252427;
-    padding: 1%;
+    padding: 0.4%;
     border-radius: 100px;
     border: 1px solid #252427;
 }
