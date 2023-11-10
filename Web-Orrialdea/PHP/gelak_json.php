@@ -72,6 +72,8 @@
     function ezabatuGela($id)
     {
         global $db;
+        $sql = "DELETE FROM kokalekua WHERE idGela = '$id'";
+        $db->ezabatu($sql);
         $sql = "DELETE FROM gela WHERE id = '$id'";
         $db->ezabatu($sql);
     }

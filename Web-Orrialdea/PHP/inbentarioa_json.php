@@ -38,15 +38,15 @@
             $emaitzak = txertatuInbentarioa($json_data["etiketa"], $json_data["idEkipamendu"], $json_data["erosketaData"]);
             echo json_decode("okai");
         }
-        
     }elseif($_SERVER["REQUEST_METHOD"] == "PUT"){
         $json_data = json_decode(file_get_contents("php://input"), true);
-        if(isset($json_data["idEkipamendu"], $json_data["etiketa"], $json_data["erosketaData"])){
+        if(isset($json_data["idEkipamendu"], $json_data["etiketa"], $json_data["erosketaData"], $json_data["aurrekoEtiketa"])){
             $idEkipamendu = $json_data["idEkipamendu"];
             $etiketa = $json_data["etiketa"];
             $erosketaData = $json_data["erosketaData"];
+            $aurrekoEtiketa = $json_data["aurrekoEtiketa"];
 
-            eguneratuInbentarioa($etiketa, $idEkipamendu, $erosketaData);
+            eguneratuInbentarioa($etiketa, $idEkipamendu, $erosketaData, $aurrekoEtiketa);
         }
     }if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
         $json_data = json_decode(file_get_contents("php://input"), true);
@@ -74,10 +74,19 @@
         $db->eguneratu($sql2);
     }
 
-    function eguneratuInbentarioa($etiketa, $idEkipamendu, $erosketaData) {
+    function eguneratuInbentarioa($etiketa, $idEkipamendu, $erosketaData, $aurrekoEtiketa) {
         global $db;
-        $sql = "UPDATE inbentarioa SET etiketa = '$etiketa', erosketaData = '$erosketaData' WHERE idEkipamendu = '$idEkipamendu'";
-        $db->eguneratu($sql);
+        if($etiketa===$aurrekoEtiketa){
+            $sql = "UPDATE inbentarioa SET erosketaData = '$erosketaData' WHERE etiketa = '$etiketa'";
+            $db->ezabatu($sql);
+        }else{
+            txertatuInbentarioaPlusStock($etiketa, $idEkipamendu, $erosketaData);
+            ezabatuInbentarioa($aurrekoEtiketa, $idEkipamendu);
+        }
+
+        
+        //$sql = "UPDATE inbentarioa SET etiketa = '$etiketa', erosketaData = '$erosketaData' WHERE idEkipamendu = '$idEkipamendu'";
+        //$db->eguneratu($sql);
     }
 
     function txertatuInbentarioa($etiketa, $idEkipamendu, $erosketaData) {

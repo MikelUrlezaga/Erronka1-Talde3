@@ -60,6 +60,8 @@
     function ezabatuKategoria($id)
     {
         global $db;
+        $sql = "DELETE FROM ekipamendua WHERE idKategoria = '$id'";
+        $db->ezabatu($sql);
         $sql = "DELETE FROM kategoria WHERE id = '$id'";
         $db->ezabatu($sql);
     }

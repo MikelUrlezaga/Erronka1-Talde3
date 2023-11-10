@@ -28,9 +28,11 @@
                     </div>
                 </div>
                 <p class="texto1Columna">Etiketa: </p>
-                <input class="textBox1Columna" type="text" id="EtiketaInbEguneratu" name="Etiketa" disabled>
+                <input class="textBox1Columna" type="text" id="EtiketaInbEguneratu" name="Etiketa">
                 <p class="texto1Columna">Erosketa Data: </p>
                 <input class="textBox1Columna" type="text" id="ErosketaDataInbEguneratu" name="ErosketaData">
+                <p class="textBox" type="text" id="etiketaAntigua" name="Rola" style="visibility: hidden;"></p>
+              
                 <div class="ck">
                     <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="actuInbentarioa()">
                 </div>
@@ -52,14 +54,17 @@
     console.log(window.location.search.substr(1));
     var paramarr = paramstr.split ("&");
     var params = {};
+    var unaId=0;
     var nuestraId=0;
     
     for ( var i = 0; i < paramarr.length; i++) {
         var tmparr = paramarr[i].split("=");
         params[tmparr[0]] = tmparr[1];
         console.log(tmparr[1]);
-        nuestraId=tmparr[1];
-    }
+        unaId=tmparr[1];
+        
+    }   
+    nuestraId=unaId.split(",");
 
     async function bistaratuFromPHP2(idcls) {
         console.log("Ha entrado")
@@ -71,6 +76,10 @@
                 console.log(data.length);
                 document.getElementById("EtiketaInbEguneratu").value=data[0].etiketa;
                 document.getElementById("ErosketaDataInbEguneratu").value=data[0].erosketaData;
+                document.getElementById("etiketaAntigua").style.visibility="visible";
+                document.getElementById("etiketaAntigua").value=data[0].etiketa;
+                document.getElementById("etiketaAntigua").style.visibility="hidden";
+
                 document.getElementById("selectore").value=idcls;
             })
             .catch(error => {
@@ -83,7 +92,7 @@
         console.log(document.getElementById("selectore").value);
 
         bistaratuFromPHP2(idclase);
-        nuestraId= idclase;
+        nuestraId[1]= idclase;
     }
 
     async function bistaratuFromPHP() {
@@ -94,8 +103,8 @@
      
                 for (let i = 0; i < data.length; i++) {
                     console.log(data + "holi");
-                    if(data[i].idEkipamendu==nuestraId){
-                        console.log("Entra "+nuestraId);
+                    if(data[i].idEkipamendu==nuestraId[1]){
+                        console.log("Entra "+nuestraId[1]);
                     }
                     var opcion="<option value='"+data[i].idEkipamendu+"'>"+data[i].marka+ " " +data[i].modelo+
                     "</option>";
@@ -103,7 +112,7 @@
                     var opElement = document.createElement("option");
                     opElement.innerHTML = opcion;
                     opElement.value = data[i].idEkipamendu;
-                    if(data[i].idEkipamendu==nuestraId){
+                    if(data[i].idEkipamendu==nuestraId[1]){
                         opElement.selected="selected";
                     }
                     
@@ -117,13 +126,16 @@
 
     
     window.addEventListener("load", bistaratuFromPHP);
-    window.addEventListener("load", bistaratuFromPHP2(nuestraId));
+    window.addEventListener("load", bistaratuFromPHP2(nuestraId[1]));
 
     function actuInbentarioa() {
         var idEkipamendu = document.getElementById("selectore").value;
         var etiketa = document.getElementById("EtiketaInbEguneratu").value;
         var erosketaData = document.getElementById("ErosketaDataInbEguneratu").value;
-        var clasea = {idEkipamendu, etiketa, erosketaData};
+        document.getElementById("etiketaAntigua").style.visibility="visible";
+        var aurrekoEtiketa = document.getElementById("etiketaAntigua").value;
+        document.getElementById("etiketaAntigua").style.visibility="hidden";
+        var clasea = {idEkipamendu, etiketa, erosketaData, aurrekoEtiketa};
         var js = JSON.stringify(clasea);
         console.log(js + "hau da js");
         fetch('../../PHP/inbentarioa_json.php', {method: 'PUT', body: js})
