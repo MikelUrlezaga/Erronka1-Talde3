@@ -108,7 +108,7 @@ function aldatuGela(){
 
 function bistaratuFromPHP2(gureNan) {
         console.log("Ha entrado")
-        let options = {method: "GET"};
+        let options = {method: "GET", mode: 'cors'};
         fetch(rutaBack + "gelak_json.php?num="+gureNan+"", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
