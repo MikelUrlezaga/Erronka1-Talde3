@@ -1,14 +1,13 @@
 var a = true;
-var xd = 0;
 // Insertar menu
-fetch('../Orokorra/Menu.html')
+fetch('../../HTML/Orokorra/Menu.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('menuMugikorra').innerHTML = data;
                 if (obtenerCookie().match("A")) {
                     document.getElementById("menuErab").hidden = false
                 }else if(obtenerCookie().match("NoLoged")){
-                    window.location = "../Orokorra/Login.html"
+                    window.location = "HTML/Orokorra/Login.html"
                 }else{
                     document.getElementById("menuErab").hidden = true
                 }
