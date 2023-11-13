@@ -10,7 +10,7 @@ async function bistaratuFromPHP() {
             document.getElementById("selector").innerHTML = "";
                 var opElement = document.createElement("option");
                 opElement.value = "Nada";
-                opElement.innerText="Elige una opcion";
+                opElement.innerText="Aukeratu bat";
                 document.getElementById("selector").appendChild(opElement);
             for(i=0; i < data.length; i++){
                 var tableRow="<tr></tr>";

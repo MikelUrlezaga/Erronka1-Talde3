@@ -44,16 +44,20 @@
             var kategoria = { izena };
             var js = JSON.stringify(kategoria);
             console.log(js);
-            fetch(rutaBack + 'kategoriak_json.php', { method: 'POST', body: js })
-                .then(function (response) {
-                    return response.text();
-                })
-                .then(data=>{
-                    console.log(data);
-                })
-                // .catch(error => {
-                //     console.log("Errorea: " + error);
-                // });
+            if (izena == "") {
+                alert("Datuak ondo zartuta daudela zihurtatu");
+            }else{
+                fetch(rutaBack + 'kategoriak_json.php', { method: 'POST', body: js })
+                    .then(function (response) {
+                        return response.text();
+                    })
+                    .then(data=>{
+                        console.log(data);
+                    })
+                    // .catch(error => {
+                    //     console.log("Errorea: " + error);
+                    // });
+            }
         }
     </script>
 </html>

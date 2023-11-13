@@ -45,7 +45,7 @@
                     <div class="search">
                         <div class="elementos">
                             <select id="selector" onchange="aldatuInbentarioa()">
-                                <option value="Nada">Elige una opcion</option>
+                                <option value="Nada">Aukeratu bat</option>
                             </select>
                         </div>
                         <div class="submites">
@@ -90,7 +90,7 @@
                 document.getElementById("selector").innerHTML = "";
                 var opElement = document.createElement("option");
                 opElement.value = "Nada";
-                opElement.innerText="Elige una opcion";
+                opElement.innerText="Aukeratu bat";
                 document.getElementById("selector").appendChild(opElement);
 
                 for(i=0; i < data.length; i++){

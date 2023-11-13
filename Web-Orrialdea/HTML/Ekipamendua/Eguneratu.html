@@ -23,7 +23,10 @@
         </header>
         <div class="reborde">
                 <div class="custom-combobox">
-                    <select id="selectore" onchange="aldatuEkipamendua()"></select>
+                    <select id="selectore" onchange="aldatuEkipamendua()">
+                        <option>Aukeratu bat</option>
+                    </select>
+                    
                 </div>
                 <br>
                 <div class="dobleColumn">
@@ -44,8 +47,8 @@
                         <input class="textBox" type="text" id="modeloEkiEgu" name="Modelo" >
                     </div>
                     <div>
-                        <p class="texto">Id Kategoria: </p>
-                        <input class="textBox" type="text" id="kategoriaEkiEgu" name="IdKategoria">
+                        <p class="texto">Kategoria: </p>
+                        <input class="textBox" type="text" id="kategoriaEkiEgu" name="IdKategoria" disabled>
                     </div>
                     <div>
                         <p class="texto">Stock: </p>
@@ -84,7 +87,7 @@
 
     async function bistaratuFromPHP2(idcls) {
         console.log("Ha entrado")
-        let options = {method: "GET"};
+        let options = {method: "GET", mode: 'cors'};
         fetch(rutaBack + "ekipamendua_json.php?num="+idcls+"", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
@@ -155,16 +158,20 @@
         var clasea = {id, izena, deskribapena, modelo, marka, stock, idKategoria};
         var js = JSON.stringify(clasea);
         console.log(js + "hau da js");
-        fetch(rutaBack + 'ekipamendua_json.php', {method: 'PUT', body: js})
-            .then(function (response) {
-                    return response.text();
-            })
-            .then(data=>{
-                console.log(data);
-                
-            })
-            .catch(error => {
-                console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-            });
+        if (id == "Aukeratu bat" || izena == "" || deskribapena == "" || marka == "" || modelo == "" || stock == "" || idKategoria == "") {
+            alert("Datuak ondo zartuta daudela zihurtatu");
+        }else{
+            fetch(rutaBack + 'ekipamendua_json.php', {method: 'PUT', body: js})
+                .then(function (response) {
+                        return response.text();
+                })
+                .then(data=>{
+                    console.log(data);
+                    
+                })
+                .catch(error => {
+                    console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                });
+        }
     }
 </script>

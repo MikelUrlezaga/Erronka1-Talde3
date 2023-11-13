@@ -64,9 +64,9 @@
                     document.getElementById("selectore").value = idcls;
                     document.getElementById("titulo").innerText = data[0].izena + " Kategoria eguneratu";
                 })
-                .catch(error => {
-                    alert("Errorea." + error);
-                });
+                // .catch(error => {
+                //     alert("Errorea." + error);
+                // });
         }
 
         function cambiarClase() {
@@ -76,10 +76,14 @@
         }
 
         async function bistaratuFromPHP() {
-            let options = { method: "GET" };
+            let options = { method: "GET", mode: 'cors' };
             fetch(rutaBack + "kategoriak_json.php", options)
                 .then(response => response.json())  // Analiza la respuesta JSON
                 .then(data => {
+                    var opElement = document.createElement("option");
+                    opElement.value = "Nada";
+                    opElement.innerText="Aukeratu bat";
+                    document.getElementById("selectore").appendChild(opElement);
                     for (let i = 0; i < data.length; i++) {
                         if (data[i].id == nuestraId) {
                             console.log("Entra " + nuestraId);
@@ -94,9 +98,9 @@
                         document.getElementById("selectore").appendChild(opElement);
                     }
                 })
-                .catch(error => {
-                    alert("Errorea." + error);
-                });
+                // .catch(error => {
+                //     alert("Errorea." + error);
+                // });
         }
 
         window.addEventListener("load", bistaratuFromPHP);
@@ -107,13 +111,17 @@
             var izena = document.getElementById("izenaKategoriaEguneratu").value;
             var kategoria = { id, izena };
             var js = JSON.stringify(kategoria);
-            fetch(rutaBack + 'kategoriak_json.php', { method: 'PUT', body: js })
-                .then(function (response) {
-                    return response.text();
-                })
-                .then(data => {
-                    console.log(data);
-                });
+            if (id == "Aukeratu bat" || izena == "") {
+                alert("Datuak ondo zartuta daudela zihurtatu");
+            }else{
+                fetch(rutaBack + 'kategoriak_json.php', { method: 'PUT', body: js, mode: 'cors'})
+                    .then(function (response) {
+                        return response.text();
+                    })
+                    .then(data => {
+                        console.log(data);
+                    });
+            }
         }
     </script>
 </html>

@@ -42,7 +42,7 @@
                     <div class="search">
                         <div class="elementos">
                             <select id="selector" onchange="aldatuKategoria()">
-                                <option value="Nada">Elige una opcion</option>
+                                <option>Aukeratu bat</option>
                             </select>
                         </div>
                         <div class="submites">
@@ -85,7 +85,8 @@
                 document.getElementById("selector").innerHTML = "";
                 var opElement = document.createElement("option");
                 opElement.value = "Nada";
-                opElement.innerText="Elige una opcion";
+                opElement.innerText="Aukeratu bat";
+                document.getElementById("selector").appendChild(opElement);
                 for (i = 0; i < data.length; i++) {
                     var tableRow = "<tr></tr>";
                     tableRow = tableRow.substring(0, tableRow.length - 5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" +
@@ -141,7 +142,7 @@
     function deleteKategoria() {
         let ids = lortuCheck();
         let js = JSON.stringify(ids);
-        fetch(rutaBack + 'kategoriak_json.php', { method: 'DELETE', body: js })
+        fetch(rutaBack + 'kategoriak_json.php', { method: 'DELETE', body: js, mode: 'cors' })
             .then(response => response.text())
             .then(data => {
                 console.log(data);
@@ -165,7 +166,7 @@
 
     function bistaratuFromPHP2(gureId) {
             console.log("Ha entrado")
-            let options = {method: "GET"};
+            let options = {method: "GET", mode: 'cors'};
             fetch(rutaBack + "kategoriak_json.php?num="+gureId+"", options)
                 .then(response => response.json())  // Analiza la respuesta JSON
                 .then(data => {

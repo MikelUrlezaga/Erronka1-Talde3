@@ -43,7 +43,7 @@
                     <div class="search">
                         <div class="elementos">
                             <select id="selector" onchange="aldatuEkipamendua()">
-                                <option value="Nada">Elige una opcion</option>
+                                <option value="Nada">Aukeratu bat</option>
                             </select>
                         </div>
                         <div class="submites">
@@ -89,7 +89,7 @@
                 document.getElementById("selector").innerHTML = "";
                 var opElement = document.createElement("option");
                 opElement.value = "Nada";
-                opElement.innerText="Elige una opcion";
+                opElement.innerText="Aukeratu bat";
                 document.getElementById("selector").appendChild(opElement);
                 for(i=0; i < data.length; i++){
                     var tableRow="<tr></tr>";
@@ -197,7 +197,7 @@
                     document.getElementById("tabla").innerHTML="";
                     var opElement = document.createElement("option");
                     opElement.value = "Nada";
-                    opElement.innerText="Elige una opcion";
+                    opElement.innerText="Aukeratu bat";
                     for(i=0; i < data.length; i++){
                         var tableRow="<tr></tr>";
                     tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 

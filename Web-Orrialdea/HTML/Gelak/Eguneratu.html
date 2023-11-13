@@ -24,6 +24,7 @@
         <div class="reborde">
                 <div class="custom-combobox">
                     <select id="selectore" onchange="aldatuGela()">
+                        <option>Aukeratu bat</option>
                     </select>
                 </div>
                 <p class="texto1Columna">Izena: </p>
@@ -117,13 +118,17 @@
     window.addEventListener("load", bistaratuFromPHP2(nuestraId));
 
     function actuGela() {
+       
         var id = document.getElementById("selectore").value;
         var izena = document.getElementById("izenaGelakEgu").value;
         var taldea = document.getElementById("taldeaGelakEgu").value;
         var clasea = {id,izena,taldea};
         var js = JSON.stringify(clasea);
         console.log(js);
-        fetch(rutaBack + 'gelak_json.php', {method: 'PUT', body: js})
+        if (id == "Aukeratu bat" || izena == "" || taldea == "") {
+            alert("Datuak ondo zartuta daudela zihurtatu");
+        }else{
+            fetch(rutaBack + 'gelak_json.php', {method: 'PUT', body: js})
             .then(function (response) {
                     return response.text();
             })
@@ -134,5 +139,6 @@
             // .catch(error => {
             //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
             // });
+        }
 }
 </script>
