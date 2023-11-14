@@ -134,7 +134,10 @@
             })
             .then(data=>{
                 console.log(data);
-                alert(izena+" eguneratuta");
+                if(data.includes("Data too long")){
+                    alert("Gelaren izena oso luzea da. Gehienez 4 karaktere izan ditzake.")
+                }
+                
             })
             // .catch(error => {
             //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);

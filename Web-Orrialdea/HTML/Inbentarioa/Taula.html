@@ -107,7 +107,7 @@
                     document.getElementById("tabla").appendChild(trElement);
 
                     var opElement = document.createElement("option");
-                    opElement.value = data[i].idEkipamendu;
+                    opElement.value = data[i].etiketa;
                     opElement.innerText=data[i].etiketa;
                     document.getElementById("selector").appendChild(opElement);
                 }
@@ -160,7 +160,7 @@
                 if(data.match("Fatal error")){
                     alert("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu");
                 }else{
-                    //location.reload();
+                    location.reload();
                 }
             })
             // .catch(error => {
@@ -192,7 +192,7 @@
             console.log("Ha entrado")
             console.log(gureId)
             let options = {method: "GET"};
-            fetch(rutaBack + "inbentarioa_json.php?num="+gureId+"", options)
+            fetch(rutaBack + "inbentarioa_json.php?eti="+gureId+"", options)
                 .then(response => response.json())  // Analiza la respuesta JSON
                 .then(data => {
                     console.log(data);
@@ -201,8 +201,8 @@
                     
                     for(i=0; i < data.length; i++){
                         var tableRow="<tr></tr>";
-                        tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                        data[i].idEkipamendu +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].etiketa + "</td>" +
+                        tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='"
+                        +  data[i].etiketa + "," + data[i].idEkipamendu+"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].etiketa + "</td>" +
                         tableRow.substring(tableRow.length-5) + "<td>" +  data[i].marka + " " + data[i].modelo + "</td>"
                         + tableRow.substring(tableRow.length-5) + "<td>" + data[i].erosketaData + "</td>";
 

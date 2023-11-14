@@ -1,8 +1,8 @@
 <?php
     //si no se pone esto, no va a funcionar en el server
-    header("Access-Control-Allow-Headers:{$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
-    header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");    
+    //header("Access-Control-Allow-Headers:{$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+    //header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");    
     include "db_konexioa.php";
 
     $db = new Datubasea ();
@@ -44,7 +44,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $json_data = json_decode(file_get_contents("php://input"), true);
         if (isset($_GET["num"])) {
-            $emaitzak = lortuKokalekuaByEtiketa($_GET["num"]);
+            $emaitzak = lortuKokalekuakByEtiketa($_GET["num"]);
             echo json_encode($emaitzak);
         } else {
             $emaitzak = lortuKokalekuak();
@@ -73,9 +73,10 @@
         }
     }
 
-    function ezabatuKokalekua($etiketa, $idGela, $hasieraData) {
+    function ezabatuKokalekua($value) {
         global $db;
-        $sql = "DELETE FROM kokalekua WHERE etiketa = '$etiketa' AND hasieraData = '$hasieraData' AND idGela = '$idGela'";
+        $datuak=explode(",",$value);
+        $sql = "DELETE FROM kokalekua WHERE etiketa = '$datuak[0]' AND idGela = '$datuak[1]' AND hasieraData = '$datuak[2]'";
         $db->ezabatu($sql);
     }
 
@@ -105,16 +106,16 @@
     }
 
     function lortuKokalekuakByEtiketa($etiketa) {
+        $datos = explode(",", $etiketa);
         global $db;
-        $emaitzak = $db->datuakLortu("SELECT * FROM kokalekua K, ekipamendua E, inbentarioa I WHERE K.etiketa = '$etiketa', K.etiketa = I.etiketa AND I.idEkipamendu = E.id");
-        $inbentarioa = array();
+        $emaitzak = $db->datuakLortu("SELECT K.etiketa, K.idGela, K.hasieraData, K.amaieraData FROM kokalekua K, ekipamendua E, inbentarioa I WHERE K.etiketa = '$datos[0]' AND K.idGela = '$datos[1]' AND K.hasieraData = '$datos[2]' GROUP BY K.etiketa");
         if (is_object($emaitzak)) {
             while ($row = $emaitzak->fetch_assoc()) {
                 $kokalekuak[] = array($row["etiketa"], $row["marka"], $row["modelo"], $row["idGela"], $row["hasieraData"], $row["amaieraData"]);
             }
-            return $inbentarioa;
+            return $kokalekuak;
         }else{
-            //echo "".$emaitzak;
+            return "error";
         }
     }
 ?>

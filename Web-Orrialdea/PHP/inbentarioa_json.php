@@ -1,7 +1,7 @@
 <?php
     //si no se pone esto, no va a funcionar en el server
-    header("Access-Control-Allow-Headers:{$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
-    header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+    //header("Access-Control-Allow-Headers:{$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+    //header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
     header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");    
     include "db_konexioa.php";
 
@@ -27,6 +27,9 @@
         $json_data = json_decode(file_get_contents("php://input"), true);
         if(isset($_GET["num"])){
             $emaitzak = lortuInbentarioaById($_GET["num"]);
+            echo json_encode($emaitzak);
+        }else if(isset($_GET["eti"])){
+            $emaitzak = lortuInbentarioaByEtiketa($_GET["eti"]);
             echo json_encode($emaitzak);
         }else{
             $emaitzak = lortuInbentarioa();
@@ -159,6 +162,43 @@
             return $inbentarioa;
         }else{
             //echo "".$emaitzak;
+        }
+    }
+
+    // function lortuInbentarioaByEtiketa($eti) {
+    //     global $db;
+    //     $sql = "SELECT I.etiketa, E.marka, E.modelo FROM inbentarioa I , ekipamendua E WHERE I.idEkipamendu = E.id AND I.etiketa='$eti'";
+    //     //$emaitzak = $db->datuakLortu("SELECT I.*, E.marka, E.modelo FROM inbentarioa I INNER JOIN ekipamendua E ON I.idEkipamendu = E.id WHERE I.etiketa='$eti'");
+    //     $emaitzak = $db->datuakLortu($sql);
+    //     $inbentarioa = array();
+    //     if (is_object($emaitzak)) {
+    //         while ($row = $emaitzak->fetch_assoc()) {
+    //             $inbentarioa = array($row["etiketa"], $row["idEkipamendu"], $row["erosketaData"], $row["marka"], $row["modelo"]);
+    //         }
+    //         return $inbentarioa;
+    //     }else{
+    //         return "mal";
+    //     }
+    // }
+    function lortuInbentarioaByEtiketa($eti) {
+        global $db;
+        $sql = "SELECT I.etiketa, E.marka, E.modelo, I.erosketaData, I.idEkipamendu FROM inbentarioa I, ekipamendua E WHERE I.idEkipamendu = E.id AND I.etiketa='$eti'";
+        $emaitzak = $db->datuakLortu($sql);
+        $inbentarioa = array();
+    
+        if ($emaitzak->num_rows > 0) {
+            while ($row = $emaitzak->fetch_assoc()) {
+                $inbentarioa[] = array(
+                    "etiketa" => $row["etiketa"],
+                    "marka" => $row["marka"],
+                    "modelo" => $row["modelo"],
+                    "erosketaData" => $row["erosketaData"],
+                    "idEkipamendu" => $row["idEkipamendu"]
+                );
+            }
+            return $inbentarioa;
+        } else {
+            return "mal";
         }
     }
 

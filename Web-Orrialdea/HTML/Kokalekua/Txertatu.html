@@ -46,6 +46,21 @@
     <div id="menuMugikorra"></div>
 </html>
 <script>
+    function fechaActual() {
+        const tiempoTranscurrido = Date.now();
+        const hoy = new Date(tiempoTranscurrido);
+
+        const dia = hoy.getDate();
+        const mes = hoy.getMonth() + 1; 
+        const anio = hoy.getFullYear();
+
+        const fechaFormateada = `${anio}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
+
+        document.getElementById("hasieraDataTxertatu").value = fechaFormateada;
+        document.getElementById("amaieraDataTxertatu").value = fechaFormateada;
+    }
+
+    window.addEventListener("load", fechaActual);
 
     function teclado(event) {
     var codigo = event.which || event.keyCode;
@@ -91,7 +106,7 @@ async function bistaratuFromPHPTxertatu() {
                 for(i=0; i < data.length; i++){
                     var opElemento = document.createElement("option");
                     opElemento.value = data[i].id;
-                    opElemento.innerText=data[i].izena;
+                    opElemento.innerText=data[i].id+" - "+data[i].izena;
                     document.getElementById("selectGela").appendChild(opElemento);
                 }
             })
@@ -108,7 +123,6 @@ async function bistaratuFromPHPTxertatu() {
         var hasieraData = document.getElementById("hasieraDataTxertatu").value;
         var amaieraData = document.getElementById("amaieraDataTxertatu").value;
         var clasea = {etiketa, idGela, hasieraData, amaieraData};
-        alert(clasea);
         var js = JSON.stringify(clasea);
         console.log(js);
         fetch(rutaBack + 'kokalekuak_json.php', {method: 'POST', body: js})
