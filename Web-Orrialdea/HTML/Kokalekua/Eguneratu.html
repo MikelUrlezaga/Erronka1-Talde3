@@ -9,9 +9,7 @@
     </head>
     <body onkeydown="teclado(event)">
         <header>
-        <a class="logoHeader" href="../../HTML/Orokorra/Home.html">
-                <img class="logo" src="../../IMG/LOGO.png">
-            </a>
+            <img class="logo" src="../../IMG/LOGO.png">
             <p class="titulo">KOKALEKUA EGUNERATU</p>
             <div class="headerdiv">
                 <a href="Taula.html">
@@ -26,7 +24,7 @@
         <div class="reborde">
             <p class="texto1Columna" style="margin-top: 1%; margin-bottom: -1%; margin-left: -19%;">Kokalekua:</p>
             <div class="custom-combobox" id="boxKokalekuEkipamendua">
-                <select id="selectKoka">
+                <select id="selectKoka" onchange="aldatuInbentarioa()">
                 </select>
             </div>
             <p class="texto1Columna" style="margin-top: 1%; margin-bottom: -1%; margin-left: -19%;">Ekipamendua:</p>
@@ -40,11 +38,11 @@
                 </select>
             </div>
             <p class="texto1Columna">Hasiera Data: </p>
-            <input class="textBox1Columna" type="date" id="hasieraDataTxertatu" name="ErosketaData">
+            <input class="textBox1Columna" type="date" id="hasieraDataEguneratu" name="ErosketaData">
             <p class="texto1Columna">Amaiera Data: </p>
-            <input class="textBox1Columna" type="date" id="amaieraDataTxertatu" name="ErosketaData">
+            <input class="textBox1Columna" type="date" id="amaieraDataEguneratu" name="ErosketaData">
             <div class="ck">
-                <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="createKokalekua()">
+                <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="actuKokalekuak()">
             </div>
         </div>  
     </body>
@@ -75,62 +73,105 @@
     }   
     nuestraId=unaId.split(",");
     async function bistaratuFromPHP2(idcls) {
-        console.log(idcls)
         let options = {method: "GET"};
         fetch("../../PHP/kokalekuak_json.php?num="+idcls+"", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
                 console.log(data.length);
-                document.getElementById("EtiketaInbEguneratu").value=data[0].etiketa;
-                document.getElementById("ErosketaDataInbEguneratu").value=data[0].erosketaData;
-                document.getElementById("etiketaAntigua").style.visibility="visible";
-                document.getElementById("etiketaAntigua").value=data[0].etiketa;
-                document.getElementById("etiketaAntigua").style.visibility="hidden";
-                document.getElementById("idInvisible").style.visibility = "visible";
-                document.getElementById("idInvisible").value = data[0].idEkipamendu;
-                document.getElementById("idInvisible").style.visibility = "hidden";
-                document.getElementById("selectore").value=data[0].etiketa;
+                document.getElementById("hasieraDataEguneratu").value=data[0].hasieraData;
+                document.getElementById("amaieraDataEguneratu").value=data[0].amaieraData;
+                fetch(rutaBack + "inbentarioa_json.php", options)
+                    .then(response => response.json())  // Analiza la respuesta JSON
+                    .then(data2 => {
+                        console.log(data2);
+                        console.log(data2.length);
+                        var opElement = document.createElement("option");
+                        opElement.value = "Nada";
+                        opElement.innerText="Aukeratu bat";
+                        document.getElementById("selectEki").appendChild(opElement);
+
+                        for(i=0; i < data2.length; i++){
+                            var opElement = document.createElement("option");
+                            opElement.value = data2[i].etiketa;
+                            opElement.innerText=data2[i].etiketa+" - "+data2[i].marka+" "+data2[i].modelo;
+                            if(data[0].etiketa==data2[i].etiketa){
+                                opElement.selected="selected";
+                            }
+                            document.getElementById("selectEki").appendChild(opElement);
+                            
+                            
+                        }
+                    })
+                    .catch(error => {
+                        alert("Errorea." + error);
+                    });
+
+
+                    fetch(rutaBack + "gelak_json.php", options)
+                        .then(response => response.json())  // Analiza la respuesta JSON
+                        .then(data2 => {
+                            console.log(data2);
+                            console.log(data2.length);
+                            var opElemento = document.createElement("option");
+                            opElemento.value = "Nada";
+                            opElemento.innerText="Aukeratu bat";
+                            document.getElementById("selectGela").appendChild(opElemento);
+
+                            for(i=0; i < data2.length; i++){
+                                var opElemento = document.createElement("option");
+                                opElemento.value = data2[i].id;
+                                opElemento.innerText=data2[i].id+" - "+data2[i].izena;
+                                if(data[0].idGela==data2[i].id){
+                                    opElemento.selected="selected";
+                                }
+                                document.getElementById("selectGela").appendChild(opElemento);
+                                
+                            }
+                        })
+                        .catch(error => {
+                            alert("Errorea." + error);
+                        });
 
             })
             .catch(error => {
                 console.log("Errorea." + error);
             });
+
+          
+
     }
 
     function aldatuInbentarioa(){
-        var idclase = document.getElementById("selectore").value;
-        console.log(document.getElementById("selectore").value);
-
+        var idclase = document.getElementById("selectKoka").value;
         bistaratuFromPHP2(idclase);
-        nuestraId[0]= idclase;
+        console.log(idclase)
     }
 
     async function bistaratuFromPHP() {
         let options = {method: "GET", mode: 'cors'};
-        fetch("../../PHP/inbentarioa_json.php",options)
+        fetch("../../PHP/kokalekuak_json.php",options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
-     
+                console.log(data);
+                var opElement = document.createElement("option");
+                        opElement.value = "Nada";
+                        opElement.innerText="Aukeratu bat";
+                        document.getElementById("selectKoka").appendChild(opElement);
+                        eti=unaId.split(",")
                 for (let i = 0; i < data.length; i++) {
-                    console.log(data + "holi");
-                    if(data[i].etiketa==nuestraId[0]){
-                        console.log("Entra "+nuestraId[0]);
-                    }
-                    var opcion="<option value='"+data[i].etiketa+"'>"+data[i].etiketa+"-"+data[i].marka+ " " +data[i].modelo+
-                    "</option>";
-                    //+data[i].marka+data[i].modelo+data[i].stock+data[i].idKategoria
-                    var opElement = document.createElement("option");
-                    opElement.innerHTML = opcion;
-                    opElement.value = data[i].etiketa;
-                    if(data[i].etiketa==nuestraId[0]){
-                        opElement.selected="selected";
-                    }
-                    document.getElementById("selectore").appendChild(opElement);
+
+                            var opElement = document.createElement("option");
+                            opElement.value = data[i][0]+","+data[i][4]+","+data[i][5];
+                            opElement.innerText=data[i][0]+" - "+data[i][4]+" - "+data[i][5];
+                            if(eti[0]==data[i][0]){
+                                opElement.selected="selected";
+                            }
+                            document.getElementById("selectKoka").appendChild(opElement);
                 }
             })
             .catch(error => {
-                alert("Errorea." + error);
+                console.log("Errorea." + error);
             });
     }
 
@@ -138,19 +179,18 @@
     window.addEventListener("load", bistaratuFromPHP);
     window.addEventListener("load", bistaratuFromPHP2(unaId));
 
-    function actuInbentarioa() {
-        document.getElementById("idInvisible").style.visibility="visible";
-        var idEkipamendu = document.getElementById("idInvisible").value;
-        document.getElementById("idInvisible").style.visibility="hidden";
-        var etiketa = document.getElementById("EtiketaInbEguneratu").value;
-        var erosketaData = document.getElementById("ErosketaDataInbEguneratu").value;
-        document.getElementById("etiketaAntigua").style.visibility="visible";
-        var aurrekoEtiketa = document.getElementById("etiketaAntigua").value;
-        document.getElementById("etiketaAntigua").style.visibility="hidden";
-        var clasea = {idEkipamendu, etiketa, erosketaData, aurrekoEtiketa};
+    function actuKokalekuak() {
+        var  datosAntiguos= document.getElementById("selectKoka").value;
+        var etiketa = document.getElementById("selectEki").value;
+        var idGela = document.getElementById("selectGela").value;
+        var hasieraData = document.getElementById("hasieraDataEguneratu").value;
+        var amaieraData = document.getElementById("amaieraDataEguneratu").value;
+
+
+        var clasea = {datosAntiguos, etiketa, idGela, hasieraData, amaieraData};
         var js = JSON.stringify(clasea);
         console.log(js + "hau da js");
-        fetch('../../PHP/inbentarioa_json.php', {method: 'PUT', body: js})
+        fetch('../../PHP/kokalekuak_json.php', {method: 'PUT', body: js})
             .then(function (response) {
                     return response.text();
             })
