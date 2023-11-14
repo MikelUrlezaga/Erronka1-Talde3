@@ -109,13 +109,20 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
         $datos = explode(",", $etiketa);
         global $db;
         $emaitzak = $db->datuakLortu("SELECT K.etiketa, K.idGela, K.hasieraData, K.amaieraData FROM kokalekua K, ekipamendua E, inbentarioa I WHERE K.etiketa = '$datos[0]' AND K.idGela = '$datos[1]' AND K.hasieraData = '$datos[2]' GROUP BY K.etiketa");
-        if (is_object($emaitzak)) {
+        $kokalekuak = array();
+    
+        if ($emaitzak->num_rows > 0) {
             while ($row = $emaitzak->fetch_assoc()) {
-                $kokalekuak[] = array($row["etiketa"], $row["marka"], $row["modelo"], $row["idGela"], $row["hasieraData"], $row["amaieraData"]);
+                $kokalekuak[] = array(
+                    "etiketa" => $row["etiketa"],
+                    "idGela" => $row["idGela"],
+                    "hasieraData" => $row["hasieraData"],
+                    "amaieraData" => $row["amaieraData"]
+                );
             }
             return $kokalekuak;
-        }else{
-            return "error";
+        } else {
+            return "mal";
         }
     }
 ?>
