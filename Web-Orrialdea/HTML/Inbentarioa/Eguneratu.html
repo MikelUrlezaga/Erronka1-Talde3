@@ -34,6 +34,7 @@
                 <p class="texto1Columna">Erosketa Data: </p>
                 <input class="textBox1Columna" type="date" id="ErosketaDataInbEguneratu" name="ErosketaData">
                 <p class="textBox" type="text" id="etiketaAntigua" name="Rola" style="visibility: hidden;"></p>
+                <p class="textBox" type="text" id="idInvisible" name="Rola" style="visibility: hidden;"></p>
               
                 <div class="ck">
                     <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="actuInbentarioa()">
@@ -67,11 +68,9 @@
         
     }   
     nuestraId=unaId.split(",");
-
     async function bistaratuFromPHP2(idcls) {
-        console.log("Ha entrado")
-        let options = {method: "GET", mode: 'cors'};
-        fetch(rutaBack + "inbentarioa_json.php?num="+idcls+"", options)
+        let options = {method: "GET"};
+        fetch("../../PHP/inbentarioa_json.php?eti="+idcls+"", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
@@ -81,8 +80,11 @@
                 document.getElementById("etiketaAntigua").style.visibility="visible";
                 document.getElementById("etiketaAntigua").value=data[0].etiketa;
                 document.getElementById("etiketaAntigua").style.visibility="hidden";
+                document.getElementById("idInvisible").style.visibility = "visible";
+                document.getElementById("idInvisible").value = data[0].idEkipamendu;
+                document.getElementById("idInvisible").style.visibility = "hidden";
+                document.getElementById("selectore").value=data[0].etiketa;
 
-                document.getElementById("selectore").value=idcls;
             })
             .catch(error => {
                 console.log("Errorea." + error);
@@ -94,7 +96,7 @@
         console.log(document.getElementById("selectore").value);
 
         bistaratuFromPHP2(idclase);
-        nuestraId[1]= idclase;
+        nuestraId[0]= idclase;
     }
 
     async function bistaratuFromPHP() {
@@ -108,19 +110,18 @@
                 document.getElementById("selectore").appendChild(opElement);
                 for (let i = 0; i < data.length; i++) {
                     console.log(data + "holi");
-                    if(data[i].idEkipamendu==nuestraId[1]){
-                        console.log("Entra "+nuestraId[1]);
+                    if(data[i].etiketa==nuestraId[0]){
+                        console.log("Entra "+nuestraId[0]);
                     }
-                    var opcion="<option value='"+data[i].idEkipamendu+"'>"+data[i].marka+ " " +data[i].modelo+
+                    var opcion="<option value='"+data[i].etiketa+"'>"+data[i].etiketa+"-"+data[i].marka+ " " +data[i].modelo+
                     "</option>";
                     //+data[i].marka+data[i].modelo+data[i].stock+data[i].idKategoria
                     var opElement = document.createElement("option");
                     opElement.innerHTML = opcion;
-                    opElement.value = data[i].idEkipamendu;
-                    if(data[i].idEkipamendu==nuestraId[1]){
+                    opElement.value = data[i].etiketa;
+                    if(data[i].etiketa==nuestraId[0]){
                         opElement.selected="selected";
                     }
-                    
                     document.getElementById("selectore").appendChild(opElement);
                 }
             })
@@ -131,10 +132,12 @@
 
     
     window.addEventListener("load", bistaratuFromPHP);
-    window.addEventListener("load", bistaratuFromPHP2(nuestraId[1]));
+    window.addEventListener("load", bistaratuFromPHP2(nuestraId[0]));
 
     function actuInbentarioa() {
-        var idEkipamendu = document.getElementById("selectore").value;
+        document.getElementById("idInvisible").style.visibility="visible";
+        var idEkipamendu = document.getElementById("idInvisible").value;
+        document.getElementById("idInvisible").style.visibility="hidden";
         var etiketa = document.getElementById("EtiketaInbEguneratu").value;
         var erosketaData = document.getElementById("ErosketaDataInbEguneratu").value;
         document.getElementById("etiketaAntigua").style.visibility="visible";

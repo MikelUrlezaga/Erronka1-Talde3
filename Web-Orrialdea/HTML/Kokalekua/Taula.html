@@ -100,13 +100,13 @@
 
                 for(i=0; i < data.length; i++){
                     var tableRow="<tr></tr>";
-                    tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                        data[i][1] + "'>" + "</td>"+
-                    tableRow.substring(tableRow.length-5) + "<td>" +data[i][0]+"</td>" + 
-                    tableRow.substring(tableRow.length-5) + "<td>" + data[i][2] + " " + data[i][3] + "</td>" +
-                    tableRow.substring(tableRow.length-5) + "<td>" + data[i][4] + "</td>" +
-                    tableRow.substring(tableRow.length-5) + "<td>" + data[i][5] + "</td>" +
-                    tableRow.substring(tableRow.length-5) + "<td>" + data[i][6] + "</td>";
+                    tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='"+ 
+                        data[i][0] +","+data[i][4]+","+data[i][5]+ "'>" + "</td>"+
+                        tableRow.substring(tableRow.length-5) + "<td>" +data[i][0]+"</td>" + 
+                        tableRow.substring(tableRow.length-5) + "<td>" + data[i][2] + " " + data[i][3] + "</td>" +
+                        tableRow.substring(tableRow.length-5) + "<td>" + data[i][4] + " - " + data[i][7] + "</td>" +
+                        tableRow.substring(tableRow.length-5) + "<td>" + data[i][5] + "</td>" +
+                        tableRow.substring(tableRow.length-5) + "<td>" + data[i][6] + "</td>";
                     
 
                     var trElement = document.createElement("tr");
@@ -209,15 +209,19 @@
                     
                     for(i=0; i < data.length; i++){
                         var tableRow="<tr></tr>";
-                        tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                        data[i].etiketa + "," + data[i].idGela +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].etiketa + "</td>" +
-                        tableRow.substring(tableRow.length-5) + "<td>" + data[i].ekipamendua + "</td>"
-                        tableRow.substring(tableRow.length-5) + "<td>" + data[i].hasieradata + "</td>"
-                        tableRow.substring(tableRow.length-5) + "<td>" + data[i].amaieradata + "</td>";
+                    tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
+                        data[i][0] +","+data[i][4]+","+data[i][5]+ "'>" + "</td>"+
+                        tableRow.substring(tableRow.length-5) + "<td>" +data[i][0]+"</td>" + 
+                        tableRow.substring(tableRow.length-5) + "<td>" + data[i][2] + " " + data[i][3] + "</td>" +
+                        tableRow.substring(tableRow.length-5) + "<td>" + data[i][4] + "</td>" +
+                        tableRow.substring(tableRow.length-5) + "<td>" + data[i][5] + "</td>" +
+                        tableRow.substring(tableRow.length-5) + "<td>" + data[i][6] + "</td>";
+                    
 
-                        var trElement = document.createElement("tr");
-                        trElement.innerHTML = tableRow;
-                        document.getElementById("tabla").appendChild(trElement);
+                    var trElement = document.createElement("tr");
+                    trElement.innerHTML = tableRow;
+                    document.getElementById("tabla").appendChild(trElement);
+
                     }
                 })
                 .catch(error => {
