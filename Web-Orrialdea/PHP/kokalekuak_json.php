@@ -57,10 +57,13 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
         echo json_encode("okai");
     } elseif ($_SERVER["REQUEST_METHOD"] == "PUT") {
         $json_data = json_decode(file_get_contents("php://input"), true);
-        if (isset($json_data["id"], $json_data["izena"])) {
-            $id = $json_data["id"];
-            $izena = $json_data["izena"];
-            eguneratuKokalekua($id, $izena);
+        if (isset($json_data["datosAntiguos"], $json_data["etiketa"], $json_data["idGela"], $json_data["hasieraData"], $json_data["amaieraData"])) {
+            $datosAntiguos = $json_data["datosAntiguos"];
+            $etiketa = $json_data["etiketa"];
+            $idGela = $json_data["idGela"];
+            $hasieraData = $json_data["hasieraData"];
+            $amaieraData = $json_data["amaieraData"];
+            eguneratuKokalekua($datosAntiguos, $etiketa, $idGela, $hasieraData, $amaieraData);
         }
     } elseif ($_SERVER["REQUEST_METHOD"] == "DELETE") {
         $json_data = json_decode(file_get_contents("php://input"), true);
@@ -80,9 +83,10 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
         $db->ezabatu($sql);
     }
 
-    function eguneratuKokalekua($etiketa, $idGela, $hasieraData, $amaieraData) {
+    function eguneratuKokalekua($datosAntiguos, $etiketa, $idGela, $hasieraData, $amaieraData) {
         global $db;
-        $sql = "UPDATE kokalekua SET idGela = '$idGela', hasieraData = '$hasieraData', amaieraData = '$amaieraData' WHERE etiketa = '$etiketa'";
+        $datosAnt = explode(",", $datosAntiguos);
+        $sql = "UPDATE kokalekua SET idGela = '$idGela', hasieraData = '$hasieraData', amaieraData = '$amaieraData', etiketa = '$etiketa' WHERE etiketa = '$datosAnt[0]' AND idGela = '$datosAnt[1]' AND hasieraData = '$datosAnt[2]'";
         $db->eguneratu($sql);
     }
 

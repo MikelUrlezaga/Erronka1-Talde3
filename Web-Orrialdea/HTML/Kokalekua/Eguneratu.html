@@ -42,7 +42,7 @@
             <p class="texto1Columna">Amaiera Data: </p>
             <input class="textBox1Columna" type="date" id="amaieraDataEguneratu" name="ErosketaData">
             <div class="ck">
-                <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="createKokalekua()">
+                <img src="../../IMG/unnamed.png" alt="check" class="checkicon" onclick="actuKokalekuak()">
             </div>
         </div>  
     </body>
@@ -168,9 +168,6 @@
                                 opElement.selected="selected";
                             }
                             document.getElementById("selectKoka").appendChild(opElement);
-                            
-                            
-                        
                 }
             })
             .catch(error => {
@@ -182,19 +179,18 @@
     window.addEventListener("load", bistaratuFromPHP);
     window.addEventListener("load", bistaratuFromPHP2(unaId));
 
-    function actuInbentarioa() {
-        document.getElementById("idInvisible").style.visibility="visible";
-        var idEkipamendu = document.getElementById("idInvisible").value;
-        document.getElementById("idInvisible").style.visibility="hidden";
-        var etiketa = document.getElementById("EtiketaInbEguneratu").value;
-        var erosketaData = document.getElementById("ErosketaDataInbEguneratu").value;
-        document.getElementById("etiketaAntigua").style.visibility="visible";
-        var aurrekoEtiketa = document.getElementById("etiketaAntigua").value;
-        document.getElementById("etiketaAntigua").style.visibility="hidden";
-        var clasea = {idEkipamendu, etiketa, erosketaData, aurrekoEtiketa};
+    function actuKokalekuak() {
+        var  datosAntiguos= document.getElementById("selectKoka").value;
+        var etiketa = document.getElementById("selectEki").value;
+        var idGela = document.getElementById("selectGela").value;
+        var hasieraData = document.getElementById("hasieraDataEguneratu").value;
+        var amaieraData = document.getElementById("amaieraDataEguneratu").value;
+
+
+        var clasea = {datosAntiguos, etiketa, idGela, hasieraData, amaieraData};
         var js = JSON.stringify(clasea);
         console.log(js + "hau da js");
-        fetch('../../PHP/inbentarioa_json.php', {method: 'PUT', body: js})
+        fetch('../../PHP/kokalekuak_json.php', {method: 'PUT', body: js})
             .then(function (response) {
                     return response.text();
             })
