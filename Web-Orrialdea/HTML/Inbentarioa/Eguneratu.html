@@ -9,7 +9,9 @@
     </head>
     <body onkeydown="teclado(event)">
         <header>
-            <img class="logo" src="../../IMG/LOGO.png">
+        <a class="logoHeader" href="../../HTML/Orokorra/Home.html">
+                <img class="logo" src="../../IMG/LOGO.png">
+            </a>
             <p class="titulo">INBENTARIOA EGUNERATU</p>
             <div class="headerdiv">
                 <a href="Taula.html">
@@ -150,6 +152,7 @@
                 })
                 .then(data=>{
                     console.log(data);
+                    alert(etiketa+" eguneratuta");
                     
                 })
                 .catch(error => {

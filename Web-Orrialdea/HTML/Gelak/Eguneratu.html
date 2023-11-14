@@ -9,7 +9,9 @@
     </head>
     <body onkeydown="teclado(event)">
         <header>
-            <img class="logo" src="../../IMG/LOGO.png">
+        <a class="logoHeader" href="../../HTML/Orokorra/Home.html">
+                <img class="logo" src="../../IMG/LOGO.png">
+            </a>
             <p id="titulo" class="titulo">GELAK EGUNERATU</p>
             <div class="headerdiv">
                 <a href="Taula.html">
@@ -63,7 +65,7 @@
 
     async function bistaratuFromPHP2(idcls) {
         console.log("Ha entrado")
-        let options = {method: "GET"};
+        let options = {method: "GET", mode: 'cors'};
         fetch(rutaBack + "gelak_json.php?num="+idcls+"", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
@@ -89,11 +91,10 @@
     }
 
     async function bistaratuFromPHP() {
-        let options = {method: "GET"};
+        let options = {method: "GET", mode: 'cors'};
         fetch(rutaBack + "gelak_json.php",options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
-     
                 for (let i = 0; i < data.length; i++) {
                     console.log(nuestraId);
                     if(data[i].id==nuestraId){
@@ -118,7 +119,6 @@
     window.addEventListener("load", bistaratuFromPHP2(nuestraId));
 
     function actuGela() {
-       
         var id = document.getElementById("selectore").value;
         var izena = document.getElementById("izenaGelakEgu").value;
         var taldea = document.getElementById("taldeaGelakEgu").value;
@@ -128,13 +128,13 @@
         if (id == "Aukeratu bat" || izena == "" || taldea == "") {
             alert("Datuak ondo zartuta daudela zihurtatu");
         }else{
-            fetch(rutaBack + 'gelak_json.php', {method: 'PUT', body: js})
+            fetch(rutaBack + 'gelak_json.php', {method: 'PUT', body: js, mode: 'cors'})
             .then(function (response) {
                     return response.text();
             })
             .then(data=>{
                 console.log(data);
-                
+                alert(izena+" eguneratuta");
             })
             // .catch(error => {
             //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);

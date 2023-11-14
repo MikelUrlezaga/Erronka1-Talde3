@@ -9,7 +9,9 @@
     </head>
     <body onkeydown="teclado(event)">
         <header>
-            <img class="logo" src="../../IMG/LOGO.png">
+        <a class="logoHeader" href="../../HTML/Orokorra/Home.html">
+                <img class="logo" src="../../IMG/LOGO.png">
+            </a>
             <p class="titulo">GELA TXERTATU</p>
             <div class="headerdiv">
                 <a href="Taula.html">
@@ -58,6 +60,8 @@
                     console.log(data);
                     if(data.includes("Data too long")){
                         alert("Gelaren izena oso luzea da. Gehienez 4 karaktere izan ditzake.")
+                    }else{
+                        alert(izena+" txertatuta");
                     }
                     
                 })

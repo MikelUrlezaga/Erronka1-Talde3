@@ -22,6 +22,10 @@ header {
     padding-bottom: 21vh;
 }
 
+.logoHeader{
+    margin: 0;
+}
+
 a{
     text-decoration: none;
     color: #252427;
@@ -240,6 +244,8 @@ hr{
 .checkicon {
     width: 4vw;
     height: 4vw;
+    min-width: 20px;
+    min-height: 20px;
 }
 
 .checkicon:hover{
@@ -451,6 +457,7 @@ select#selector{
    margin-top: 4vh; 
    margin-bottom: 5vh;
    font-size: 2vh;
+   min-height: 30px;
     }
 
 select#selectore{
