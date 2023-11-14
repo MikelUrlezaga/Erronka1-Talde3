@@ -10,9 +10,7 @@
     </head>
     <body>
         <header> 
-        <a class="logoHeader" href="../../HTML/Orokorra/Home.html">
-                <img class="logo" src="../../IMG/LOGO.png">
-            </a>
+            <img class="logo" src="../../IMG/LOGO.png">
             <p class="titulo">EKIPAMENDUA</p>
 
             <div class="headerdiv">
@@ -25,7 +23,7 @@
                 </a>
             </div>
         </header>
-        <div class="rebordeTaula">
+        <div class="reborde">
             <div class="all">
                 <div class="up">
                     <div class="botones">
@@ -45,7 +43,7 @@
                     <div class="search">
                         <div class="elementos">
                             <select id="selector" onchange="aldatuEkipamendua()">
-                                <option value="Nada">Aukeratu bat</option>
+                                <option value="Nada">Elige una opcion</option>
                             </select>
                         </div>
                         <div class="submites">
@@ -91,7 +89,7 @@
                 document.getElementById("selector").innerHTML = "";
                 var opElement = document.createElement("option");
                 opElement.value = "Nada";
-                opElement.innerText="Aukeratu bat";
+                opElement.innerText="Elige una opcion";
                 document.getElementById("selector").appendChild(opElement);
                 for(i=0; i < data.length; i++){
                     var tableRow="<tr></tr>";
@@ -196,10 +194,10 @@
                 .then(data => {
                     console.log(data);
                     console.log(data.length);
-                    document.getElementById("tabla").innerHTML="";
+                    document.getElementById("tabla").innerHTML="";  
                     var opElement = document.createElement("option");
                     opElement.value = "Nada";
-                    opElement.innerText="Aukeratu bat";
+                    opElement.innerText="Elige una opcion";
                     for(i=0; i < data.length; i++){
                         var tableRow="<tr></tr>";
                     tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
@@ -211,9 +209,7 @@
                     var trElement = document.createElement("tr");
                     trElement.innerHTML = tableRow;
                     document.getElementById("tabla").appendChild(trElement);
-
-
-                        }
+                    }
                 })
                 .catch(error => {
                     alert("Errorea." + error);
