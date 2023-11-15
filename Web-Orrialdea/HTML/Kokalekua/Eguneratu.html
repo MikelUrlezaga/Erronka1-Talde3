@@ -183,7 +183,7 @@
         var idGela = document.getElementById("selectGela").value;
         var hasieraData = document.getElementById("hasieraDataEguneratu").value;
         var amaieraData = document.getElementById("amaieraDataEguneratu").value;
-        if(etiketa == "Nada" || idGela == "Nada"){
+        if(etiketa == "" || idGela == "" || hasieraData=="" || amaieraData==""){
             alert("Daturen bat falta zaizu.");
         }else{
             var clasea = {datosAntiguos, etiketa, idGela, hasieraData, amaieraData};
