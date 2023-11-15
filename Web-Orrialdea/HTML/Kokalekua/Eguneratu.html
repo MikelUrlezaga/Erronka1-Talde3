@@ -183,21 +183,29 @@
         var idGela = document.getElementById("selectGela").value;
         var hasieraData = document.getElementById("hasieraDataEguneratu").value;
         var amaieraData = document.getElementById("amaieraDataEguneratu").value;
-
-
-        var clasea = {datosAntiguos, etiketa, idGela, hasieraData, amaieraData};
-        var js = JSON.stringify(clasea);
-        console.log(js + "hau da js");
-        fetch('../../PHP/kokalekuak_json.php', {method: 'PUT', body: js})
-            .then(function (response) {
-                    return response.text();
-            })
-            .then(data=>{
-                console.log(data);
-                
-            })
-            .catch(error => {
-                console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-            });
+        if(etiketa == "Nada" || idGela == "Nada"){
+            alert("Daturen bat falta zaizu.");
+        }else{
+            var clasea = {datosAntiguos, etiketa, idGela, hasieraData, amaieraData};
+            var js = JSON.stringify(clasea);
+            console.log(js + "hau da js");
+            fetch('../../PHP/kokalekuak_json.php', {method: 'PUT', body: js})
+                .then(function (response) {
+                        return response.text();
+                })
+                .then(data=>{
+                        console.log(data);
+                        if(data.match("Hasierako")){
+                            alert("Hasierako data amaierakoa baino handiagoa da.");
+                        }else if (data.match("ez dago libre")){
+                            alert("Ekipamendu hau ez dago libre data honetarako.");
+                        }else{
+                            alert(etiketa+"-ren erreserba txertatuta");
+                        }
+                    })
+                .catch(error => {
+                    console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                });
+            }
     }
 </script>

@@ -54,7 +54,7 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
     } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
         $json_data = json_decode(file_get_contents("php://input"), true);
         $emaitzak = txertatuKokalekua($json_data["etiketa"], $json_data["idGela"], $json_data["hasieraData"], $json_data["amaieraData"]);
-        echo json_encode("okai");
+        echo json_encode($emaitzak);
     } elseif ($_SERVER["REQUEST_METHOD"] == "PUT") {
         $json_data = json_decode(file_get_contents("php://input"), true);
         if (isset($json_data["datosAntiguos"], $json_data["etiketa"], $json_data["idGela"], $json_data["hasieraData"], $json_data["amaieraData"])) {
@@ -63,7 +63,8 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
             $idGela = $json_data["idGela"];
             $hasieraData = $json_data["hasieraData"];
             $amaieraData = $json_data["amaieraData"];
-            eguneratuKokalekua($datosAntiguos, $etiketa, $idGela, $hasieraData, $amaieraData);
+            $emaitzak=eguneratuKokalekua($datosAntiguos, $etiketa, $idGela, $hasieraData, $amaieraData);
+            echo json_encode($emaitzak);
         }
     } elseif ($_SERVER["REQUEST_METHOD"] == "DELETE") {
         $json_data = json_decode(file_get_contents("php://input"), true);
@@ -86,14 +87,89 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
     function eguneratuKokalekua($datosAntiguos, $etiketa, $idGela, $hasieraData, $amaieraData) {
         global $db;
         $datosAnt = explode(",", $datosAntiguos);
-        $sql = "UPDATE kokalekua SET idGela = '$idGela', hasieraData = '$hasieraData', amaieraData = '$amaieraData', etiketa = '$etiketa' WHERE etiketa = '$datosAnt[0]' AND idGela = '$datosAnt[1]' AND hasieraData = '$datosAnt[2]'";
-        $db->eguneratu($sql);
+        $emaitzak = $db->datuakLortu("SELECT hasieraData, amaieraData FROM kokalekua WHERE etiketa = '$datosAnt[0]'");
+        $bul = true;
+        $kokalekuak = array();
+        if (is_object($emaitzak)) {
+            while ($row = $emaitzak->fetch_assoc()) {
+                $kokalekuak[] = array($row["hasieraData"], $row["amaieraData"]);
+                if($hasieraData <= $amaieraData){
+                    if ($row["hasieraData"] <= $hasieraData || $row["amaieraData"] >= $hasieraData){
+                        if($row["hasieraData"] <= $amaieraData || $row["amaieraData"] >= $amaieraData){
+                            if($row["amaieraData"] >= $hasieraData && $row["hasieraData"] <= $amaieraData) {
+                                $bul = false;
+                            }
+                        }   
+                    }
+                    if($bul){
+                        $sql = "UPDATE kokalekua SET idGela = '$idGela', hasieraData = '$hasieraData', amaieraData = '$amaieraData', etiketa = '$etiketa' WHERE etiketa = '$datosAnt[0]' AND idGela = '$datosAnt[1]' AND hasieraData = '$datosAnt[2]'";
+                        $db->eguneratu($sql);
+                        return "Ekipamendu hau dago libre data honetarako.";
+                    }else{
+                        $sql = "UPDATE kokalekua SET idGela = '$idGela', etiketa = '$etiketa' WHERE etiketa = '$datosAnt[0]' AND idGela = '$datosAnt[1]' AND hasieraData = '$datosAnt[2]'";
+                        $db->eguneratu($sql);
+                        return "Ekipamendu hau ez dago libre data honetarako.";
+                    }
+                }else{
+                    return "Hasierako data amaierakoa baino handiagoa da.";
+                }
+            }
+        }else{
+            if($hasieraData <= $amaieraData){
+                if($bul){
+                    $sql = "UPDATE kokalekua SET idGela = '$idGela', hasieraData = '$hasieraData', amaieraData = '$amaieraData', etiketa = '$etiketa' WHERE etiketa = '$datosAnt[0]' AND idGela = '$datosAnt[1]' AND hasieraData = '$datosAnt[2]'";
+                    $db->eguneratu($sql);
+                }
+            }else{
+                return "Hasierako data amaierakoa baino handiagoa da.";
+            }
+        } 
+
+
+        // $datosAnt = explode(",", $datosAntiguos);
+        // $sql = "UPDATE kokalekua SET idGela = '$idGela', hasieraData = '$hasieraData', amaieraData = '$amaieraData', etiketa = '$etiketa' WHERE etiketa = '$datosAnt[0]' AND idGela = '$datosAnt[1]' AND hasieraData = '$datosAnt[2]'";
+        // $db->eguneratu($sql);
     }
 
     function txertatuKokalekua($etiketa, $idGela, $hasieraData, $amaieraData) {
         global $db;
-        $sql = "INSERT INTO kokalekua (etiketa, idGela, hasieraData, amaieraData) VALUES ('$etiketa', '$idGela', '$hasieraData', '$amaieraData')";
-        $db->txertatu($sql);
+        $datos = explode(",", $etiketa);
+        $emaitzak = $db->datuakLortu("SELECT hasieraData, amaieraData FROM kokalekua WHERE etiketa = '$datos[0]'");
+        $bul = true;
+        $kokalekuak = array();
+        if (is_object($emaitzak)) {
+            while ($row = $emaitzak->fetch_assoc()) {
+                $kokalekuak[] = array($row["hasieraData"], $row["amaieraData"]);
+                if($hasieraData <= $amaieraData){
+                    if ($row["hasieraData"] <= $hasieraData || $row["amaieraData"] >= $hasieraData){
+                        if($row["hasieraData"] <= $amaieraData || $row["amaieraData"] >= $amaieraData){
+                            if($row["amaieraData"] >= $hasieraData && $row["hasieraData"] <= $amaieraData) {
+                                $bul = false;
+                            }
+                        }   
+                    }
+                    if($bul){
+                        $sql = "INSERT INTO kokalekua (etiketa, idGela, hasieraData, amaieraData) VALUES ('$etiketa', '$idGela', '$hasieraData', '$amaieraData')";
+                        $db->txertatu($sql);
+                        return "Ekipamendu hau dago libre data honetarako.";
+    
+                    }else{
+                        return "Ekipamendu hau ez dago libre data honetarako.";
+                    }
+                }else{
+                    return "Hasierako data amaierakoa baino handiagoa da.";
+                }
+            }
+        }else{
+            if($hasieraData <= $amaieraData){
+                if($bul){
+                    $sql = "INSERT INTO kokalekua (etiketa, idGela, hasieraData, amaieraData) VALUES ('$etiketa', '$idGela', '$hasieraData', '$amaieraData')";
+                    $db->txertatu($sql);
+                }
+            }else{
+                return "Hasierako data amaierakoa baino handiagoa da.";
+            }
+        } 
     }
 
     function lortuKokalekuak() {
@@ -112,14 +188,17 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
     function lortuKokalekuakByEtiketa($etiketa) {
         $datos = explode(",", $etiketa);
         global $db;
-        $emaitzak = $db->datuakLortu("SELECT K.etiketa, K.idGela, K.hasieraData, K.amaieraData FROM kokalekua K, ekipamendua E, inbentarioa I WHERE K.etiketa = '$datos[0]' AND K.idGela = '$datos[1]' AND K.hasieraData = '$datos[2]' GROUP BY K.etiketa");
+        $emaitzak = $db->datuakLortu("SELECT K.etiketa, G.izena, E.marka, E.modelo, K.idGela, K.hasieraData, K.amaieraData FROM kokalekua K, ekipamendua E, inbentarioa I, gela G WHERE K.etiketa = '$datos[0]' AND K.idGela = '$datos[1]' AND I.etiketa = K.etiketa AND I.idEkipamendu = E.id AND K.idGela = G.id  AND K.hasieraData = '$datos[2]' GROUP BY K.etiketa");
         $kokalekuak = array();
     
         if ($emaitzak->num_rows > 0) {
             while ($row = $emaitzak->fetch_assoc()) {
                 $kokalekuak[] = array(
                     "etiketa" => $row["etiketa"],
+                    "marka" => $row["marka"],
+                    "modelo" => $row["modelo"],
                     "idGela" => $row["idGela"],
+                    "izena" => $row["izena"],
                     "hasieraData" => $row["hasieraData"],
                     "amaieraData" => $row["amaieraData"]
                 );
