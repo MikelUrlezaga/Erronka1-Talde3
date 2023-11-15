@@ -125,7 +125,7 @@
         var clasea = {id,izena,taldea};
         var js = JSON.stringify(clasea);
         console.log(js);
-        if (id == "Aukeratu bat" || izena == "" || taldea == "") {
+        if (id == "Aukeratu bat" || izena == "" || taldea == "" || (izena.length)>4) {
             alert("Datuak ondo zartuta daudela zihurtatu");
         }else{
             fetch(rutaBack + 'gelak_json.php', {method: 'PUT', body: js, mode: 'cors'})
