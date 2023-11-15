@@ -107,7 +107,6 @@
                     if(data[i].id==nuestraId){
                         opElement.selected="selected";
                     }
-                    
                     document.getElementById("selectore").appendChild(opElement);
                 }
             })
@@ -119,29 +118,54 @@
     window.addEventListener("load", bistaratuFromPHP2(nuestraId));
 
     function actuGela() {
+        //
         var id = document.getElementById("selectore").value;
         var izena = document.getElementById("izenaGelakEgu").value;
         var taldea = document.getElementById("taldeaGelakEgu").value;
         var clasea = {id,izena,taldea};
         var js = JSON.stringify(clasea);
         console.log(js);
-        if (id == "Aukeratu bat" || izena == "" || taldea == "" || (izena.length)>4) {
-            alert("Datuak ondo zartuta daudela zihurtatu");
-        }else{
-            fetch(rutaBack + 'gelak_json.php', {method: 'PUT', body: js, mode: 'cors'})
-            .then(function (response) {
-                    return response.text();
-            })
-            .then(data=>{
-                console.log(data);
-                if(data.includes("Data too long")){
-                    alert("Gelaren izena oso luzea da. Gehienez 4 karaktere izan ditzake.")
+        let count=0;
+        let options = {method: "GET", mode: 'cors'};
+        fetch(rutaBack + "gelak_json.php",options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+                console.log(data.length);
+                for (let i = 0; i < data.length; i++) {
+                    if(data[i].izena == izena){
+                        count++;
+                    }
                 }
-                
-            })
-            // .catch(error => {
-            //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
-            // });
-        }
+                console.log(count);
+
+                if(count==1 || count==0){
+                    var clasea = {izena, taldea};
+                    var js = JSON.stringify(clasea);
+                    console.log(js);
+                    if (id == "Aukeratu bat" || izena == "" || taldea == "" || (izena.length)>4) {
+                    alert("Datuak ondo zartuta daudela zihurtatu");
+                }else{
+                    fetch(rutaBack + 'gelak_json.php', {method: 'PUT', body: js, mode: 'cors'})
+                    .then(function (response) {
+                            return response.text();
+                    })
+                    .then(data=>{
+                        console.log(data);
+                        if(data.includes("Data too long")){
+                            alert("Gelaren izena oso luzea da. Gehienez 4 karaktere izan ditzake.")
+                        }
+                        
+                    })
+                    // .catch(error => {
+                    //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                    // });
+                }
+                }else{
+                    alert("Beste gela bat dago izen horrekin")
+                }
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
 }
 </script>
