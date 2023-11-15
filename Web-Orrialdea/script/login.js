@@ -29,8 +29,9 @@ function login() {
         if (caracteres.test(name)) {
             loginComp()
         } else {
+            document.getElementById("user").style.borderColor = "red"
             document.getElementById("mal").removeAttribute("hidden")
-            document.getElementById("mal").innerHTML = "Erabiltzailea_eta_pasahitza_txarto_sartuta_daude"
+            document.getElementById("mal").innerHTML = "Erabiltzailea_ezin_du_karaktere_arraroak_eduki"
         }
     }
 }
@@ -63,10 +64,13 @@ function loginComp() {
                 window.location ="../../HTML/Orokorra/Home.html";
                 document.cookie = "AdminUser=" + myArray[1] + "; path=/";
             }else if(myArray[0].match("Pasahitza_txarto_sartuta_dago")){
+                document.getElementById("user").style.borderColor = "#ccc"
+                document.getElementById("pass").style.borderColor = "red"
                 document.getElementById("mal").removeAttribute("hidden")
                 document.getElementById("mal").innerHTML = "Pasahitza_txarto_sartuta_dago"
                 contFallo++;
             }else if(myArray[0].match("Erabiltzailea_ez_da_existitzen")){
+                document.getElementById("user").style.borderColor = "red"
                 document.getElementById("mal").removeAttribute("hidden")
                 document.getElementById("mal").innerHTML = "Erabiltzailea_ez_da_existitzen"
                 contFallo++;
