@@ -26,6 +26,10 @@ header {
     margin: 0;
 }
 
+.zutabeBat{
+    width: 20%;
+}
+
 a{
     text-decoration: none;
     color: #252427;
@@ -466,8 +470,16 @@ select#selectore{
     margin-top: 4vh; 
     margin-bottom: 5vh;
     font-size: 2vh;
-        }
-        
+    }
+    
+select.selectores{
+    height: 45px;
+    width: 25vw;
+    margin-top: 4vh; 
+    margin-bottom: 5vh;
+    font-size: 2vh;
+}
+
 .botones {
     display: flex;
     flex-direction: row;
