@@ -110,21 +110,43 @@
 
         function actuKategoria() {
             var id = document.getElementById("selectore").value;
+            var gelaeditable = document.getElementById("selectore").innerHTML;
             var izena = document.getElementById("izenaKategoriaEguneratu").value;
             var kategoria = { id, izena };
             var js = JSON.stringify(kategoria);
-            if (id == "Aukeratu bat" || izena == "") {
-                alert("Datuak ondo zartuta daudela zihurtatu");
-            }else{
-                fetch(rutaBack + 'kategoriak_json.php', { method: 'PUT', body: js, mode: 'cors'})
-                    .then(function (response) {
-                        return response.text();
-                    })
-                    .then(data => {
-                        console.log(data);
-                        alert(izena+" eguneratuta");
-                    });
-            }
+            console.log(js);
+            let count=0;
+            let options = {method: "GET", mode: 'cors'};
+            fetch(rutaBack + "kategoriak_json.php",options)
+                .then(response => response.json())  // Analiza la respuesta JSON
+                .then(data => {
+                    console.log(data.length);
+                    for (let i = 0; i < data.length; i++) {
+                        if(data[i].izena == izena){
+                            count++;
+                        }
+                    }
+                    console.log(count);
+                    if(count==0){
+                        if (id == "Aukeratu bat" || izena == "") {
+                            alert("Datuak ondo zartuta daudela zihurtatu");
+                        }else{
+                            fetch(rutaBack + 'kategoriak_json.php', { method: 'PUT', body: js, mode: 'cors'})
+                                .then(function (response) {
+                                    return response.text();
+                                })
+                                .then(data => {
+                                    console.log(data);
+                                    alert(izena+" eguneratuta");
+                                });
+                        }
+                    }else{
+                        alert("Beste gela bat dago izen horrekin")
+                    }
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        });
         }
     </script>
 </html>
