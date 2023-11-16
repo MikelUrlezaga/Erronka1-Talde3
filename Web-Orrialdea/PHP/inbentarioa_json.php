@@ -68,7 +68,7 @@
             $json_data = json_decode(file_get_contents("php://input"), true);
             if(isset($json_data["gehitu"])){
                 $emaitzak = txertatuInbentarioaPlusStock($json_data["etiketa"], $json_data["idEkipamendu"], $json_data["erosketaData"]);
-            echo json_decode("okai");
+            echo json_encode($emaitzak);
             }else{
                 $emaitzak = txertatuInbentarioa($json_data["etiketa"], $json_data["idEkipamendu"], $json_data["erosketaData"]);
                 echo json_decode("okai");
@@ -154,27 +154,37 @@
             $sqlCuenta = $db->datuakLortu($sqlCount);
             $arr1 = array();
             $arr2 = array();
+        
+            // Verificar si la fecha de reserva es igual o mayor a hoy
+            $hoy = date('Y-m-d');
+            if (strtotime($erosketaData) < strtotime($hoy)) {
+                echo "La fecha de la reserva debe ser igual o mayor a hoy.";
+                return;
+            }
+        
             if (is_object($sqlMaximo)){
                 while ($row = $sqlMaximo->fetch_assoc()) {
                     $arr1[] = $row;
                 }
                 echo $arr1[0]["stock"];
             }
-
+        
             if (is_object($sqlCuenta)){
                 while ($row =  $sqlCuenta->fetch_assoc()) {
                     $arr2[] = $row;
                 }
                 echo $arr2[0]["count(etiketa)"];
             }
+        
             //echo $arr1[0]. " ".$arr2[0];
             if($arr1[0]["stock"] >  $arr2[0]["count(etiketa)"]){
                 $sql = "INSERT INTO inbentarioa (etiketa, idEkipamendu, erosketaData) VALUES ('$etiketa', '$idEkipamendu', '$erosketaData')";
                 $db->txertatu($sql);
-            }else{
+            } else {
                 echo "No hay stock suficiente.";
             }
         }
+        
         /**
          * Ekipo berria sartzeko inbentarioan eta eguneratzeko.
          *
