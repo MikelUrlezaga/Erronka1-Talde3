@@ -23,7 +23,7 @@
     nuestraId=unaId.split(",");
     async function bistaratuFromPHP2(idcls) {
         let options = {method: "GET"};
-        fetch("../../PHP/kokalekuak_json.php?num="+idcls+"", options)
+        fetch(rutaBack + "kokalekuak_json.php?num="+idcls+"", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
@@ -99,7 +99,7 @@
 
     async function bistaratuFromPHP() {
         let options = {method: "GET", mode: 'cors'};
-        fetch("../../PHP/kokalekuak_json.php",options)
+        fetch(rutaBack + "kokalekuak_json.php",options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
@@ -139,7 +139,7 @@
             var clasea = {datosAntiguos, etiketa, idGela, hasieraData, amaieraData};
             var js = JSON.stringify(clasea);
             console.log(js + "hau da js");
-            fetch('../../PHP/kokalekuak_json.php', {method: 'PUT', body: js})
+            fetch(rutaBack + 'kokalekuak_json.php', {method: 'PUT', body: js})
                 .then(function (response) {
                         return response.text();
                 })

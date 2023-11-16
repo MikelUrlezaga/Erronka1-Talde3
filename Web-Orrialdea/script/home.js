@@ -6,16 +6,3 @@ if (obtenerCookie().match("A")) {
 }else{
     document.getElementById("botonesHomeErab").hidden = true;
 }
-
-
-
-function obtenerCookie() {
-    var cookies = document.cookie.split(';');
-    for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i].trim();
-        if (cookie.startsWith("AdminUser=")) {
-            return cookie.substring("AdminUser=".length, cookie.length);
-        }
-    }
-    return "NoLoged";
-}

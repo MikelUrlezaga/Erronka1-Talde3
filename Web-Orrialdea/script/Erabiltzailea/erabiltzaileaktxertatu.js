@@ -1,3 +1,9 @@
+console.log(obtenerCookie())
+if (obtenerCookie().match("B")) {
+    window.location = "http://www.talde3.edu/HTML/Orokorra/Login.html"
+}else if(obtenerCookie().match("NoLoged")){
+    window.location = "http://www.talde3.edu/HTML/Orokorra/Login.html";
+}
 
 function teclado(event) {
     var codigo = event.which || event.keyCode;

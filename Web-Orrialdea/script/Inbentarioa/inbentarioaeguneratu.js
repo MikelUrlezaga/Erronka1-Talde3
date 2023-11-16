@@ -23,7 +23,7 @@
     nuestraId=unaId.split(",");
     async function bistaratuFromPHP2(idcls) {
         let options = {method: "GET"};
-        fetch("../../PHP/inbentarioa_json.php?eti="+idcls+"", options)
+        fetch(rutaBack + "inbentarioa_json.php?eti="+idcls+"", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
