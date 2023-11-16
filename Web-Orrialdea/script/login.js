@@ -36,7 +36,6 @@ function login() {
     }
 }
 
-
 /* 
 var caracteres = /^[a-zA-Z0-9]+$/
 
