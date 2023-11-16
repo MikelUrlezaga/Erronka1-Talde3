@@ -68,34 +68,6 @@
             createErabiltzailea()
         }
     }
-    
-    function validateDNI(dni) {
-        var numero, let, letra;
-        var expresion_regular_dni = /^[XYZ]?\d{5,8}[A-Z]$/;
-
-        dni = dni.toUpperCase();
-
-        if(expresion_regular_dni.test(dni) === true){
-            numero = dni.substr(0,dni.length-1);
-            numero = numero.replace('X', 0);
-            numero = numero.replace('Y', 1);
-            numero = numero.replace('Z', 2);
-            let = dni.substr(dni.length-1, 1);
-            numero = numero % 23;
-            letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
-            letra = letra.substring(numero, numero+1);
-            if (letra != let) {
-                //alert('Dni erroneo, la letra del NIF no se corresponde');
-                return false;
-            }else{
-                //alert('Dni correcto');
-                return true;
-            }
-        }else{
-            //alert('Dni erroneo, formato no válido');
-            return false;
-        }
-    }
 
      function nanOndo(nan) {
          let dni = nan;
@@ -128,7 +100,6 @@
                  }
              }
          }
-
          if (error) {
              return "Mal";
          }
@@ -141,27 +112,36 @@
     function createErabiltzailea() {
         var nan = nanOndo(document.getElementById("nanErabiltzaileaTxertatu").value);
         if(nan=="Mal"){
-
+            alert("NAN-aren formatua txarto dago.")
         }else{
  //var nancorrecto= validateDNI(nan);
- var izena = document.getElementById("izenaErabiltzaileaTxertatu").value;
-        var abizena = document.getElementById("abizenaErabiltzaileaTxertatu").value;
-        var erabiltzailea = document.getElementById("erabiltzaileaErabiltzaileaTxertatu").value;
-        var pasahitza = document.getElementById("pasahitzaEraEgu").value;
-        var rola =  leerRol();
-        var clasea = {nan, izena, abizena, erabiltzailea, pasahitza, rola};
-        var js = JSON.stringify(clasea);
-        console.log(js);
-        // if(nancorrecto==true){
-            fetch(rutaBack + 'erabiltzailea_json.php', {method: 'POST', body: js})
-            .then(function (response) {
-                    return response.text();
-                    alert("Se ha insertado")
-            })
-            .then(data=>{
-                console.log(data);
-                
-            })
+            var izena = document.getElementById("izenaErabiltzaileaTxertatu").value;
+            var abizena = document.getElementById("abizenaErabiltzaileaTxertatu").value;
+            var erabiltzailea = document.getElementById("erabiltzaileaErabiltzaileaTxertatu").value;
+            var pasahitza = document.getElementById("pasahitzaEraEgu").value;
+            var rola =  leerRol();
+            if(abizena=="" || izena=="" ||erabiltzailea=="" || pasahitza=="" ){
+                alert("Faltan datos")
+            }else{
+                    var clasea = {nan, izena, abizena, erabiltzailea, pasahitza, rola};
+                    var js = JSON.stringify(clasea);
+                    console.log(js);
+                    // if(nancorrecto==true){
+                        fetch(rutaBack + 'erabiltzailea_json.php', {method: 'POST', body: js})
+                        .then(function (response) {
+                                return response.text();
+                                alert("Se ha insertado")
+                        })
+                        .then(data=>{
+                            console.log(data);
+                            if(data.match("NAN hau txarto dago")){
+                                alert("NAN hau txarto dago");
+                            }else if(data.match("NAN hau erabiltzen ari da.")){
+                                alert("NAN hau erabiltzen ari da.")
+                            }
+                        })
+            }
+        
         }
        
         // }else{
