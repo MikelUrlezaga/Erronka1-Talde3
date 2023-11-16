@@ -31,7 +31,7 @@ async function bistaratuFromPHP() {
             }
         })
         .catch(error => {
-            alert("Errorea." + error);
+            alert("Taula ez dauka daturik db-an");
         });
     
 }
@@ -130,7 +130,7 @@ function bistaratuFromPHP2(gureNan) {
                     }
             })
             .catch(error => {
-                alert("Errorea." + error);
+                alert("Taula ez dauka daturik db-an");
             });
 
     }
