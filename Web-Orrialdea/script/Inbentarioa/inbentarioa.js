@@ -1,37 +1,37 @@
 async function bistaratuFromPHP() {
     let options = {method: "GET", mode: 'cors'};
     const da = null;
-    document.getElementById("tabla").innerHTML="";
-    fetch(rutaBack + "gelak_json.php", options)
+    fetch(rutaBack + "inbentarioa_json.php", options)
         .then(response => response.json())  // Analiza la respuesta JSON
         .then(data => {
             console.log(data);
             console.log(data.length);
+            document.getElementById("tabla").innerHTML="";
             document.getElementById("selector").innerHTML = "";
-                var opElement = document.createElement("option");
-                opElement.value = "Nada";
-                opElement.innerText="Aukeratu bat";
-                document.getElementById("selector").appendChild(opElement);
+            var opElement = document.createElement("option");
+            opElement.value = "Nada";
+            opElement.innerText="Aukeratu bat";
+            document.getElementById("selector").appendChild(opElement);
+
             for(i=0; i < data.length; i++){
                 var tableRow="<tr></tr>";
-                tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].id + "</td>" +
-                tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" 
-                + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].taldea + "</td>";
+                tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='"
+                +  data[i].etiketa + "," + data[i].idEkipamendu+"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].etiketa + "</td>" +
+                tableRow.substring(tableRow.length-5) + "<td>" +  data[i].marka + " " + data[i].modelo + "</td>"
+                + tableRow.substring(tableRow.length-5) + "<td>" + data[i].erosketaData + "</td>";
 
                 var trElement = document.createElement("tr");
                 trElement.innerHTML = tableRow;
                 document.getElementById("tabla").appendChild(trElement);
 
-            
                 var opElement = document.createElement("option");
-                opElement.value = data[i].id;
-                opElement.innerText=data[i].izena;
+                opElement.value = data[i].etiketa;
+                opElement.innerText=data[i].etiketa;
                 document.getElementById("selector").appendChild(opElement);
             }
         })
         .catch(error => {
-            alert("Errorea." + error);
+            alert("Taula ez dauka daturik db-an");
         });
     
 }
@@ -45,7 +45,7 @@ function lortuCheck() {
         ids.push(checkbox.id);              //mire los que estan checked y agarre sus ids para meterlas en un array previamente
                                             //creado
     });
-    
+    console.log(ids)
     return ids;
 }
 
@@ -61,16 +61,15 @@ function bloquearEdit(){
 function checkZiur()
 {
     if (confirm("Ziur zaude hau ezabatu nahi duzula?")){
-        deleteGela();
+        deleteInbentarioa();
     }else{}
-    
 }
 
-function deleteGela() {
+function deleteInbentarioa() {
     var ids = lortuCheck();
     var js = JSON.stringify(ids);
     console.log(js);
-    fetch(rutaBack + 'gelak_json.php', {method: 'DELETE', body: js, mode: 'cors'})
+    fetch(rutaBack + "inbentarioa_json.php", {method: 'DELETE', body: js})
         .then(function (response) {
             return response.text();
         })
@@ -87,29 +86,31 @@ function deleteGela() {
         // });
 }
 
-function editaGela(){
+function editaInbentarioa(){
     $id=lortuCheck();
+    console.log($id)
     numero=$id[0];
     window.location="Eguneratu.html?num="+numero+"";
 }
 
-function txertatuGela(){
+function txertatuInbentarioa(){
     window.location="Txertatu.html";
 }
 
-function aldatuGela(){
-    var idclase = document.getElementById("selector").value;
-    if(idclase.match("Nada")){
+function aldatuInbentarioa(){
+    var ide = document.getElementById("selector").value;
+    if(ide.match("Nada")){
         bistaratuFromPHP();
     }else{
-        bistaratuFromPHP2(idclase);
+        bistaratuFromPHP2(ide);
     }
 }
 
-function bistaratuFromPHP2(gureNan) {
+function bistaratuFromPHP2(gureId) {
         console.log("Ha entrado")
-        let options = {method: "GET", mode: 'cors'};
-        fetch(rutaBack + "gelak_json.php?num="+gureNan+"", options)
+        console.log(gureId)
+        let options = {method: "GET"};
+        fetch(rutaBack + "inbentarioa_json.php?eti="+gureId+"", options)
             .then(response => response.json())  // Analiza la respuesta JSON
             .then(data => {
                 console.log(data);
@@ -117,20 +118,18 @@ function bistaratuFromPHP2(gureNan) {
                 document.getElementById("tabla").innerHTML="";
                 
                 for(i=0; i < data.length; i++){
-                        var tableRow="<tr></tr>";
-                        tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
-                        data[i].id +"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].id + "</td>" +
-                        tableRow.substring(tableRow.length-5) + "<td>" + data[i].izena + "</td>" 
-                        + "</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].taldea + "</td>";
+                    var tableRow="<tr></tr>";
+                    tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='"
+                    +  data[i].etiketa + "," + data[i].idEkipamendu+"'>" +"</td>" + tableRow.substring(tableRow.length-5) + "<td>" + data[i].etiketa + "</td>" +
+                    tableRow.substring(tableRow.length-5) + "<td>" +  data[i].marka + " " + data[i].modelo + "</td>"
+                    + tableRow.substring(tableRow.length-5) + "<td>" + data[i].erosketaData + "</td>";
 
-                        var trElement = document.createElement("tr");
-                        trElement.innerHTML = tableRow;
-                        document.getElementById("tabla").appendChild(trElement);
-
-                    }
+                    var trElement = document.createElement("tr");
+                    trElement.innerHTML = tableRow;
+                    document.getElementById("tabla").appendChild(trElement);
+                }
             })
             .catch(error => {
-                alert("Errorea." + error);
+                alert("Taula ez dauka daturik db-an");
             });
-
     }
