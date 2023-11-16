@@ -99,7 +99,7 @@
         var clasea = {etiketa, idEkipamendu, erosketaData,gehitu};
         var js = JSON.stringify(clasea);
         console.log(js);
-        if (idEkipamendu == "Aukeratu bat" || etiketa == "" || new Date(erosketaData) >=  new Date()) {
+        if (idEkipamendu == "Aukeratu bat" || etiketa == "" || new Date(erosketaData) >  new Date()) {
             alert("Datuak ondo zartuta daudela zihurtatu");
         }else{
             fetch(rutaBack + 'inbentarioa_json.php', {method: 'POST', body: js})

@@ -144,7 +144,7 @@
         var clasea = {idEkipamendu, etiketa, erosketaData, aurrekoEtiketa};
         var js = JSON.stringify(clasea);
         console.log(js + "hau da js");
-        if (idEkipamendu == "Nada" || etiketa == "" || new Date(erosketaData) >=  new Date()) {
+        if (idEkipamendu == "Nada" || etiketa == "" || new Date(erosketaData) >  new Date()) {
             alert("Datuak ondo zartuta daudela zihurtatu");
         }else{
             fetch(rutaBack + 'inbentarioa_json.php', {method: 'PUT', body: js, mode: 'cors'})

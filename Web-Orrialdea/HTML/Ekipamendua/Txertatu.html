@@ -100,7 +100,7 @@
         var clasea = {izena, deskribapena, marka, modelo, stock, idKategoria};
         var js = JSON.stringify(clasea);
         console.log(js);
-        if (izena == "" || deskribapena == "" || marka == "" || modelo == "" || stock == "" || idKategoria == "Aukeratu bat") {
+        if (izena == "" || (/^[0-9]+$/.test(izena)) || !(/^[0-9]+$/.test(stock)) || deskribapena == "" || marka == "" || modelo == "" || stock == "" || idKategoria == "Aukeratu bat") {
             alert("Datuak ondo zartuta daudela zihurtatu");
         }else{
             fetch(rutaBack + 'ekipamendua_json.php', {method: 'POST', body: js})
