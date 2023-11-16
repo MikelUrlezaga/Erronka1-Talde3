@@ -161,7 +161,12 @@
         var js = JSON.stringify(clasea);
         console.log(js + "hau da js");
         if (id == "Aukeratu bat" || (/^[0-9]+$/.test(izena)) || !(/^[0-9]+$/.test(stock)) || izena == "" || deskribapena == "" || marka == "" || modelo == "" || stock == "" || idKategoria == "") {
-            alert("Datuak ondo zartuta daudela zihurtatu");
+            if ((/^[0-9]+$/.test(izena)) || !(/^[0-9]+$/.test(stock))) {
+                alert("Izena ezin da zenbaki bat izan eta stock-a zenbaki bat izan behar da")
+            } else {
+                alert("Datuak ondo zartuta daudela zihurtatu");
+            }
+            
         }else{
             fetch(rutaBack + 'ekipamendua_json.php', {method: 'PUT', body: js})
                 .then(function (response) {
