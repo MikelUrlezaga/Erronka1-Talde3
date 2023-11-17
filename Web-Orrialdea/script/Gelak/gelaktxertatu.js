@@ -1,9 +1,19 @@
+/**
+ * Tekladoko 'Enter' tekla (kodea 13) sakatzean "createGela" funtzioa deituko da.
+ * @param {KeyboardEvent} event - Tekla sakatzean jasotako eventua.
+ */
 function teclado(event) {
     var codigo = event.which || event.keyCode;
     if (codigo==13) {
         createGela()
     }
 }
+    /**
+     * Gela bat sortu beharrean deitzen den funtzioa.
+     * "IzenaGelaTxertatu" eta "TaldeaGelaTxertatu" input-en balioak erabiliz.
+     * Balio horiek erabiliz, datu basean gelaren existentzia egiaztatu eta 
+     * onartuta badira, gelaren informazioa datu basean gehituko da.
+     */
     function createGela() {
         var izena = document.getElementById("IzenaGelaTxertatu").value;
         var taldea = document.getElementById("TaldeaGelaTxertatu").value;

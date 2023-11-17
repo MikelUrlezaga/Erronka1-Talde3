@@ -1,3 +1,10 @@
+/**
+ * Gelak bistaratzeko funtzioa. 
+ * 
+ * @async
+ * @function
+ * @returns {Promise<void>} - Promise objektua.
+ */
 async function bistaratuFromPHP() {
     let options = {method: "GET", mode: 'cors'};
     const da = null;
@@ -8,10 +15,12 @@ async function bistaratuFromPHP() {
             console.log(data);
             console.log(data.length);
             document.getElementById("selector").innerHTML = "";
+            // Aukeratzeko dropdown elementua sortu
                 var opElement = document.createElement("option");
                 opElement.value = "Nada";
                 opElement.innerText="Aukeratu bat";
                 document.getElementById("selector").appendChild(opElement);
+                // Gelak taulan bistaratu
             for(i=0; i < data.length; i++){
                 var tableRow="<tr></tr>";
                 tableRow = tableRow.substring(0,tableRow.length-5) + "<td id='check' class='large'><input type='checkbox' onchange='bloquearEdit()' name='c' id='" + 
@@ -23,7 +32,7 @@ async function bistaratuFromPHP() {
                 trElement.innerHTML = tableRow;
                 document.getElementById("tabla").appendChild(trElement);
 
-            
+                // Aukeratzeko dropdowna bete
                 var opElement = document.createElement("option");
                 opElement.value = data[i].id;
                 opElement.innerText=data[i].izena;
@@ -36,7 +45,10 @@ async function bistaratuFromPHP() {
     
 }
 window.addEventListener("load", bistaratuFromPHP);
-
+/**
+ * Kargatu diren checkbox-en id-ak lortzen dituen funtzioa
+ * @returns {string[]} - Checkbox-en id-ak dituen array-a
+ */
 function lortuCheck() {
     var checkboxes = document.querySelectorAll('input[name="c"]:checked');//De nuestro documento comprueba los inputs con nombre c
     var ids = [];//Creamos el array para nuestras ids
@@ -48,7 +60,9 @@ function lortuCheck() {
     
     return ids;
 }
-
+/**
+ * Editatu botoia blokeatzeko edo desblokeatzeko funtzioa
+ */
 function bloquearEdit(){
     var ids = lortuCheck();
     if(ids.length>1){
@@ -57,7 +71,9 @@ function bloquearEdit(){
         document.getElementById("botonedit").style.visibility="visible";
     }
 }
-
+/**
+ * Ziur zaude ezabatu nahi duzula konfirmatzeko funtzioa
+ */
 function checkZiur()
 {
     if (confirm("Ziur zaude hau ezabatu nahi duzula?")){
@@ -65,7 +81,9 @@ function checkZiur()
     }else{}
     
 }
-
+/**
+ * Gela bat ezabatzeko funtzioa
+ */
 function deleteGela() {
     var ids = lortuCheck();
     var js = JSON.stringify(ids);
@@ -86,17 +104,23 @@ function deleteGela() {
         //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
         // });
 }
-
+/**
+ * Gela bat editatzeko orria kargatzeko funtzioa
+ */
 function editaGela(){
     $id=lortuCheck();
     numero=$id[0];
     window.location="Eguneratu.html?num="+numero+"";
 }
-
+/**
+ * Gela bat txertatzeko orria kargatzeko funtzioa
+ */
 function txertatuGela(){
     window.location="Txertatu.html";
 }
-
+/**
+ * Aukeratutako gela bat editatzeko funtzioa
+ */
 function aldatuGela(){
     var idclase = document.getElementById("selector").value;
     if(idclase.match("Nada")){
@@ -105,7 +129,10 @@ function aldatuGela(){
         bistaratuFromPHP2(idclase);
     }
 }
-
+/**
+ * Aukeratutako gela bat bistaratzeko funtzioa
+ * @param {string} gureNan - Bistaratzeko aukeratutako gelaren identifikadorea
+ */
 function bistaratuFromPHP2(gureNan) {
         console.log("Ha entrado")
         let options = {method: "GET", mode: 'cors'};

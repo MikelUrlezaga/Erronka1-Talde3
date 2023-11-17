@@ -4,14 +4,22 @@ if (obtenerCookie().match("B")) {
 }else if(obtenerCookie().match("NoLoged")){
     window.location = "http://www.talde3.edu/HTML/Orokorra/Login.html";
 }
-
+/**
+ * Teklatuaren teklaren sakatzean gertatzen dena kudeatzen duen funtzioa.
+ * Enter tekla (kodea 13) sakatzean `createErabiltzailea` funtzioa deitzen da.
+ * @param {Object} event - Teklatuaren eventoa.
+ */
 function teclado(event) {
     var codigo = event.which || event.keyCode;
     if (codigo==13) {
         createErabiltzailea()
     }
 }
-
+/**
+ * NAN zenbaki bat duen string-a ONDO dagoen egiaztatzen duen funtzioa.
+ * @param {string} nan - NAN zenbaki bat duen string-a.
+ * @returns {string} - ONDO dagoen kasuan, emandako string-a itzuliko du.
+ */
  function nanOndo(nan) {
      let dni = nan;
      let error = false;
@@ -51,7 +59,9 @@ function teclado(event) {
 // Ejemplo de uso:
 // const resultado = nanOndo("12345678A");
 // console.log(resultado);
-
+/**
+ * Erabiltzailea sortzeko funtzioa.
+ */
 function createErabiltzailea() {
     var nan = nanOndo(document.getElementById("nanErabiltzaileaTxertatu").value);
     if(nan=="Mal"){
@@ -95,7 +105,10 @@ function createErabiltzailea() {
         //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
         // });
 }
-
+/**
+ * Pasahitza ikusteko edo ezkutatzeko botoia sakatzean gertatzen dena kudeatzen duen funtzioa.
+ * Botoia erabiliz, pasahitza ikusi edo ezkutatzeko aukera izango da.
+ */
 function vernover() {
         if ((document.getElementById("ojo").src).includes("ojo1")) {
             document.getElementById("ojo").src = "../../IMG/ojo2.png"
@@ -106,7 +119,10 @@ function vernover() {
         }
         
     }
-
+    /**
+     * Erabilzailearen rolaren informazioa itzultzen duen funtzioa.
+     * @returns {string} - "A" (administratzailea) edo "B" (erabiltzaile arrunta).
+     */
     function leerRol(){
         if( document.getElementById("rolaEraEgu").checked){
             console.log("Check");

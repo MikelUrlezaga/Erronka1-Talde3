@@ -1,4 +1,6 @@
-
+/**
+ * Teklatuaren tecla Enter sakatzean ekintza bat burutzeko funtzioa.
+ */
 function teclado(event) {
     var codigo = event.which || event.keyCode;
     if (codigo==13) {
@@ -16,7 +18,10 @@ function teclado(event) {
         params[tmparr[0]] = tmparr[1];
         nuestraId = tmparr[1];
     }
-
+    /**
+     * Aukeratutako kategoria baten datuak bistaratzeko funtzioa.
+     * @param {number} idcls - Kategoriaren identifikazioa.
+     */
     async function bistaratuFromPHP2(idcls) {
         let options = { method: "GET" };
         fetch(rutaBack + "kategoriak_json.php?num=" + idcls + "", options)
@@ -30,13 +35,17 @@ function teclado(event) {
             //     alert("Errorea." + error);
             // });
     }
-
+    /**
+     * Kategoria bat aldatzen den ordu, aldaketa bat burutzeko funtzioa.
+     */
     function cambiarClase() {
         var idclase = document.getElementById("selectore").value;
         bistaratuFromPHP2(idclase);
         nuestraId = idclase;
     }
-
+    /**
+     * Kategoriak bistaratzeko funtzioa.
+     */
     async function bistaratuFromPHP() {
         let options = { method: "GET", mode: 'cors' };
         fetch(rutaBack + "kategoriak_json.php", options)
@@ -64,10 +73,12 @@ function teclado(event) {
             //     alert("Errorea." + error);
             // });
     }
-
+    // Orrialdea kargatzen denean "bistaratuFromPHP" eta "bistaratuFromPHP2" funtzioak exekutatzen dira.
     window.addEventListener("load", bistaratuFromPHP);
     window.addEventListener("load", () => bistaratuFromPHP2(nuestraId));
-
+    /**
+     * Kategoria eguneratzen duen funtzioa.
+     */
     function actuKategoria() {
         var id = document.getElementById("selectore").value;
         var gelaeditable = document.getElementById("selectore").innerHTML;

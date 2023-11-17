@@ -1,11 +1,21 @@
-   
+    /**
+     * @function teclado
+     * @description Teklatu sarrera detektatu eta Enter tekla sakatzean `actuInbentarioa` funtzioa deitzen du.
+     * @param {object} event - Teklatu sarrera detektatzean jasotako `event` objektua.
+     */
     function teclado(event) {
         var codigo = event.which || event.keyCode;
         if (codigo==13) {
             actuInbentarioa()
         }
     }
-
+    /**
+     * @var {string} paramstr - Orriaren query string-a.
+     * @var {Array} paramarr - Query string-a & karakterean banatuta.
+     * @var {object} params - Parametroak gordeko diren objetua.
+     * @var {string} unaId - Orrialde honetan jaso den parametroa.
+     * @var {Array} nuestraId - unaId parametroa koma bidez banatuta.
+     */
     var paramstr = window.location.search.substr(1);
     console.log(window.location.search.substr(1));
     var paramarr = paramstr.split ("&");
@@ -21,6 +31,12 @@
         
     }   
     nuestraId=unaId.split(",");
+    /**
+     * @function bistaratuFromPHP2
+     * @async
+     * @description Koka-leku bat eguneratzen den orduan erabiliko den funtzioa.
+     * @param {string} idcls - Koka-lekuaren identifikadorea.
+     */
     async function bistaratuFromPHP2(idcls) {
         let options = {method: "GET"};
         fetch(rutaBack + "kokalekuak_json.php?num="+idcls+"", options)
@@ -90,13 +106,20 @@
           
 
     }
-
+    /**
+     * @function aldatuInbentarioa
+     * @description Inbentarioa eguneratzeko funtzioa.
+     */
     function aldatuInbentarioa(){
         var idclase = document.getElementById("selectKoka").value;
         bistaratuFromPHP2(idclase);
         console.log(idclase)
     }
-
+    /**
+     * @function bistaratuFromPHP
+     * @async
+     * @description Kokalekuak JSON datu-basea eskuratzeko eta bistaratzeko funtzioa.
+     */
     async function bistaratuFromPHP() {
         let options = {method: "GET", mode: 'cors'};
         fetch(rutaBack + "kokalekuak_json.php",options)
@@ -123,10 +146,20 @@
             });
     }
 
-    
+    /**
+     * @event window#load
+     * @description Orria kargatzerakoan `bistaratuFromPHP` funtzioa deitzen du.
+     */
     window.addEventListener("load", bistaratuFromPHP);
+    /**
+     * @event window#load
+     * @description Orria kargatzerakoan `bistaratuFromPHP2` funtzioa deitzen du `unaId` parametroarekin.
+     */
     window.addEventListener("load", bistaratuFromPHP2(unaId));
-
+    /**
+     * @function actuKokalekuak
+     * @description Kokalekua eguneratzeko funtzioa.
+     */
     function actuKokalekuak() {
         var  datosAntiguos= document.getElementById("selectKoka").value;
         var etiketa = document.getElementById("selectEki").value;

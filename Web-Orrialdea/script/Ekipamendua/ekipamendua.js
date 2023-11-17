@@ -1,3 +1,8 @@
+/**
+ * PHP zerbitzaritik ekipamendu datuak eskuratzen ditu eta taula eta hautatzailea betetzen ditu.
+ * @function
+ * @async
+ */
 async function bistaratuFromPHP() {
     let options = {method: "GET", mode: 'cors'};
     const da = null;
@@ -35,8 +40,16 @@ async function bistaratuFromPHP() {
         });
     
 }
+ /**
+ * Leihoaren kargatzearen adierazlearen lehena, bistaratuFromPHP funtzioa deitzen duen entzutea.
+ * @event load
+ */
 window.addEventListener("load", bistaratuFromPHP);
-
+/**
+ * Hautatutako checkbox-en IDak eskuratzen ditu.
+ * @function
+ * @returns {Array} Hautatutako checkbox-en IDak daukan array bat.
+ */
 function lortuCheck() {
     var checkboxes = document.querySelectorAll('input[name="c"]:checked');//De nuestro documento comprueba los inputs con nombre c
     var ids = [];//Creamos el array para nuestras ids
@@ -48,7 +61,10 @@ function lortuCheck() {
     
     return ids;
 }
-
+/**
+ * Checkbox-ak zenbat diren arabera "Editatu" botoia ezkutatu edo erakutsi.
+ * @function
+ */
 function bloquearEdit(){
     var ids = lortuCheck();
     if(ids.length>1){
@@ -57,7 +73,10 @@ function bloquearEdit(){
         document.getElementById("botonedit").style.visibility="visible";
     }
 }
-
+/**
+ * Ezabaketaren akzioa baieztatu eta deleteEkipamendua funtzioa deitu.
+ * @function
+ */
 function checkZiur()
 {
     if (confirm("Ziur zaude hau ezabatu nahi duzula?")){
@@ -65,7 +84,10 @@ function checkZiur()
     }else{}
     
 }
-
+/**
+ * Hautatutako ekipamendu elementuak ezabatzen du.
+ * @function
+ */
 function deleteEkipamendua() {
     var ids = lortuCheck();
     var js = JSON.stringify(ids);
@@ -86,17 +108,26 @@ function deleteEkipamendua() {
         //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
         // });
 }
-
+/**
+ * Hautatutako ekipamenduaren ID-arekin editatzeko orrira berbideratzen da.
+ * @function
+ */
 function editaEkipamendua(){
     $id=lortuCheck();
     numero=$id[0];
     window.location="Eguneratu.html?num="+numero+"";
 }
-
+/**
+ * Ekipamendu berria gehitzeko orrira berbideratzen da.
+ * @function
+ */
 function txertatuEkipamendua(){
     window.location="Txertatu.html";
 }
-
+/**
+ * Hautatutako ekipamendu kategoriarekin taula berriz kargatzen da.
+ * @function
+ */
 function aldatuEkipamendua(){
     var ide = document.getElementById("selector").value;
     if(ide.match("Nada")){
@@ -105,7 +136,11 @@ function aldatuEkipamendua(){
         bistaratuFromPHP2(ide);
     }
 }
-
+/**
+ * ID-an oinarritutako ekipamendu datuak eskuratzen eta erakusten ditu.
+ * @function
+ * @param {string} gureId - Erakutsi beharreko ekipamenduaren ID-a.
+ */
 function bistaratuFromPHP2(gureId) {
         console.log("Ha entrado")
         console.log(gureId)

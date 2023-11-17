@@ -1,10 +1,18 @@
-
+/**
+ * Teklatuaren botoia sakatzean egiten den ekintza.
+ * @function
+ * @param {Event} event - Teklatuaren sakatzearen eventoa.
+ */
 function teclado(event) {
     var codigo = event.which || event.keyCode;
     if (codigo==13) {
         createEkipamendua()
     }
 }
+    /**
+     * Kategoriak kargatzen ditu eta hautatzailea betetzen du.
+     * @function
+     */
     function cargarKatego(){
         let options = {
             method: "GET",
@@ -26,7 +34,15 @@ function teclado(event) {
                 alert("Errorea." + error);
             });
     }
+    /**
+     * Orrialdea kargatzean Kategoriak kargatzen ditu.
+     * @event
+     */
     window.addEventListener("load", cargarKatego);
+    /**
+     * Ekipamendua sortzen duen ekintza.
+     * @function
+     */
     function createEkipamendua() {
         var izena = document.getElementById("izenaEkipamenduaTxertatu").value;
         var marka = document.getElementById("markaEkipamenduaTxertatu").value;

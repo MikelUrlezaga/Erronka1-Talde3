@@ -1,4 +1,8 @@
-    
+    /**
+     * Teklatuaren botoia sakatzean egiten den ekintza.
+     * @function
+     * @param {Event} event - Teklatuaren sakatzearen eventoa.
+     */
     function teclado(event) {
         var codigo = event.which || event.keyCode;
         if (codigo==13) {
@@ -18,7 +22,12 @@
         console.log(tmparr[1]);
         nuestraId=tmparr[1];
     }
-
+    /**
+     * Ekipamenduaren datuak PHP zerbitzaritik eskuratzen ditu eta erakusten ditu.
+     * @async
+     * @function
+     * @param {string} idcls - Ekipamenduaren ID-a.
+     */
     async function bistaratuFromPHP2(idcls) {
         console.log("Ha entrado")
         let options = {method: "GET", mode: 'cors'};
@@ -39,7 +48,10 @@
             .catch(error => {
             });
     }
-
+    /**
+     * Hautatutako ekipamenduaren datuak erakusten ditu.
+     * @function
+     */
     function aldatuEkipamendua(){
         var idclase = document.getElementById("selectore").value;
         console.log(document.getElementById("selectore").value);
@@ -47,7 +59,11 @@
         bistaratuFromPHP2(idclase);
         nuestraId= idclase;
     }
-
+    /**
+     * Ekipamenduak PHP zerbitzaritik eskuratzen ditu eta hautatzailea betetzen du.
+     * @async
+     * @function
+     */
     async function bistaratuFromPHP() {
         let options = {method: "GET", mode: 'cors'};
         fetch(rutaBack + "ekipamendua_json.php",options)
@@ -77,10 +93,20 @@
             });
     }
 
-    
+    /**
+     * Ekipamenduak PHP zerbitzaritik eskuratzen ditu eta hautatzailea betetzen du.
+     * @event
+     */
     window.addEventListener("load", bistaratuFromPHP);
+    /**
+     * Ekipamenduaren datuak PHP zerbitzaritik eskuratzen ditu eta erakusten ditu.
+     * @event
+     */
     window.addEventListener("load", bistaratuFromPHP2(nuestraId));
-
+    /**
+     * Ekipamendua eguneratzen duen ekintza.
+     * @function
+     */
     function actuEkipamendua() {
         var id = document.getElementById("selectore").value;
         var izena = document.getElementById("izenaEkiEgu").value;

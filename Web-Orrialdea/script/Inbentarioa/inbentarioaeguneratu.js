@@ -1,11 +1,15 @@
-    
+    /**
+     * Teklatuaren sarrera eventua jasotzen duen eta "Enter" tekla sakatzen denean "actuInbentarioa" 
+     * funtzioa deitzen duen funtzioa.
+     * @param {Event} event - Teklatuaren sarrera eventua.
+     */
     function teclado(event) {
         var codigo = event.which || event.keyCode;
         if (codigo==13) {
             actuInbentarioa()
         }
     }
-
+// URL parameterak prozesatzeko kodigoa
     var paramstr = window.location.search.substr(1);
     console.log(window.location.search.substr(1));
     var paramarr = paramstr.split ("&");
@@ -43,7 +47,10 @@
                 console.log("Errorea." + error);
             });
     }
-
+    /**
+     * "selectore" elementuko balioa hartzen du eta "bistaratuFromPHP2" funtzioa 
+     * deitzen duen eta "nuestraId[0]" aldaketarekin aktualizatzen duen funtzioa.
+     */
     function aldatuInbentarioa(){
         var idclase = document.getElementById("selectore").value;
         console.log(document.getElementById("selectore").value);
@@ -83,10 +90,17 @@
             });
     }
 
-    
+    /**
+     * Orrialdeak kargatzen denean "bistaratuFromPHP" eta "bistaratuFromPHP2(nuestraId[0])" funtzioak deitzeko 
+     * gertatzen direnak.
+     */
     window.addEventListener("load", bistaratuFromPHP);
     window.addEventListener("load", bistaratuFromPHP2(nuestraId[0]));
-
+    /**
+     * "actuInbentarioa" funtzioak erabiliko dituen datuak jasotzen ditu eta 
+     * datu basean eguneratzeko "inbentarioa_json.php" atariarekin komunikatzeko
+     * funtzioa.
+     */
     function actuInbentarioa() {
         document.getElementById("idInvisible").style.visibility="visible";
         var idEkipamendu = document.getElementById("idInvisible").value;
