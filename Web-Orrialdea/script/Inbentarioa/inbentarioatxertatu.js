@@ -74,6 +74,9 @@ function createInbentarioa() {
     var etiketa = document.getElementById("etiketaInbentarioaTxertatu").value;
     var idEkipamendu = document.getElementById("selecTxertatu").value;
     var erosketaData = document.getElementById("erosDataInbentarioaTxertatu").value;
+    if(etiketa=="" || idEkipamendu=="" ||erosketaData==""  ){
+        alert("Datu falta dira")
+    }else{
     var clasea = {etiketa, idEkipamendu, erosketaData};
     var js = JSON.stringify(clasea);
     console.log(js);
@@ -96,5 +99,6 @@ function createInbentarioa() {
         .catch(error => {
             console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
         });
+    }
 }
 
