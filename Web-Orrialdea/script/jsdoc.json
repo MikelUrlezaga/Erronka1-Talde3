@@ -1,0 +1,11 @@
+{
+    "source": {
+        "include": ["./","./Ekipamendua", "./Erabiltzailea", "./Gelak", "./Inbentarioa", "./Kategoria", "./Kokalekua"],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "exclude": "node_modules/|docs"
+    },
+    "plugins": [],
+    "opts": {
+        "destination": "docs/"
+    }
+}

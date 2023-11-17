@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Inbentarioa/inbentarioa.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Inbentarioa/inbentarioa.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Datu baseko "inbentarioa_json.php" atariaren datuak bistaratzeko funtzioa.
+ * Taula bat sortuko du, "etiketa", "marka", "modelo", eta "erosketaData" osagaiekin.
+ * Berezko datuak jaso eta taula eta aukeraketa-sarea (selector) beteko ditu.
+ */
+async function bistaratuFromPHP() {
+    let options = {method: "GET", mode: 'cors'};
+    const da = null;
+    fetch(rutaBack + "inbentarioa_json.php", options)
+        .then(response => response.json())  // Analiza la respuesta JSON
+        .then(data => {
+            console.log(data);
+            console.log(data.length);
+            document.getElementById("tabla").innerHTML="";
+            document.getElementById("selector").innerHTML = "";
+            var opElement = document.createElement("option");
+            opElement.value = "Nada";
+            opElement.innerText="Aukeratu bat";
+            document.getElementById("selector").appendChild(opElement);
+
+            for(i=0; i &lt; data.length; i++){
+                var tableRow="&lt;tr>&lt;/tr>";
+                tableRow = tableRow.substring(0,tableRow.length-5) + "&lt;td id='check' class='large'>&lt;input type='checkbox' onchange='bloquearEdit()' name='c' id='"
+                +  data[i].etiketa + "," + data[i].idEkipamendu+"'>" +"&lt;/td>" + tableRow.substring(tableRow.length-5) + "&lt;td>" + data[i].etiketa + "&lt;/td>" +
+                tableRow.substring(tableRow.length-5) + "&lt;td>" +  data[i].marka + " " + data[i].modelo + "&lt;/td>"
+                + tableRow.substring(tableRow.length-5) + "&lt;td>" + data[i].erosketaData + "&lt;/td>";
+
+                var trElement = document.createElement("tr");
+                trElement.innerHTML = tableRow;
+                document.getElementById("tabla").appendChild(trElement);
+
+                var opElement = document.createElement("option");
+                opElement.value = data[i].etiketa;
+                opElement.innerText=data[i].etiketa;
+                document.getElementById("selector").appendChild(opElement);
+            }
+        })
+        .catch(error => {
+            alert("Taula ez dauka daturik db-an");
+        });
+    
+}
+// Orrialdean karga baino lehen "bistaratuFromPHP" funtzioa deitu.
+window.addEventListener("load", bistaratuFromPHP);
+/**
+ * Hautatutako checkbox-en identifikadoreak jasotzen dituen funtzioa.
+ * @returns {Array} - Aukeratutako checkbox-en identifikadoreak dituen array bat.
+ */
+function lortuCheck() {
+    var checkboxes = document.querySelectorAll('input[name="c"]:checked');//De nuestro documento comprueba los inputs con nombre c
+    var ids = [];//Creamos el array para nuestras ids
+
+    checkboxes.forEach(function(checkbox) { //Aqui lo que hacemos es que de los elementos checkbox de nuestro programa 
+        ids.push(checkbox.id);              //mire los que estan checked y agarre sus ids para meterlas en un array previamente
+                                            //creado
+    });
+    console.log(ids)
+    return ids;
+}
+/**
+ * "Editatu" botoia bloqueatzen edo desblokeatzen duen funtzioa.
+ */
+function bloquearEdit(){
+    var ids = lortuCheck();
+    if(ids.length>1){
+        document.getElementById("botonedit").style.visibility="hidden";
+    }else{
+        document.getElementById("botonedit").style.visibility="visible";
+    }
+}
+/**
+ * "Ziur zaude hau ezabatu nahi duzula?" konfirmazio mezua erakusten duen eta 
+ * "deleteInbentarioa" funtzioa deitzeko botoia erakusten duen funtzioa.
+ */
+function checkZiur()
+{
+    if (confirm("Ziur zaude hau ezabatu nahi duzula?")){
+        deleteInbentarioa();
+    }else{}
+}
+/**
+ * Hautatutako "inbentarioa" elementuak datu basean ezabatzeko funtzioa.
+ */
+function deleteInbentarioa() {
+    var ids = lortuCheck();
+    var js = JSON.stringify(ids);
+    console.log(js);
+    fetch(rutaBack + "inbentarioa_json.php", {method: 'DELETE', body: js})
+        .then(function (response) {
+            return response.text();
+        })
+        .then(data=>{
+            console.log(data);
+            if(data.match("Fatal error")){
+                alert("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu");
+            }else{
+                location.reload();
+            }
+        })
+        // .catch(error => {
+        //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+        // });
+}
+/**
+ * "Editatu" botoia sakatzen denean "editaInbentarioa" funtzioa deitzen duen 
+ * funtzioa.
+ */
+function editaInbentarioa(){
+    $id=lortuCheck();
+    console.log($id)
+    numero=$id[0];
+    window.location="Eguneratu.html?num="+numero+"";
+}
+/**
+ * "Txertatu" botoia sakatzen denean "txertatuInbentarioa" funtzioa deitzen duen
+ * funtzioa.
+ */
+function txertatuInbentarioa(){
+    window.location="Txertatu.html";
+}
+/**
+ * "Aldatu" botoia sakatzen denean "bistaratuFromPHP2" funtzioa deitzen duen 
+ * funtzioa.
+ */
+function aldatuInbentarioa(){
+    var ide = document.getElementById("selector").value;
+    if(ide.match("Nada")){
+        bistaratuFromPHP();
+    }else{
+        bistaratuFromPHP2(ide);
+    }
+}
+/**
+ * "gureId" parametroa jaso eta datu baseko "inbentarioa_json.php" atariaren 
+ * datuak bistaratzeko funtzioa. 
+ * "gureId" erabiliz taula bat sortuko du, "etiketa", "marka", "modelo", eta 
+ * "erosketaData" osagaiekin.
+ * @param {string} gureId - Hautatutako "etiketa" balioa.
+ */
+function bistaratuFromPHP2(gureId) {
+        console.log("Ha entrado")
+        console.log(gureId)
+        let options = {method: "GET"};
+        fetch(rutaBack + "inbentarioa_json.php?eti="+gureId+"", options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+                console.log(data);
+                console.log(data.length);
+                document.getElementById("tabla").innerHTML="";
+                
+                for(i=0; i &lt; data.length; i++){
+                    var tableRow="&lt;tr>&lt;/tr>";
+                    tableRow = tableRow.substring(0,tableRow.length-5) + "&lt;td id='check' class='large'>&lt;input type='checkbox' onchange='bloquearEdit()' name='c' id='"
+                    +  data[i].etiketa + "," + data[i].idEkipamendu+"'>" +"&lt;/td>" + tableRow.substring(tableRow.length-5) + "&lt;td>" + data[i].etiketa + "&lt;/td>" +
+                    tableRow.substring(tableRow.length-5) + "&lt;td>" +  data[i].marka + " " + data[i].modelo + "&lt;/td>"
+                    + tableRow.substring(tableRow.length-5) + "&lt;td>" + data[i].erosketaData + "&lt;/td>";
+
+                    var trElement = document.createElement("tr");
+                    trElement.innerHTML = tableRow;
+                    document.getElementById("tabla").appendChild(trElement);
+                }
+            })
+            .catch(error => {
+                alert("Taula ez dauka daturik db-an");
+            });
+    }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li><li><a href="window.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#a">a</a></li><li><a href="global.html#actuEkipamendua">actuEkipamendua</a></li><li><a href="global.html#actuErabiltzailea">actuErabiltzailea</a></li><li><a href="global.html#actuGela">actuGela</a></li><li><a href="global.html#actuInbentarioa">actuInbentarioa</a></li><li><a href="global.html#actuKategoria">actuKategoria</a></li><li><a href="global.html#actuKokalekuak">actuKokalekuak</a></li><li><a href="global.html#aldatuEkipamendua">aldatuEkipamendua</a></li><li><a href="global.html#aldatuErabiltzaile">aldatuErabiltzaile</a></li><li><a href="global.html#aldatuGela">aldatuGela</a></li><li><a href="global.html#aldatuInbentarioa">aldatuInbentarioa</a></li><li><a href="global.html#aldatuKategoria">aldatuKategoria</a></li><li><a href="global.html#aldatuKokalekua">aldatuKokalekua</a></li><li><a href="global.html#bistaratuFromPHP">bistaratuFromPHP</a></li><li><a href="global.html#bistaratuFromPHP2">bistaratuFromPHP2</a></li><li><a href="global.html#bistaratuFromPHPTxertatu">bistaratuFromPHPTxertatu</a></li><li><a href="global.html#bloquearEdit">bloquearEdit</a></li><li><a href="global.html#cambiarClase">cambiarClase</a></li><li><a href="global.html#cargarDatosUsuario">cargarDatosUsuario</a></li><li><a href="global.html#cargarEkipamendua">cargarEkipamendua</a></li><li><a href="global.html#cargarKatego">cargarKatego</a></li><li><a href="global.html#cargarOpcionesSelectUsuarios">cargarOpcionesSelectUsuarios</a></li><li><a href="global.html#checkZiur">checkZiur</a></li><li><a href="global.html#createEkipamendua">createEkipamendua</a></li><li><a href="global.html#createErabiltzailea">createErabiltzailea</a></li><li><a href="global.html#createGela">createGela</a></li><li><a href="global.html#createInbentarioa">createInbentarioa</a></li><li><a href="global.html#createKategoria">createKategoria</a></li><li><a href="global.html#createKokalekua">createKokalekua</a></li><li><a href="global.html#crono">crono</a></li><li><a href="global.html#deleteEkipamendua">deleteEkipamendua</a></li><li><a href="global.html#deleteErabiltzailea">deleteErabiltzailea</a></li><li><a href="global.html#deleteGela">deleteGela</a></li><li><a href="global.html#deleteInbentarioa">deleteInbentarioa</a></li><li><a href="global.html#deleteKategoria">deleteKategoria</a></li><li><a href="global.html#deleteKokalekua">deleteKokalekua</a></li><li><a href="global.html#editaEkipamendua">editaEkipamendua</a></li><li><a href="global.html#editaErabiltzailea">editaErabiltzailea</a></li><li><a href="global.html#editaGela">editaGela</a></li><li><a href="global.html#editaInbentarioa">editaInbentarioa</a></li><li><a href="global.html#editaKategoria">editaKategoria</a></li><li><a href="global.html#editaKokalekua">editaKokalekua</a></li><li><a href="global.html#exist">exist</a></li><li><a href="global.html#fechaActual">fechaActual</a></li><li><a href="global.html#gehituStock">gehituStock</a></li><li><a href="global.html#insertarMenu">insertarMenu</a></li><li><a href="global.html#leerRol">leerRol</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#loginComp">loginComp</a></li><li><a href="global.html#lortuCheck">lortuCheck</a></li><li><a href="global.html#menuopenclose">menuopenclose</a></li><li><a href="global.html#nanOndo">nanOndo</a></li><li><a href="global.html#nuestraId">nuestraId</a></li><li><a href="global.html#obtenerCookie">obtenerCookie</a></li><li><a href="global.html#paramstr">paramstr</a></li><li><a href="global.html#teclado">teclado</a></li><li><a href="global.html#txertatuEkipamendua">txertatuEkipamendua</a></li><li><a href="global.html#txertatuErabiltzailea">txertatuErabiltzailea</a></li><li><a href="global.html#txertatuGela">txertatuGela</a></li><li><a href="global.html#txertatuInbentarioa">txertatuInbentarioa</a></li><li><a href="global.html#txertatuKategoria">txertatuKategoria</a></li><li><a href="global.html#txertatuKokalekua">txertatuKokalekua</a></li><li><a href="global.html#vernover">vernover</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Nov 17 2023 10:23:50 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

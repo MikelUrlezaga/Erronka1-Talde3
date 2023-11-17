@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Inbentarioa/inbentarioaeguneratu.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Inbentarioa/inbentarioaeguneratu.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>    /**
+     * Teklatuaren sarrera eventua jasotzen duen eta "Enter" tekla sakatzen denean "actuInbentarioa" 
+     * funtzioa deitzen duen funtzioa.
+     * @param {Event} event - Teklatuaren sarrera eventua.
+     */
+    function teclado(event) {
+        var codigo = event.which || event.keyCode;
+        if (codigo==13) {
+            actuInbentarioa()
+        }
+    }
+// URL parameterak prozesatzeko kodigoa
+    var paramstr = window.location.search.substr(1);
+    console.log(window.location.search.substr(1));
+    var paramarr = paramstr.split ("&amp;");
+    var params = {};
+    var unaId=0;
+    var nuestraId=0;
+    
+    for ( var i = 0; i &lt; paramarr.length; i++) {
+        var tmparr = paramarr[i].split("=");
+        params[tmparr[0]] = tmparr[1];
+        console.log(tmparr[1]);
+        unaId=tmparr[1];
+        
+    }   
+    nuestraId=unaId.split(",");
+    async function bistaratuFromPHP2(idcls) {
+        let options = {method: "GET"};
+        fetch(rutaBack + "inbentarioa_json.php?eti="+idcls+"", options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+                console.log(data);
+                console.log(data.length);
+                document.getElementById("EtiketaInbEguneratu").value=data[0].etiketa;
+                document.getElementById("ErosketaDataInbEguneratu").value=data[0].erosketaData;
+                document.getElementById("etiketaAntigua").style.visibility="visible";
+                document.getElementById("etiketaAntigua").value=data[0].etiketa;
+                document.getElementById("etiketaAntigua").style.visibility="hidden";
+                document.getElementById("idInvisible").style.visibility = "visible";
+                document.getElementById("idInvisible").value = data[0].idEkipamendu;
+                document.getElementById("idInvisible").style.visibility = "hidden";
+                document.getElementById("selectore").value=data[0].etiketa;
+
+            })
+            .catch(error => {
+                console.log("Errorea." + error);
+            });
+    }
+    /**
+     * "selectore" elementuko balioa hartzen du eta "bistaratuFromPHP2" funtzioa 
+     * deitzen duen eta "nuestraId[0]" aldaketarekin aktualizatzen duen funtzioa.
+     */
+    function aldatuInbentarioa(){
+        var idclase = document.getElementById("selectore").value;
+        console.log(document.getElementById("selectore").value);
+
+        bistaratuFromPHP2(idclase);
+        nuestraId[0]= idclase;
+    }
+
+    async function bistaratuFromPHP() {
+        let options = {method: "GET", mode: 'cors'};
+        fetch(rutaBack + "inbentarioa_json.php",options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+                var opElement = document.createElement("option");
+                opElement.value = "Nada";
+                opElement.innerText="Aukeratu bat";
+                document.getElementById("selectore").appendChild(opElement);
+                for (let i = 0; i &lt; data.length; i++) {
+                    console.log(data + "holi");
+                    if(data[i].etiketa==nuestraId[0]){
+                        console.log("Entra "+nuestraId[0]);
+                    }
+                    var opcion="&lt;option value='"+data[i].etiketa+"'>"+data[i].etiketa+"-"+data[i].marka+ " " +data[i].modelo+
+                    "&lt;/option>";
+                    //+data[i].marka+data[i].modelo+data[i].stock+data[i].idKategoria
+                    var opElement = document.createElement("option");
+                    opElement.innerHTML = opcion;
+                    opElement.value = data[i].etiketa;
+                    if(data[i].etiketa==nuestraId[0]){
+                        opElement.selected="selected";
+                    }
+                    document.getElementById("selectore").appendChild(opElement);
+                }
+            })
+            .catch(error => {
+                alert("Errorea." + error);
+            });
+    }
+
+    /**
+     * Orrialdeak kargatzen denean "bistaratuFromPHP" eta "bistaratuFromPHP2(nuestraId[0])" funtzioak deitzeko 
+     * gertatzen direnak.
+     */
+    window.addEventListener("load", bistaratuFromPHP);
+    window.addEventListener("load", bistaratuFromPHP2(nuestraId[0]));
+    /**
+     * "actuInbentarioa" funtzioak erabiliko dituen datuak jasotzen ditu eta 
+     * datu basean eguneratzeko "inbentarioa_json.php" atariarekin komunikatzeko
+     * funtzioa.
+     */
+    function actuInbentarioa() {
+        document.getElementById("idInvisible").style.visibility="visible";
+        var idEkipamendu = document.getElementById("idInvisible").value;
+        document.getElementById("idInvisible").style.visibility="hidden";
+        var etiketa = document.getElementById("EtiketaInbEguneratu").value;
+        var erosketaData = document.getElementById("ErosketaDataInbEguneratu").value;
+        document.getElementById("etiketaAntigua").style.visibility="visible";
+        var aurrekoEtiketa = document.getElementById("etiketaAntigua").value;
+        document.getElementById("etiketaAntigua").style.visibility="hidden";
+        var clasea = {idEkipamendu, etiketa, erosketaData, aurrekoEtiketa};
+        var js = JSON.stringify(clasea);
+        console.log(js + "hau da js");
+        if (idEkipamendu == "Nada" || etiketa == "" || new Date(erosketaData) >  new Date()) {
+            alert("Datuak ondo zartuta daudela zihurtatu");
+        }else{
+            fetch(rutaBack + 'inbentarioa_json.php', {method: 'PUT', body: js, mode: 'cors'})
+                .then(function (response) {
+                        return response.text();
+                })
+                .then(data=>{
+                    console.log(data);
+                    alert(etiketa+" eguneratuta");
+                    
+                })
+                .catch(error => {
+                    console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                });
+        }
+    }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li><li><a href="window.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#a">a</a></li><li><a href="global.html#actuEkipamendua">actuEkipamendua</a></li><li><a href="global.html#actuErabiltzailea">actuErabiltzailea</a></li><li><a href="global.html#actuGela">actuGela</a></li><li><a href="global.html#actuInbentarioa">actuInbentarioa</a></li><li><a href="global.html#actuKategoria">actuKategoria</a></li><li><a href="global.html#actuKokalekuak">actuKokalekuak</a></li><li><a href="global.html#aldatuEkipamendua">aldatuEkipamendua</a></li><li><a href="global.html#aldatuErabiltzaile">aldatuErabiltzaile</a></li><li><a href="global.html#aldatuGela">aldatuGela</a></li><li><a href="global.html#aldatuInbentarioa">aldatuInbentarioa</a></li><li><a href="global.html#aldatuKategoria">aldatuKategoria</a></li><li><a href="global.html#aldatuKokalekua">aldatuKokalekua</a></li><li><a href="global.html#bistaratuFromPHP">bistaratuFromPHP</a></li><li><a href="global.html#bistaratuFromPHP2">bistaratuFromPHP2</a></li><li><a href="global.html#bistaratuFromPHPTxertatu">bistaratuFromPHPTxertatu</a></li><li><a href="global.html#bloquearEdit">bloquearEdit</a></li><li><a href="global.html#cambiarClase">cambiarClase</a></li><li><a href="global.html#cargarDatosUsuario">cargarDatosUsuario</a></li><li><a href="global.html#cargarEkipamendua">cargarEkipamendua</a></li><li><a href="global.html#cargarKatego">cargarKatego</a></li><li><a href="global.html#cargarOpcionesSelectUsuarios">cargarOpcionesSelectUsuarios</a></li><li><a href="global.html#checkZiur">checkZiur</a></li><li><a href="global.html#createEkipamendua">createEkipamendua</a></li><li><a href="global.html#createErabiltzailea">createErabiltzailea</a></li><li><a href="global.html#createGela">createGela</a></li><li><a href="global.html#createInbentarioa">createInbentarioa</a></li><li><a href="global.html#createKategoria">createKategoria</a></li><li><a href="global.html#createKokalekua">createKokalekua</a></li><li><a href="global.html#crono">crono</a></li><li><a href="global.html#deleteEkipamendua">deleteEkipamendua</a></li><li><a href="global.html#deleteErabiltzailea">deleteErabiltzailea</a></li><li><a href="global.html#deleteGela">deleteGela</a></li><li><a href="global.html#deleteInbentarioa">deleteInbentarioa</a></li><li><a href="global.html#deleteKategoria">deleteKategoria</a></li><li><a href="global.html#deleteKokalekua">deleteKokalekua</a></li><li><a href="global.html#editaEkipamendua">editaEkipamendua</a></li><li><a href="global.html#editaErabiltzailea">editaErabiltzailea</a></li><li><a href="global.html#editaGela">editaGela</a></li><li><a href="global.html#editaInbentarioa">editaInbentarioa</a></li><li><a href="global.html#editaKategoria">editaKategoria</a></li><li><a href="global.html#editaKokalekua">editaKokalekua</a></li><li><a href="global.html#exist">exist</a></li><li><a href="global.html#fechaActual">fechaActual</a></li><li><a href="global.html#gehituStock">gehituStock</a></li><li><a href="global.html#insertarMenu">insertarMenu</a></li><li><a href="global.html#leerRol">leerRol</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#loginComp">loginComp</a></li><li><a href="global.html#lortuCheck">lortuCheck</a></li><li><a href="global.html#menuopenclose">menuopenclose</a></li><li><a href="global.html#nanOndo">nanOndo</a></li><li><a href="global.html#nuestraId">nuestraId</a></li><li><a href="global.html#obtenerCookie">obtenerCookie</a></li><li><a href="global.html#paramstr">paramstr</a></li><li><a href="global.html#teclado">teclado</a></li><li><a href="global.html#txertatuEkipamendua">txertatuEkipamendua</a></li><li><a href="global.html#txertatuErabiltzailea">txertatuErabiltzailea</a></li><li><a href="global.html#txertatuGela">txertatuGela</a></li><li><a href="global.html#txertatuInbentarioa">txertatuInbentarioa</a></li><li><a href="global.html#txertatuKategoria">txertatuKategoria</a></li><li><a href="global.html#txertatuKokalekua">txertatuKokalekua</a></li><li><a href="global.html#vernover">vernover</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Nov 17 2023 10:23:50 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

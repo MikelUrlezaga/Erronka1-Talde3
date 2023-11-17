@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Erabiltzailea/erabiltzaileaktxertatu.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Erabiltzailea/erabiltzaileaktxertatu.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>console.log(obtenerCookie())
+if (obtenerCookie().match("B")) {
+    window.location = "http://www.talde3.edu/HTML/Orokorra/Login.html"
+}else if(obtenerCookie().match("NoLoged")){
+    window.location = "http://www.talde3.edu/HTML/Orokorra/Login.html";
+}
+/**
+ * Teklatuaren teklaren sakatzean gertatzen dena kudeatzen duen funtzioa.
+ * Enter tekla (kodea 13) sakatzean `createErabiltzailea` funtzioa deitzen da.
+ * @param {Object} event - Teklatuaren eventoa.
+ */
+function teclado(event) {
+    var codigo = event.which || event.keyCode;
+    if (codigo==13) {
+        createErabiltzailea()
+    }
+}
+/**
+ * NAN zenbaki bat duen string-a ONDO dagoen egiaztatzen duen funtzioa.
+ * @param {string} nan - NAN zenbaki bat duen string-a.
+ * @returns {string} - ONDO dagoen kasuan, emandako string-a itzuliko du.
+ */
+ function nanOndo(nan) {
+     let dni = nan;
+     let error = false;
+
+     function devuelveletra(nums) {
+         const letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+         const resto = nums % 23;
+         return letras.charAt(resto);
+     }
+
+     dni = dni.toUpperCase();
+     const lon = dni.replace(/ /g, "").length;
+
+     if (lon !== 9 &amp;&amp; lon !== 8) {
+         console.log("Longitud del DNI incorrecta");
+         error = true;
+     }
+
+     if (lon === 8) {
+         const letra2 = devuelveletra(parseInt(dni.substring(0, 8), 10));
+         dni = dni.substring(0, 8) + letra2;
+         return dni;
+     } else {
+         if (lon === 9) {
+             if (!isNaN(dni.substring(0, 8)) &amp;&amp; dni.charAt(8) === devuelveletra(parseInt(dni.substring(0, 8), 10))) {
+             return dni;
+             } else {
+                 error = true;
+             }
+         }
+     }
+     if (error) {
+         return "Mal";
+     }
+ }
+
+// Ejemplo de uso:
+// const resultado = nanOndo("12345678A");
+// console.log(resultado);
+/**
+ * Erabiltzailea sortzeko funtzioa.
+ */
+function createErabiltzailea() {
+    var nan = nanOndo(document.getElementById("nanErabiltzaileaTxertatu").value);
+    if(nan=="Mal"){
+        alert("NAN-aren formatua txarto dago.")
+    }else{
+//var nancorrecto= validateDNI(nan);
+        var izena = document.getElementById("izenaErabiltzaileaTxertatu").value;
+        var abizena = document.getElementById("abizenaErabiltzaileaTxertatu").value;
+        var erabiltzailea = document.getElementById("erabiltzaileaErabiltzaileaTxertatu").value;
+        var pasahitza = document.getElementById("pasahitzaEraEgu").value;
+        var rola =  leerRol();
+        if(abizena=="" || izena=="" ||erabiltzailea=="" || pasahitza=="" ){
+            alert("Faltan datos")
+        }else{
+                var clasea = {nan, izena, abizena, erabiltzailea, pasahitza, rola};
+                var js = JSON.stringify(clasea);
+                console.log(js);
+                // if(nancorrecto==true){
+                    fetch(rutaBack + 'erabiltzailea_json.php', {method: 'POST', body: js})
+                    .then(function (response) {
+                            return response.text();
+                            alert("Se ha insertado")
+                    })
+                    .then(data=>{
+                        console.log(data);
+                        if(data.match("NAN hau txarto dago")){
+                            alert("NAN hau txarto dago");
+                        }else if(data.match("NAN hau erabiltzen ari da.")){
+                            alert("NAN hau erabiltzen ari da.")
+                        }
+                    })
+        }
+    
+    }
+   
+    // }else{
+    //     alert("El DNI esta mal")
+    // }
+    
+        // .catch(error => {
+        //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+        // });
+}
+/**
+ * Pasahitza ikusteko edo ezkutatzeko botoia sakatzean gertatzen dena kudeatzen duen funtzioa.
+ * Botoia erabiliz, pasahitza ikusi edo ezkutatzeko aukera izango da.
+ */
+function vernover() {
+        if ((document.getElementById("ojo").src).includes("ojo1")) {
+            document.getElementById("ojo").src = "../../IMG/ojo2.png"
+            document.getElementById("pasahitzaEraEgu").type = "password"
+        } else {
+            document.getElementById("ojo").src = "../../IMG/ojo1.png"
+            document.getElementById("pasahitzaEraEgu").type = "text"
+        }
+        
+    }
+    /**
+     * Erabilzailearen rolaren informazioa itzultzen duen funtzioa.
+     * @returns {string} - "A" (administratzailea) edo "B" (erabiltzaile arrunta).
+     */
+    function leerRol(){
+        if( document.getElementById("rolaEraEgu").checked){
+            console.log("Check");
+            return "A"; 
+        }else{
+            console.log("No")
+            return "B";
+        }
+           
+    }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li><li><a href="window.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#a">a</a></li><li><a href="global.html#actuEkipamendua">actuEkipamendua</a></li><li><a href="global.html#actuErabiltzailea">actuErabiltzailea</a></li><li><a href="global.html#actuGela">actuGela</a></li><li><a href="global.html#actuInbentarioa">actuInbentarioa</a></li><li><a href="global.html#actuKategoria">actuKategoria</a></li><li><a href="global.html#actuKokalekuak">actuKokalekuak</a></li><li><a href="global.html#aldatuEkipamendua">aldatuEkipamendua</a></li><li><a href="global.html#aldatuErabiltzaile">aldatuErabiltzaile</a></li><li><a href="global.html#aldatuGela">aldatuGela</a></li><li><a href="global.html#aldatuInbentarioa">aldatuInbentarioa</a></li><li><a href="global.html#aldatuKategoria">aldatuKategoria</a></li><li><a href="global.html#aldatuKokalekua">aldatuKokalekua</a></li><li><a href="global.html#bistaratuFromPHP">bistaratuFromPHP</a></li><li><a href="global.html#bistaratuFromPHP2">bistaratuFromPHP2</a></li><li><a href="global.html#bistaratuFromPHPTxertatu">bistaratuFromPHPTxertatu</a></li><li><a href="global.html#bloquearEdit">bloquearEdit</a></li><li><a href="global.html#cambiarClase">cambiarClase</a></li><li><a href="global.html#cargarDatosUsuario">cargarDatosUsuario</a></li><li><a href="global.html#cargarEkipamendua">cargarEkipamendua</a></li><li><a href="global.html#cargarKatego">cargarKatego</a></li><li><a href="global.html#cargarOpcionesSelectUsuarios">cargarOpcionesSelectUsuarios</a></li><li><a href="global.html#checkZiur">checkZiur</a></li><li><a href="global.html#createEkipamendua">createEkipamendua</a></li><li><a href="global.html#createErabiltzailea">createErabiltzailea</a></li><li><a href="global.html#createGela">createGela</a></li><li><a href="global.html#createInbentarioa">createInbentarioa</a></li><li><a href="global.html#createKategoria">createKategoria</a></li><li><a href="global.html#createKokalekua">createKokalekua</a></li><li><a href="global.html#crono">crono</a></li><li><a href="global.html#deleteEkipamendua">deleteEkipamendua</a></li><li><a href="global.html#deleteErabiltzailea">deleteErabiltzailea</a></li><li><a href="global.html#deleteGela">deleteGela</a></li><li><a href="global.html#deleteInbentarioa">deleteInbentarioa</a></li><li><a href="global.html#deleteKategoria">deleteKategoria</a></li><li><a href="global.html#deleteKokalekua">deleteKokalekua</a></li><li><a href="global.html#editaEkipamendua">editaEkipamendua</a></li><li><a href="global.html#editaErabiltzailea">editaErabiltzailea</a></li><li><a href="global.html#editaGela">editaGela</a></li><li><a href="global.html#editaInbentarioa">editaInbentarioa</a></li><li><a href="global.html#editaKategoria">editaKategoria</a></li><li><a href="global.html#editaKokalekua">editaKokalekua</a></li><li><a href="global.html#exist">exist</a></li><li><a href="global.html#fechaActual">fechaActual</a></li><li><a href="global.html#gehituStock">gehituStock</a></li><li><a href="global.html#insertarMenu">insertarMenu</a></li><li><a href="global.html#leerRol">leerRol</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#loginComp">loginComp</a></li><li><a href="global.html#lortuCheck">lortuCheck</a></li><li><a href="global.html#menuopenclose">menuopenclose</a></li><li><a href="global.html#nanOndo">nanOndo</a></li><li><a href="global.html#nuestraId">nuestraId</a></li><li><a href="global.html#obtenerCookie">obtenerCookie</a></li><li><a href="global.html#paramstr">paramstr</a></li><li><a href="global.html#teclado">teclado</a></li><li><a href="global.html#txertatuEkipamendua">txertatuEkipamendua</a></li><li><a href="global.html#txertatuErabiltzailea">txertatuErabiltzailea</a></li><li><a href="global.html#txertatuGela">txertatuGela</a></li><li><a href="global.html#txertatuInbentarioa">txertatuInbentarioa</a></li><li><a href="global.html#txertatuKategoria">txertatuKategoria</a></li><li><a href="global.html#txertatuKokalekua">txertatuKokalekua</a></li><li><a href="global.html#vernover">vernover</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Nov 17 2023 10:23:50 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

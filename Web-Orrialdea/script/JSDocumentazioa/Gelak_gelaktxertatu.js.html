@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Gelak/gelaktxertatu.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Gelak/gelaktxertatu.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Tekladoko 'Enter' tekla (kodea 13) sakatzean "createGela" funtzioa deituko da.
+ * @param {KeyboardEvent} event - Tekla sakatzean jasotako eventua.
+ */
+function teclado(event) {
+    var codigo = event.which || event.keyCode;
+    if (codigo==13) {
+        createGela()
+    }
+}
+    /**
+     * Gela bat sortu beharrean deitzen den funtzioa.
+     * "IzenaGelaTxertatu" eta "TaldeaGelaTxertatu" input-en balioak erabiliz.
+     * Balio horiek erabiliz, datu basean gelaren existentzia egiaztatu eta 
+     * onartuta badira, gelaren informazioa datu basean gehituko da.
+     */
+    function createGela() {
+        var izena = document.getElementById("IzenaGelaTxertatu").value;
+        var taldea = document.getElementById("TaldeaGelaTxertatu").value;
+        let count=0;
+        let options = {method: "GET", mode: 'cors'};
+        fetch(rutaBack + "gelak_json.php",options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+                console.log(data.length);
+                for (let i = 0; i &lt; data.length; i++) {
+                    if(data[i].izena == izena){
+                        count++;
+                    }
+                }
+                console.log(count);
+
+                if(count==0){
+                    var clasea = {izena, taldea};
+                    var js = JSON.stringify(clasea);
+                    console.log(js);
+                    if (izena == "" || taldea == "" || (izena.length)>4) {
+                        alert("Datuak ondo zartuta daudela zihurtatu");
+                    }else{
+                        fetch(rutaBack + 'gelak_json.php', {method: 'POST', body: js})
+                            .then(function (response) {
+                                    return response.text();
+                            })
+                            .then(data=>{
+                                console.log(data);
+                                if(data.includes("Data too long")){
+                                    alert("Gelaren izena oso luzea da. Gehienez 4 karaktere izan ditzake.")
+                                }else {
+                                    alert(izena+" txertatuta");
+                                }
+                            })
+                            // .catch(error => {
+                            //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
+                            // });
+                    }
+                }else{
+                    alert("Gela hori jada existitzen da. Probatu beste izenarekin.")
+                }
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
+        
+       
+}
+/**
+ * Gela existitzen den edo ez egiaztatzeko funtzioa.
+ * @param {string} gelaizena - Egiaztatu nahi den gelaren izena.
+ * @returns {number} - Gela existitzen bada, 1 itzuliko du. Bestela, 0.
+ */
+ function exist(gelaizena) {
+    var existe = 0;
+        let options = {method: "GET", mode: 'cors'};
+        fetch(rutaBack + "gelak_json.php",options)
+            .then(response => response.json())  // Analiza la respuesta JSON
+            .then(data => {
+                for (let i = 0; i &lt; data.length; i++) {
+                   
+                    
+                }
+            })
+            .catch(error => {
+            });
+            return existe;
+    }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:load">load</a></li><li><a href="window.html#event:load">load</a></li></ul><h3>Global</h3><ul><li><a href="global.html#a">a</a></li><li><a href="global.html#actuEkipamendua">actuEkipamendua</a></li><li><a href="global.html#actuErabiltzailea">actuErabiltzailea</a></li><li><a href="global.html#actuGela">actuGela</a></li><li><a href="global.html#actuInbentarioa">actuInbentarioa</a></li><li><a href="global.html#actuKategoria">actuKategoria</a></li><li><a href="global.html#actuKokalekuak">actuKokalekuak</a></li><li><a href="global.html#aldatuEkipamendua">aldatuEkipamendua</a></li><li><a href="global.html#aldatuErabiltzaile">aldatuErabiltzaile</a></li><li><a href="global.html#aldatuGela">aldatuGela</a></li><li><a href="global.html#aldatuInbentarioa">aldatuInbentarioa</a></li><li><a href="global.html#aldatuKategoria">aldatuKategoria</a></li><li><a href="global.html#aldatuKokalekua">aldatuKokalekua</a></li><li><a href="global.html#bistaratuFromPHP">bistaratuFromPHP</a></li><li><a href="global.html#bistaratuFromPHP2">bistaratuFromPHP2</a></li><li><a href="global.html#bistaratuFromPHPTxertatu">bistaratuFromPHPTxertatu</a></li><li><a href="global.html#bloquearEdit">bloquearEdit</a></li><li><a href="global.html#cambiarClase">cambiarClase</a></li><li><a href="global.html#cargarDatosUsuario">cargarDatosUsuario</a></li><li><a href="global.html#cargarEkipamendua">cargarEkipamendua</a></li><li><a href="global.html#cargarKatego">cargarKatego</a></li><li><a href="global.html#cargarOpcionesSelectUsuarios">cargarOpcionesSelectUsuarios</a></li><li><a href="global.html#checkZiur">checkZiur</a></li><li><a href="global.html#createEkipamendua">createEkipamendua</a></li><li><a href="global.html#createErabiltzailea">createErabiltzailea</a></li><li><a href="global.html#createGela">createGela</a></li><li><a href="global.html#createInbentarioa">createInbentarioa</a></li><li><a href="global.html#createKategoria">createKategoria</a></li><li><a href="global.html#createKokalekua">createKokalekua</a></li><li><a href="global.html#crono">crono</a></li><li><a href="global.html#deleteEkipamendua">deleteEkipamendua</a></li><li><a href="global.html#deleteErabiltzailea">deleteErabiltzailea</a></li><li><a href="global.html#deleteGela">deleteGela</a></li><li><a href="global.html#deleteInbentarioa">deleteInbentarioa</a></li><li><a href="global.html#deleteKategoria">deleteKategoria</a></li><li><a href="global.html#deleteKokalekua">deleteKokalekua</a></li><li><a href="global.html#editaEkipamendua">editaEkipamendua</a></li><li><a href="global.html#editaErabiltzailea">editaErabiltzailea</a></li><li><a href="global.html#editaGela">editaGela</a></li><li><a href="global.html#editaInbentarioa">editaInbentarioa</a></li><li><a href="global.html#editaKategoria">editaKategoria</a></li><li><a href="global.html#editaKokalekua">editaKokalekua</a></li><li><a href="global.html#exist">exist</a></li><li><a href="global.html#fechaActual">fechaActual</a></li><li><a href="global.html#gehituStock">gehituStock</a></li><li><a href="global.html#insertarMenu">insertarMenu</a></li><li><a href="global.html#leerRol">leerRol</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#loginComp">loginComp</a></li><li><a href="global.html#lortuCheck">lortuCheck</a></li><li><a href="global.html#menuopenclose">menuopenclose</a></li><li><a href="global.html#nanOndo">nanOndo</a></li><li><a href="global.html#nuestraId">nuestraId</a></li><li><a href="global.html#obtenerCookie">obtenerCookie</a></li><li><a href="global.html#paramstr">paramstr</a></li><li><a href="global.html#teclado">teclado</a></li><li><a href="global.html#txertatuEkipamendua">txertatuEkipamendua</a></li><li><a href="global.html#txertatuErabiltzailea">txertatuErabiltzailea</a></li><li><a href="global.html#txertatuGela">txertatuGela</a></li><li><a href="global.html#txertatuInbentarioa">txertatuInbentarioa</a></li><li><a href="global.html#txertatuKategoria">txertatuKategoria</a></li><li><a href="global.html#txertatuKokalekua">txertatuKokalekua</a></li><li><a href="global.html#vernover">vernover</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Nov 17 2023 10:23:50 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
