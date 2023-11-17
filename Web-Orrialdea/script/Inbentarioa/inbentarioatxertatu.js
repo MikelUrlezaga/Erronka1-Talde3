@@ -1,3 +1,7 @@
+/**
+ * Funtzio honek uneko data eta ordua hartu eta formatu egokian itzultzen du.
+ * Data formatua: 'YYYY-MM-DD'.
+ */
 function fechaActual() {
     const tiempoTranscurrido = Date.now();
     const hoy = new Date(tiempoTranscurrido);
@@ -11,15 +15,21 @@ function fechaActual() {
     document.getElementById("erosDataInbentarioaTxertatu").value = fechaFormateada;
     console.log(fechaFormateada);
 }
-
+// Orrialdea kargatzean "fechaActual" funtzioa exekutatzen da.
 window.addEventListener("load", fechaActual);
-
+/**
+ * Funtzio honek teklatuko "Enter" tekla sakatzean "createInbentarioa" funtzioa deitzen du.
+ * @param {Event} event - Teklatuaren sarrera eventua.
+ */
 function teclado(event) {
     var codigo = event.which || event.keyCode;
     if (codigo==13) {
         createInbentarioa()
     }
 }
+/**
+ * Ekipamenduak kargatzeko funtzioa.
+ */
 function cargarEkipamendua(){
     let options = {
         method: "GET",
@@ -41,6 +51,9 @@ function cargarEkipamendua(){
             alert("Errorea." + error);
         });
 }
+/**
+ * Stock-a gehitzeko funtzioa.
+ */
 function gehituStock(){
     var etiketa = document.getElementById("etiketaInbentarioaTxertatu").value;
     var idEkipamendu = document.getElementById("selecTxertatu").value;
@@ -69,7 +82,11 @@ function gehituStock(){
             });
     }
 }
+// Orrialdea kargatzean "cargarEkipamendua" funtzioa exekutatzen da. 
 window.addEventListener("load", cargarEkipamendua);
+/**
+ * Inbentarioa sortzeko funtzioa.
+ */
 function createInbentarioa() {
     var etiketa = document.getElementById("etiketaInbentarioaTxertatu").value;
     var idEkipamendu = document.getElementById("selecTxertatu").value;

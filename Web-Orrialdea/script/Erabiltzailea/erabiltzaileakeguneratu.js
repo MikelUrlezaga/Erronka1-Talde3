@@ -1,38 +1,75 @@
+/**
+ * Kookie bat jaso eta itzultzen du.
+ * @function
+ * @returns {string} Kookie bat.
+ */
 console.log(obtenerCookie())
+
+/**
+ * Kookie bat "B" karakterea duen ala ez aztertzen du eta baimenik ez badu,
+ * logineko orrira berbideratzen du. Bestela, "NoLoged" duen ala ez aztertzen
+ * du eta baimenik ez badu, logineko orrira berbideratzen du.
+ * @function
+ */
 if (obtenerCookie().match("B")) {
     window.location = "http://www.talde3.edu/HTML/Orokorra/Login.html"
 }else if(obtenerCookie().match("NoLoged")){
     window.location = "http://www.talde3.edu/HTML/Orokorra/Login.html";
 }
 
+/**
+ * Teklatuaren teklak hartzen ditu eta "Enter" sakatzen bada,
+ * "actuErabiltzailea" funtzioa deitzen du.
+ * @function
+ * @param {Event} event - Teklatuaren teklak.
+ */
 function teclado(event) {
     var codigo = event.which || event.keyCode;
     if (codigo==13) {
         actuErabiltzailea()
     }
 }
-
+/**
+ * URL-an dauden parametroak kudeatzen dituen kode blokea.
+ */
 var paramstr = window.location.search.substr(1);
 var paramarr = paramstr.split("&");
 var params = {};
 var gureNan = 0;
 
+/**
+ * URLaren parametroak hartzen ditu eta "gureNan" aldagaian gorde.
+ * @type {Object}
+ */
 for (var i = 0; i < paramarr.length; i++) {
     var tmparr = paramarr[i].split("=");
     params[tmparr[0]] = tmparr[1];
     gureNan = tmparr[1];
 }
-
+/**
+ * Hautatutako erabiltzailearen datuak erakutsi ahal izateko "gureNan" aldagaia
+ * gordetzen du.
+ * @function
+ */
 function aldatuErabiltzaile() {
     var NanUsuario = document.getElementById("selectore").value;
     gureNan = NanUsuario;
     cargarDatosUsuario(gureNan);
 }
-
+/**
+ * Orriaren kargatzean exekutatzen den funtzioa.
+ */
 window.addEventListener("load", cargarOpcionesSelectUsuarios);
+/**
+ * Orria kargatzen denean "gureNan" aldagaia erabiliz "cargarDatosUsuario"
+ * funtzioa deitzen du.
+ * @event
+ */
 window.addEventListener("load", cargarDatosUsuario(gureNan));
 
-
+/**
+ * Erabiltzaileen datuak kargatzen dituen funtzioa.
+ */
 async function cargarOpcionesSelectUsuarios() {
 let options = {method: "GET"};
 fetch(rutaBack + "erabiltzailea_json.php", options)
@@ -59,7 +96,10 @@ fetch(rutaBack + "erabiltzailea_json.php", options)
         alert("Errorea." + error);
     });
 }
-
+/**
+ * Erabiltzailearen datuak kargatzen dituen funtzioa.
+ * @param {number} gureNan - Erabiltzailearen NAN zenbakia.
+ */
 function cargarDatosUsuario(gureNan) {
     console.log("Ha entrado")
     let options = {method: "GET"};
@@ -91,7 +131,9 @@ function cargarDatosUsuario(gureNan) {
 
 }
 
-
+/**
+ * Erabiltzailearen datuak eguneratzen dituen funtzioa.
+ */
 function actuErabiltzailea() {
     var nan = document.getElementById("nanEraEgu").value;
     var izena = document.getElementById("izenaEraEgu").value;
@@ -122,7 +164,9 @@ function actuErabiltzailea() {
             }
         });
 }
-
+/**
+ * Pasahitza ikusteko edo ezkutatzeko botoia sakatzean gertatzen dena kudeatzen duen funtzioa.
+ */
 function vernover() {
     if ((document.getElementById("ojo").src).includes("ojo1")) {
         document.getElementById("ojo").src = "../../IMG/ojo2.png"

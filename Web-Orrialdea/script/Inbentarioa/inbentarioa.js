@@ -1,3 +1,8 @@
+/**
+ * Datu baseko "inbentarioa_json.php" atariaren datuak bistaratzeko funtzioa.
+ * Taula bat sortuko du, "etiketa", "marka", "modelo", eta "erosketaData" osagaiekin.
+ * Berezko datuak jaso eta taula eta aukeraketa-sarea (selector) beteko ditu.
+ */
 async function bistaratuFromPHP() {
     let options = {method: "GET", mode: 'cors'};
     const da = null;
@@ -35,8 +40,12 @@ async function bistaratuFromPHP() {
         });
     
 }
+// Orrialdean karga baino lehen "bistaratuFromPHP" funtzioa deitu.
 window.addEventListener("load", bistaratuFromPHP);
-
+/**
+ * Hautatutako checkbox-en identifikadoreak jasotzen dituen funtzioa.
+ * @returns {Array} - Aukeratutako checkbox-en identifikadoreak dituen array bat.
+ */
 function lortuCheck() {
     var checkboxes = document.querySelectorAll('input[name="c"]:checked');//De nuestro documento comprueba los inputs con nombre c
     var ids = [];//Creamos el array para nuestras ids
@@ -48,7 +57,9 @@ function lortuCheck() {
     console.log(ids)
     return ids;
 }
-
+/**
+ * "Editatu" botoia bloqueatzen edo desblokeatzen duen funtzioa.
+ */
 function bloquearEdit(){
     var ids = lortuCheck();
     if(ids.length>1){
@@ -57,14 +68,19 @@ function bloquearEdit(){
         document.getElementById("botonedit").style.visibility="visible";
     }
 }
-
+/**
+ * "Ziur zaude hau ezabatu nahi duzula?" konfirmazio mezua erakusten duen eta 
+ * "deleteInbentarioa" funtzioa deitzeko botoia erakusten duen funtzioa.
+ */
 function checkZiur()
 {
     if (confirm("Ziur zaude hau ezabatu nahi duzula?")){
         deleteInbentarioa();
     }else{}
 }
-
+/**
+ * Hautatutako "inbentarioa" elementuak datu basean ezabatzeko funtzioa.
+ */
 function deleteInbentarioa() {
     var ids = lortuCheck();
     var js = JSON.stringify(ids);
@@ -85,18 +101,27 @@ function deleteInbentarioa() {
         //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
         // });
 }
-
+/**
+ * "Editatu" botoia sakatzen denean "editaInbentarioa" funtzioa deitzen duen 
+ * funtzioa.
+ */
 function editaInbentarioa(){
     $id=lortuCheck();
     console.log($id)
     numero=$id[0];
     window.location="Eguneratu.html?num="+numero+"";
 }
-
+/**
+ * "Txertatu" botoia sakatzen denean "txertatuInbentarioa" funtzioa deitzen duen
+ * funtzioa.
+ */
 function txertatuInbentarioa(){
     window.location="Txertatu.html";
 }
-
+/**
+ * "Aldatu" botoia sakatzen denean "bistaratuFromPHP2" funtzioa deitzen duen 
+ * funtzioa.
+ */
 function aldatuInbentarioa(){
     var ide = document.getElementById("selector").value;
     if(ide.match("Nada")){
@@ -105,7 +130,13 @@ function aldatuInbentarioa(){
         bistaratuFromPHP2(ide);
     }
 }
-
+/**
+ * "gureId" parametroa jaso eta datu baseko "inbentarioa_json.php" atariaren 
+ * datuak bistaratzeko funtzioa. 
+ * "gureId" erabiliz taula bat sortuko du, "etiketa", "marka", "modelo", eta 
+ * "erosketaData" osagaiekin.
+ * @param {string} gureId - Hautatutako "etiketa" balioa.
+ */
 function bistaratuFromPHP2(gureId) {
         console.log("Ha entrado")
         console.log(gureId)

@@ -1,5 +1,13 @@
+/**
+ * @type {boolean}
+ * Variable que indica si el menú está abierto o cerrado.
+ */
 var a = true;
 // Insertar menu
+/**
+ * @function insertarMenu
+ * @description Inserta el menú en el elemento con el ID "menuMugikorra".
+ */
 fetch('../../HTML/Orokorra/Menu.html')
             .then(response => response.text())
             .then(data => {
@@ -13,7 +21,10 @@ fetch('../../HTML/Orokorra/Menu.html')
                 }
             });
 
-
+/**
+ * @function menuopenclose
+ * @description Abre o cierra el menú y ajusta la visibilidad del fondo negro.
+ */
 function menuopenclose () {
     var menu = document.getElementById("menu")
     var fondoN = document.getElementById("negro")
@@ -34,7 +45,11 @@ function menuopenclose () {
         }
         a = !a;
 }
-
+/**
+ * @function obtenerCookie
+ * @description Obtiene el valor de la cookie "AdminUser".
+ * @returns {string} El valor de la cookie "AdminUser" o "NoLoged" si no está presente.
+ */
 function obtenerCookie() {
     var cookies = document.cookie.split(';');
     for (var i = 0; i < cookies.length; i++) {

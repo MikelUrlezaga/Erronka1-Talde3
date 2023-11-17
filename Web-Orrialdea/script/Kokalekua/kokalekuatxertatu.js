@@ -1,3 +1,7 @@
+/**
+ * @function fechaActual
+ * @description Pantaila kargatzean orrialdean sartzen den data bakoitzeko erabiliko den funtzioa.
+ */
 function fechaActual() {
     const tiempoTranscurrido = Date.now();
     const hoy = new Date(tiempoTranscurrido);
@@ -11,15 +15,27 @@ function fechaActual() {
     document.getElementById("hasieraDataTxertatu").value = fechaFormateada;
     document.getElementById("amaieraDataTxertatu").value = fechaFormateada;
 }
-
+/**
+ * @event window#load
+ * @description Orria kargatzerakoan `fechaActual` funtzioa deitzen du.
+ */
 window.addEventListener("load", fechaActual);
-
+/**
+ * @function teclado
+ * @param {Event} event - Teklatu ekintzen kudeatzailea.
+ * @description Teklatuaren teklak hartzean, "Enter" sakatzean `createKokalekua` funtzioa deitzen du.
+ */
 function teclado(event) {
 var codigo = event.which || event.keyCode;
 if (codigo==13) {
     createKokalekua()
 }
 }
+/**
+ * @async
+ * @function bistaratuFromPHPTxertatu
+ * @description Inbentarioa eta gelak JSON datu-baseak eskuratzeko eta bistaratzeko funtzioa.
+ */
 async function bistaratuFromPHPTxertatu() {
     let options = {method: "GET", mode: 'cors'};
     const da = null;
@@ -67,8 +83,15 @@ async function bistaratuFromPHPTxertatu() {
         });
 }
 
-
+/**
+ * @event window#load
+ * @description Orria kargatzerakoan `bistaratuFromPHPTxertatu` funtzioa deitzen du.
+ */
 window.addEventListener("load", bistaratuFromPHPTxertatu);
+/**
+ * @function createKokalekua
+ * @description Kokalekua sortzeko funtzioa.
+ */
 function createKokalekua() {
     var etiketa = document.getElementById("selectEki").value;
     var idGela = document.getElementById("selectGela").value;

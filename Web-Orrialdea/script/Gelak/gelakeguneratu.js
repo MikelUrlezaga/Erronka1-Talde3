@@ -1,11 +1,17 @@
-
+/**
+ * Tecladoko tekla batekin ekintza egin behar den funtzioa. 
+ * Enter tekla (kodea 13) sakatzean "actuGela" funtzioa deituko da.
+ * @param {KeyboardEvent} event - Tekla sakatzean jasotako eventua.
+ */
 function teclado(event) {
     var codigo = event.which || event.keyCode;
     if (codigo==13) {
         actuGela()
     }
 }
-
+/**
+ * URL-aren parametroak parseatu eta "nuestraId" aldagai globala bete.
+ */
 var paramstr = window.location.search.substr(1);
 console.log(window.location.search.substr(1));
 var paramarr = paramstr.split ("&");
@@ -18,7 +24,10 @@ for ( var i = 0; i < paramarr.length; i++) {
     console.log(tmparr[1]);
     nuestraId=tmparr[1];
 }
-
+/**
+ * Aukeratutako gela baten datuak kargatzen dituen funtzioa.
+ * @param {string} idcls - Aukeratutako gela baten identifikadorea.
+ */
 async function bistaratuFromPHP2(idcls) {
     console.log("Ha entrado")
     let options = {method: "GET", mode: 'cors'};
@@ -35,7 +44,10 @@ async function bistaratuFromPHP2(idcls) {
         .catch(error => {
         });
 }
-
+/**
+ * "Nada" aukeratuta dagoenean "bistaratuFromPHP" funtzioa deituko du.
+ * Bestela, "bistaratuFromPHP2" funtzioa deituko da "selectore" elementuko balioarekin.
+ */
 function aldatuGela(){
     
     var ide = document.getElementById("selectore").value;
@@ -45,7 +57,10 @@ function aldatuGela(){
         bistaratuFromPHP2(ide);
     }
 }
-
+/**
+ * "selectore" elementuko balioaren arabera gelak bistaratzen dituen funtzioa.
+ * @async
+ */
 async function bistaratuFromPHP() {
     let options = {method: "GET", mode: 'cors'};
     fetch(rutaBack + "gelak_json.php",options)
@@ -72,7 +87,10 @@ async function bistaratuFromPHP() {
 
 window.addEventListener("load", bistaratuFromPHP);
 window.addEventListener("load", bistaratuFromPHP2(nuestraId));
-
+/**
+ * Gela baten datuak eguneratzen dituen funtzioa. 
+ * "selectore" elementuko balioa, "izenaGelakEgu" eta "taldeaGelakEgu" input-en balioak erabiliz.
+ */
 function actuGela() {
     //
     var id = document.getElementById("selectore").value;

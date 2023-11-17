@@ -63,6 +63,11 @@ function teclado(event) {
         
        
 }
+/**
+ * Gela existitzen den edo ez egiaztatzeko funtzioa.
+ * @param {string} gelaizena - Egiaztatu nahi den gelaren izena.
+ * @returns {number} - Gela existitzen bada, 1 itzuliko du. Bestela, 0.
+ */
  function exist(gelaizena) {
     var existe = 0;
         let options = {method: "GET", mode: 'cors'};

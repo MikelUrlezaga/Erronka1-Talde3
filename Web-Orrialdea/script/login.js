@@ -2,6 +2,10 @@ document.cookie = "AdminUser=" + "NoLoged" + "; path=/";
 contFallo = 0;
 cronoTime = 0;
 pausa;
+/**
+ * @function vernover
+ * @description Txertatutako pasahitza ikusteko/ezkutatzeko funtzioa.
+ */
 function vernover() {
     if ((document.getElementById("ojo").src).includes("ojo1")) {
         document.getElementById("ojo").src = "../../IMG/ojo2.png"
@@ -12,14 +16,21 @@ function vernover() {
     }
     
 }
-
+/**
+ * @function teclado
+ * @description Teklatuaren teklaren kodea aztertzeko funtzioa.
+ * @param {Event} event - Teklatuaren eventua.
+ */
 function teclado(event) {
     var codigo = event.which || event.keyCode;
     if (codigo==13) {
         login()
     }
 }
-
+/**
+ * @function login
+ * @description Saioa hasteko funtzioa.
+ */
 function login() {
     if (contFallo>2) {
         cronoTime = cronoTime + 30;
@@ -44,7 +55,10 @@ var caracteres = /^[a-zA-Z0-9]+$/
 + significa que debe haber al menos un carácter.
 $ indica el final de la cadena.
 */
-
+/**
+ * @function loginComp
+ * @description Saioa hasteko funtzioa (logika osatuta).
+ */
 function loginComp() {
     var erabiltzailea = document.getElementById("user").value;
     var pasahitza = document.getElementById("pass").value;
@@ -87,6 +101,10 @@ function loginComp() {
             console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu: " + error);
         });
 }
+/**
+ * @function crono
+ * @description Denboraren kronometroa eguneratzeko funtzioa.
+ */
 function crono () {
     cronoTime--;
     document.getElementById("mal").innerHTML = "Itxaroteko denbora: "+cronoTime+"s";

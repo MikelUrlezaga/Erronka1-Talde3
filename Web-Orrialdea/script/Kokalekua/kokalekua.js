@@ -1,3 +1,7 @@
+/**
+ * PHP-tik datuak eskuratzen dituen funtzioa. 
+ * Kokaleku guztiak bistaratzen ditu.
+ */
 async function bistaratuFromPHP() {
     let options = {method: "GET", mode: 'cors'};
     const da = null;
@@ -39,8 +43,12 @@ async function bistaratuFromPHP() {
         });
     
 }
+// Orrialdea kargatzerakoan egingo duena
 window.addEventListener("load", bistaratuFromPHP);
-
+/**
+ * Checkbox-ak aukeratu dituen funtzioa.
+ * Aukeratutako checkbox kopurua eta egoera berritzea egiten du.
+ */
 function lortuCheck() {
     var checkboxes = document.querySelectorAll('input[name="c"]:checked');//De nuestro documento comprueba los inputs con nombre c
     var ids = [];//Creamos el array para nuestras ids
@@ -52,7 +60,9 @@ function lortuCheck() {
     console.log(ids)
     return ids;
 }
-
+/**
+ * Checkbox kopurua eta egoera berritzea kontrolatzen duen funtzioa.
+ */
 function bloquearEdit(){
     var ids = lortuCheck();
     if(ids.length>1){
@@ -61,7 +71,11 @@ function bloquearEdit(){
         document.getElementById("botonedit").style.visibility="visible";
     }
 }
-
+/**
+ * Aukeratutako kokalekua ezabatzeko konfirmazioa eskatzen duen funtzioa.
+ * Konfirmazioan "Ziur zaude hau ezabatu nahi duzula?" mezua bistaratzen du.
+ * Konfirmazioa bai edo ez kontutan hartzen du.
+ */
 function checkZiur()
 {
     if (confirm("Ziur zaude hau ezabatu nahi duzula?")){
@@ -69,7 +83,9 @@ function checkZiur()
     }else{}
 }
 
-
+/**
+ * Aukeratutako kokalekua ezabatzen duen funtzioa.
+ */
 function deleteKokalekua() {
     var ids = lortuCheck();
     var js = JSON.stringify(ids);
@@ -90,18 +106,24 @@ function deleteKokalekua() {
         //     //console.log("Erregistro hau beste taula batean erabiltzen ari da, beraz, ezin da ezabatu" + error);
         // });
 }
-
+/**
+ * Aukeratutako kokalekua editatzeko funtzioa.
+ */
 function editaKokalekua(){
     $id=lortuCheck();
     console.log($id)
     numero=$id[0];
     window.location="Eguneratu.html?num="+numero+"";
 }
-
+/**
+ * Kokaleku berri bat txertatzeko orri berria irekitzen duen funtzioa.
+ */
 function txertatuKokalekua(){
     window.location="Txertatu.html";
 }
-
+/**
+ * Aukeratutako kokalekua editatzeko funtzioa.
+ */
 function aldatuKokalekua(){
     var ide = document.getElementById("selector").value;
     if(ide.match("Nada")){
@@ -111,7 +133,10 @@ function aldatuKokalekua(){
     }
     
 }
-
+/**
+ * Aukeratutako kokalekua editatzeko datuak eskuratzen dituen funtzioa.
+ * PHP-tik datuak eskuratzen ditu eta taula berriz marrazten du.
+ */
 function bistaratuFromPHP2(gureId) {
         console.log("Ha entrado")
         console.log(gureId)

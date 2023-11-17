@@ -1,3 +1,6 @@
+/**
+ * Kategoriak bistaratzeko funtzioa.
+ */
 async function bistaratuFromPHP() {
     let options = {
         method: "GET",
@@ -32,8 +35,11 @@ async function bistaratuFromPHP() {
             alert("Taula ez dauka daturik db-an");
         });
 }
+// Orrialdea kargatzean "bistaratuFromPHP" funtzioa exekutatzen da.
 window.addEventListener("load", bistaratuFromPHP);
-
+/**
+ * Checkbox-en egoera berifikatzeko funtzioa.
+ */
 function lortuCheck() {
     var checkboxes = document.querySelectorAll('input[name="c"]:checked');
     var ids = [];
@@ -42,7 +48,9 @@ function lortuCheck() {
     });
     return ids;
 }
-
+/**
+ * Kategoria aldatu aurretik kategoria bat hautatzeko funtzioa.
+ */
 function aldatuKategoria(){
     var ide = document.getElementById("selector").value;
     if(ide.match("Nada")){
@@ -51,7 +59,9 @@ function aldatuKategoria(){
         bistaratuFromPHP2(ide);
     }
 }
-
+/**
+ * Checkbox bat baino gehiago hautatzen badira editatu botoia ezgaitu.
+ */
 function bloquearEdit() {
     var ids = lortuCheck();
     if (ids.length > 1) {
@@ -60,13 +70,17 @@ function bloquearEdit() {
         document.getElementById("botonedit").style.visibility = "visible";
     }
 }
-
+/**
+ * Ziurtasun mezu bat erakutsi baino lehen, kategoria ezabatzeko funtzioa.
+ */
 function checkZiur() {
     if (confirm("Ziur zaude hau ezabatu nahi duzula?")) {
         deleteKategoria();
     } else {}
 }
-
+/**
+ * Kategoria bat ezabatzeko funtzioa.
+ */
 function deleteKategoria() {
     let ids = lortuCheck();
     let js = JSON.stringify(ids);
@@ -81,17 +95,24 @@ function deleteKategoria() {
             }
         });
 }
-
+/**
+ * Kategoria bat editatzeko orrialdera bidaltzen duen funtzioa.
+ */
 function editaKategoria() {
     let ids = lortuCheck();
     let numero = ids[0];
     window.location = "Eguneratu.html?num="+numero;
 }
-
+/**
+ * Kategoria bat gehitzeko orrialdera bidaltzen duen funtzioa.
+ */
 function txertatuKategoria() {
     window.location = "Txertatu.html";
 }
-
+/**
+ * Aukeratutako kategoria baten datuak bistaratzeko funtzioa.
+ * @param {number} gureId - Kategoriaren identifikazioa.
+ */
 function bistaratuFromPHP2(gureId) {
         console.log("Ha entrado")
         let options = {method: "GET", mode: 'cors'};

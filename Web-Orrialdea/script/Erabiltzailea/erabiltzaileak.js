@@ -5,7 +5,11 @@ if (obtenerCookie().match("B")) {
     window.location = "http://www.talde3.edu/HTML/Orokorra/Login.html";
 }
 
-
+/**
+ * Erabiltzaileen datuak PHP zerbitzaritik eskuratzen ditu eta erakusten ditu.
+ * @async
+ * @function
+ */
 async function bistaratuFromPHP() {
     let options = {
         method: "GET",
@@ -45,8 +49,14 @@ async function bistaratuFromPHP() {
             alert("Taula ez dauka daturik db-an");
         });
 }
+// Orrialdea kargatzen denean Erabiltzaileen datuak kargatu.
 window.addEventListener("load", bistaratuFromPHP);
 
+/**
+ * Hautatutako erabiltzaileen nanak lortzen ditu.
+ * @function
+ * @returns {string[]} - Hautatutako erabiltzaileen nanak.
+ */
 function lortuCheck() {
     var checkboxes = document.querySelectorAll('input[name="c"]:checked');
     var nans = [];
@@ -55,7 +65,10 @@ function lortuCheck() {
     });
     return nans;
 }
-
+/**
+ * Erabiltzaileen editatzeko botoia blokeatzen du.
+ * @function
+ */
 function bloquearEdit() {
     var nans = lortuCheck();
     if (nans.length > 1) {
@@ -64,13 +77,19 @@ function bloquearEdit() {
         document.getElementById("botonedit").style.visibility = "visible";
     }
 }
-
+/**
+ * Ziurtatzeko mezu bat bistaratzen du eta erabiltzailea ezabatzen da.
+ * @function
+ */
 function checkZiur() {
     if (confirm("Ziur zaude hau ezabatu nahi duzula?")) {
         deleteErabiltzailea();
     } else {}
 }
-
+/**
+ * Hautatutako erabiltzaileak ezabatzen ditu.
+ * @function
+ */
 function deleteErabiltzailea() {
     let nans = lortuCheck();
     let js = JSON.stringify(nans);
@@ -85,17 +104,26 @@ function deleteErabiltzailea() {
             }
         });
 }
-
+/**
+ * Hautatutako erabiltzailea editatzen duen ekintza.
+ * @function
+ */
 function editaErabiltzailea() {
     let nans = lortuCheck();
     let nan = nans[0];
     window.location = "Eguneratu.html?nan=" + nan;
 }
-
+/**
+ * Erabiltzailea txertatu orri berri batera berbideratzen du.
+ * @function
+ */
 function txertatuErabiltzailea() {
     window.location = "Txertatu.html";
 }
-
+/**
+ * Hautatutako erabiltzailea editatzeko orrira berbideratzen du.
+ * @function
+ */
 function aldatuErabiltzaile(){
     var ide = document.getElementById("selector").value;
     if(ide.match("Nada")){
@@ -104,7 +132,11 @@ function aldatuErabiltzaile(){
         bistaratuFromPHP2(ide);
     }
 }
-
+/**
+ * Erabiltzailearen datuak eskuratzen ditu eta taulan erakusten ditu.
+ * @async
+ * @function
+ */
 function bistaratuFromPHP2(gureNan) {
         console.log("Ha entrado")
         let options = {method: "GET"};
